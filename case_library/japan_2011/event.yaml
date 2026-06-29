@@ -1,0 +1,17 @@
+case_id: japan_2011
+event_name: Tohoku Earthquake 2011
+country_or_region: Japan
+magnitude_mw: 9.0
+depth_km: 29.0
+fault_type: "Megathrust subduction"
+distance_to_cities_km: 130.0
+soil_type: "Costero y sedimentario en planicies"
+population_density: "Alta en el corredor oriental"
+construction_quality: "Alta"
+event_time_local: "14:46"
+aftershocks_summary: "Secuencia extensa de replicas"
+landslides: "Si, en sectores montanos"
+tsunami: "Si, mayor"
+mortality_and_damage: "Impacto extremo por sismo y tsunami"
+institutional_response: "Respuesta coordinada con capacidad tecnologica avanzada"
+

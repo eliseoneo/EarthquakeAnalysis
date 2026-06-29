@@ -1,0 +1,17 @@
+case_id: mexico_2017
+event_name: Mexico Puebla Earthquake 2017
+country_or_region: Mexico
+magnitude_mw: 7.1
+depth_km: 51.0
+fault_type: "Intraslab normal faulting"
+distance_to_cities_km: 120.0
+soil_type: "Arcillas lacustres y sedimentos en CDMX"
+population_density: "Alta en el area metropolitana"
+construction_quality: "Heterogenea"
+event_time_local: "13:14"
+aftershocks_summary: "Replicas moderadas"
+landslides: "Limitados y localizados"
+tsunami: "No"
+mortality_and_damage: "Danos urbanos relevantes y perdidas humanas"
+institutional_response: "Activacion de protocolos de emergencia y rescate"
+

@@ -1,0 +1,17 @@
+case_id: haiti_2010
+event_name: Haiti Earthquake 2010
+country_or_region: Haiti
+magnitude_mw: 7.0
+depth_km: 13.0
+fault_type: "Strike-slip (Enriquillo-Plantain Garden system)"
+distance_to_cities_km: 15.0
+soil_type: "Sedimentos y rellenos urbanos en zonas criticas"
+population_density: "Alta en area metropolitana de Puerto Principe"
+construction_quality: "Baja a heterogenea"
+event_time_local: "16:53"
+aftershocks_summary: "Numerosas replicas semanas posteriores"
+landslides: "Si, en laderas locales"
+tsunami: "No significativo"
+mortality_and_damage: "Impacto extremo en vidas e infraestructura"
+institutional_response: "Respuesta internacional masiva y coordinacion compleja"
+

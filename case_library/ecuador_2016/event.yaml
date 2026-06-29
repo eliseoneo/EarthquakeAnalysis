@@ -1,0 +1,17 @@
+case_id: ecuador_2016
+event_name: Ecuador Earthquake 2016
+country_or_region: Ecuador
+magnitude_mw: 7.8
+depth_km: 20.0
+fault_type: "Subduction interface"
+distance_to_cities_km: 28.0
+soil_type: "Costero y aluvial en zonas urbanas"
+population_density: "Media a alta"
+construction_quality: "Heterogenea"
+event_time_local: "18:58"
+aftershocks_summary: "Replicas frecuentes durante meses"
+landslides: "Si, en laderas y carreteras"
+tsunami: "Local limitado"
+mortality_and_damage: "Impacto severo en infraestructura y poblacion"
+institutional_response: "Activacion nacional de emergencia y apoyo internacional"
+

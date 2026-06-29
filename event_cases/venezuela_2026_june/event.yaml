@@ -1,0 +1,44 @@
+event_id: venezuela_2026_june
+event_name: Venezuela June 2026 Sequence
+country: Venezuela
+time_window:
+  start_date: "2026-06-24"
+  end_date: "2026-06-26"
+main_event:
+  magnitude_mw: 6.1
+  depth_km: 12.0
+  location: "Region centro-norte costera (lectura preliminar)"
+doublet:
+  present: true
+  notes: "Secuencia compatible con doblete; confirmar con solucion mecanica final."
+aftershocks:
+  - date: "2026-06-24"
+    magnitude_mw: 4.8
+    depth_km: 10.0
+    location: "Subevento norte"
+  - date: "2026-06-25"
+    magnitude_mw: 4.5
+    depth_km: 11.0
+    location: "Subevento oeste"
+  - date: "2026-06-26"
+    magnitude_mw: 4.3
+    depth_km: 9.0
+    location: "Subevento sur"
+felt_intensity: "Alta en zonas urbanas cercanas; variacion por tipo de suelo."
+urban_areas_affected:
+  - Caracas
+  - La Guaira
+  - Valencia
+structural_damage: "Danos moderados en edificaciones vulnerables; inspeccion en curso."
+soil_type: "Mixto: relleno urbano, aluvial y roca somera segun zona."
+associated_faults:
+  - Bocono
+  - San Sebastian
+  - El Pilar
+weather_post_event: "Lluvia posterior reportada en sectores montanos."
+landslide_instability: "Riesgo localizado de deslizamientos e inestabilidad de taludes."
+population_density: "Alta en el corredor urbano principal."
+sources:
+  - "GFZ: relacion con limite Caribe-Suramerica y fallas Bocono/San Sebastian/El Pilar."
+  - "Registros instrumentales preliminares junio 2026."
+

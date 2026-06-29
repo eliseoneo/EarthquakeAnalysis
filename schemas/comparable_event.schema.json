@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ComparableEvent",
+  "type": "object",
+  "required": [
+    "case_id",
+    "event_name",
+    "country_or_region",
+    "magnitude_mw",
+    "depth_km",
+    "fault_type",
+    "distance_to_cities_km",
+    "soil_type",
+    "population_density",
+    "construction_quality",
+    "event_time_local",
+    "aftershocks_summary",
+    "landslides",
+    "tsunami",
+    "mortality_and_damage",
+    "institutional_response"
+  ],
+  "properties": {
+    "case_id": { "type": "string" },
+    "event_name": { "type": "string" },
+    "country_or_region": { "type": "string" },
+    "magnitude_mw": { "type": "number" },
+    "depth_km": { "type": "number" },
+    "fault_type": { "type": "string" },
+    "distance_to_cities_km": { "type": "number" },
+    "soil_type": { "type": "string" },
+    "population_density": { "type": "string" },
+    "construction_quality": { "type": "string" },
+    "event_time_local": { "type": "string" },
+    "aftershocks_summary": { "type": "string" },
+    "landslides": { "type": "string" },
+    "tsunami": { "type": "string" },
+    "mortality_and_damage": { "type": "string" },
+    "institutional_response": { "type": "string" }
+  }
+}
+

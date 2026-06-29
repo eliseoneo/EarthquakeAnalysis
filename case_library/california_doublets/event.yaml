@@ -1,0 +1,17 @@
+case_id: california_doublets
+event_name: California Historical Doublets
+country_or_region: USA (California)
+magnitude_mw: 6.5
+depth_km: 10.0
+fault_type: "Strike-slip (transform boundary)"
+distance_to_cities_km: 20.0
+soil_type: "Mixto, con cuencas sedimentarias urbanas"
+population_density: "Alta en corredores urbanos"
+construction_quality: "Media a alta"
+event_time_local: "Variable"
+aftershocks_summary: "Secuencias complejas con eventos cercanos en tiempo"
+landslides: "Depende del caso local"
+tsunami: "No aplica en la mayoria"
+mortality_and_damage: "Variable segun cercania urbana y norma sismica"
+institutional_response: "Alta capacidad de monitoreo y respuesta estatal"
+

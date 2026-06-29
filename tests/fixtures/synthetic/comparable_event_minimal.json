@@ -1,0 +1,19 @@
+{
+  "case_id": "synthetic_case_001",
+  "event_name": "Synthetic Comparable Event",
+  "country_or_region": "SyntheticRegion",
+  "magnitude_mw": 6.7,
+  "depth_km": 14.0,
+  "fault_type": "Strike-slip",
+  "distance_to_cities_km": 22.0,
+  "soil_type": "Mixed",
+  "population_density": "Medium-high",
+  "construction_quality": "Heterogeneous",
+  "event_time_local": "10:30",
+  "aftershocks_summary": "Several synthetic aftershocks",
+  "landslides": "Possible localized events",
+  "tsunami": "Not applicable",
+  "mortality_and_damage": "Low-to-moderate synthetic impact",
+  "institutional_response": "Synthetic coordinated response"
+}
+

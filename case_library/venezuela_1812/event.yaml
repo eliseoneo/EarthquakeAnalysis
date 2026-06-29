@@ -1,0 +1,17 @@
+case_id: venezuela_1812
+event_name: Venezuela Earthquake 1812
+country_or_region: Venezuela
+magnitude_mw: 7.0
+depth_km: 20.0
+fault_type: "Probable strike-slip and regional fault interaction"
+distance_to_cities_km: 10.0
+soil_type: "Urbano historico sobre suelos mixtos"
+population_density: "Alta para el periodo en ciudades clave"
+construction_quality: "Baja segun estandares modernos"
+event_time_local: "Tarde (aproximada)"
+aftershocks_summary: "Informacion historica limitada"
+landslides: "Probables en zonas de relieve"
+tsunami: "No concluyente"
+mortality_and_damage: "Dano severo documentado historicamente"
+institutional_response: "Capacidad institucional limitada para la epoca"
+

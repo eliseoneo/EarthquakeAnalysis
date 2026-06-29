@@ -1,0 +1,36 @@
+{
+  "event_id": "venezuela_2026_june_synth",
+  "event_name": "Synthetic Venezuela 2026 June",
+  "country": "Venezuela",
+  "time_window": {
+    "start_date": "2026-06-24",
+    "end_date": "2026-06-26"
+  },
+  "main_event": {
+    "magnitude_mw": 6.0,
+    "depth_km": 11.5,
+    "location": "Synthetic sector"
+  },
+  "doublet": {
+    "present": true,
+    "notes": "Synthetic doublet note"
+  },
+  "aftershocks": [
+    {
+      "date": "2026-06-25",
+      "magnitude_mw": 4.2,
+      "depth_km": 9.8,
+      "location": "Synthetic aftershock"
+    }
+  ],
+  "felt_intensity": "Moderate-high",
+  "urban_areas_affected": ["City-A", "City-B"],
+  "structural_damage": "Moderate synthetic damage profile",
+  "soil_type": "Alluvial",
+  "associated_faults": ["Bocono", "San Sebastian", "El Pilar"],
+  "weather_post_event": "Rain in hillside sectors",
+  "landslide_instability": "Localized instability",
+  "population_density": "High",
+  "sources": ["Synthetic generator v1"]
+}
+

@@ -1,0 +1,14 @@
+---
+description: Reglas de pruebas para validacion de datasets y schemas
+globs: "tests/**/*.py"
+alwaysApply: false
+---
+
+# Python Tests
+
+- Cada cambio de schema debe tener al menos una prueba de validacion.
+- Preferir fixtures sinteticos pequenos y deterministas.
+- Validar campos requeridos y tipos de datos clave.
+- Mantener pruebas rapidas para ejecucion local continua.
+- Si falla una prueba, corregir schema/dato antes de extender el modelo.
+

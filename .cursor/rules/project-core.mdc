@@ -1,0 +1,13 @@
+---
+description: Reglas base para fases 1 y 2 del proyecto sismico
+alwaysApply: true
+---
+
+# Project Core
+
+- Priorizar alcance de dos fases: `event_cases` y `case_library`.
+- Mantener nombres de carpetas y archivos estables para facilitar automatizacion.
+- Antes de agregar campos nuevos, actualizar `schemas/` y luego datos.
+- Evitar suposiciones sin fuente; usar `sources` con trazabilidad.
+- Si una tarea es paralelizable, separar por dominio de carpeta.
+

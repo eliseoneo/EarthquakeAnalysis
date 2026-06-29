@@ -1,0 +1,17 @@
+case_id: venezuela_2026
+event_name: Venezuela Sequence 2026
+country_or_region: Venezuela
+magnitude_mw: 6.1
+depth_km: 12.0
+fault_type: "Strike-slip with possible multi-fault interaction"
+distance_to_cities_km: 25.0
+soil_type: "Mixto urbano y aluvial"
+population_density: "Alta en areas impactadas"
+construction_quality: "Heterogenea"
+event_time_local: "Variable en secuencia 24-26 junio"
+aftershocks_summary: "Replicas continuas en ventana post-evento"
+landslides: "Riesgo localizado por lluvia y pendientes"
+tsunami: "No observado"
+mortality_and_damage: "Evaluacion en actualizacion"
+institutional_response: "Monitoreo nacional y coordinacion de emergencia"
+

@@ -1,0 +1,17 @@
+case_id: turkey_syria_2023
+event_name: Turkiye-Syria Earthquake Sequence 2023
+country_or_region: Turkiye/Syria
+magnitude_mw: 7.8
+depth_km: 18.0
+fault_type: "Strike-slip (East Anatolian Fault)"
+distance_to_cities_km: 30.0
+soil_type: "Mixto urbano y cuencas sedimentarias"
+population_density: "Alta en multiples centros urbanos"
+construction_quality: "Heterogenea"
+event_time_local: "04:17"
+aftershocks_summary: "Secuencia intensa con evento mayor secundario"
+landslides: "Si, reportados en distintos sectores"
+tsunami: "No dominante"
+mortality_and_damage: "Danos catastroficos y alta mortalidad"
+institutional_response: "Amplia respuesta nacional e internacional"
+

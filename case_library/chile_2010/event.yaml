@@ -1,0 +1,17 @@
+case_id: chile_2010
+event_name: Chile Maule Earthquake 2010
+country_or_region: Chile
+magnitude_mw: 8.8
+depth_km: 35.0
+fault_type: "Subduction interface"
+distance_to_cities_km: 25.0
+soil_type: "Costero, rocoso y sedimentario"
+population_density: "Media en zonas costeras afectadas"
+construction_quality: "Media a alta"
+event_time_local: "03:34"
+aftershocks_summary: "Larga secuencia de replicas"
+landslides: "Si, en zonas de pendiente"
+tsunami: "Si, significativo"
+mortality_and_damage: "Danos extensos con impacto humano importante"
+institutional_response: "Respuesta nacional robusta y mejoras en alertamiento"
+

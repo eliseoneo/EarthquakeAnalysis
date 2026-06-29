@@ -1,0 +1,17 @@
+---
+description: Convenciones de modelado para casos sismicos
+globs: "{event_cases/**,case_library/**,schemas/**}/*"
+alwaysApply: false
+---
+
+# Data Modeling
+
+- Usar estructura de campos comparable entre `event_cases` y `case_library`.
+- Definir unidades explicitas:
+  - magnitud Mw
+  - profundidad km
+  - distancias km
+- Incluir incertidumbre o estado del dato cuando aplique (`quality` o `notes`).
+- Registrar tectonica/fallas en objetos estructurados, no en texto libre unico.
+- Capturar impacto humano e institucional con campos separados.
+

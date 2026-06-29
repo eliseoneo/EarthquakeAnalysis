@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "EventCase",
+  "type": "object",
+  "required": [
+    "event_id",
+    "event_name",
+    "country",
+    "time_window",
+    "main_event",
+    "doublet",
+    "aftershocks",
+    "felt_intensity",
+    "urban_areas_affected",
+    "structural_damage",
+    "soil_type",
+    "associated_faults",
+    "weather_post_event",
+    "landslide_instability",
+    "population_density",
+    "sources"
+  ],
+  "properties": {
+    "event_id": { "type": "string" },
+    "event_name": { "type": "string" },
+    "country": { "type": "string" },
+    "time_window": {
+      "type": "object",
+      "required": ["start_date", "end_date"],
+      "properties": {
+        "start_date": { "type": "string" },
+        "end_date": { "type": "string" }
+      }
+    },
+    "main_event": {
+      "type": "object",
+      "required": ["magnitude_mw", "depth_km", "location"],
+      "properties": {
+        "magnitude_mw": { "type": "number" },
+        "depth_km": { "type": "number" },
+        "location": { "type": "string" }
+      }
+    },
+    "doublet": {
+      "type": "object",
+      "required": ["present", "notes"],
+      "properties": {
+        "present": { "type": "boolean" },
+        "notes": { "type": "string" }
+      }
+    },
+    "aftershocks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["date", "magnitude_mw", "depth_km", "location"],
+        "properties": {
+          "date": { "type": "string" },
+          "magnitude_mw": { "type": "number" },
+          "depth_km": { "type": "number" },
+          "location": { "type": "string" }
+        }
+      }
+    },
+    "felt_intensity": { "type": "string" },
+    "urban_areas_affected": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "structural_damage": { "type": "string" },
+    "soil_type": { "type": "string" },
+    "associated_faults": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "weather_post_event": { "type": "string" },
+    "landslide_instability": { "type": "string" },
+    "population_density": { "type": "string" },
+    "sources": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  }
+}
+
