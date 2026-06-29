@@ -9,9 +9,71 @@ soil_type: "Costero y aluvial en zonas urbanas"
 population_density: "Media a alta"
 construction_quality: "Heterogenea"
 event_time_local: "18:58"
+event_duration_total:
+  value: 60
+  unit: seconds
+  notes: "Evento de subduccion con sacudida prolongada regional"
 aftershocks_summary: "Replicas frecuentes durante meses"
 landslides: "Si, en laderas y carreteras"
 tsunami: "Local limitado"
 mortality_and_damage: "Impacto severo en infraestructura y poblacion"
 institutional_response: "Activacion nacional de emergencia y apoyo internacional"
+similar_magnitude_probability_dates:
+  main_event_date: "2016-04-16"
+  sequence_end_date: "2016-05-16"
+  reference_magnitude_mw: 7.8
+  magnitude_similarity_delta_mw: 1.0
+  highest_magnitude_events:
+    - event_date: "2016-04-22"
+      days_after_main: 6
+      magnitude_mw: 6.2
+    - event_date: "2016-05-02"
+      days_after_main: 16
+      magnitude_mw: 6.7
+    - event_date: "2016-05-18"
+      days_after_main: 32
+      magnitude_mw: 6.8
+      notes: "Replica maxima reportada fuera de ventana de 30 dias"
+advanced_features:
+  seismic:
+    magnitude_mw: 7.8
+    depth_km: 20.0
+    focal_mechanism: "Subduction interface"
+    distance_to_fault_km: 25.0
+    estimated_slip_rate_mm_per_year: 55.0
+    pga_g: null
+    pgv_cm_per_s: null
+    mmi_intensity: "VIII"
+    aftershock_count: 150
+    omori_decay_p: 1.0
+    gutenberg_richter_b_value: 0.88
+    local_seismic_density: "Alta en margen convergente"
+  geological_geotechnical:
+    soil_type: "Costero y aluvial en zonas urbanas"
+    lithology: "Sedimentos aluviales y roca volcanica"
+    vs30_m_per_s: 310.0
+    slope_degrees: 14.0
+    sedimentary_basin: "Cuencas costeras y valles fluviales"
+    liquefaction_likelihood: "Moderada-alta en suelos blandos"
+    landslide_susceptibility: "Alta en laderas"
+    distance_to_coast_or_rivers_km: 8.0
+  climatic:
+    rainfall_7d_mm: 60.0
+    rainfall_15d_mm: 110.0
+    rainfall_30d_mm: 180.0
+    soil_moisture_index: 0.62
+    extreme_events: "Precipitacion elevada en epoca lluviosa"
+    terrain_saturation: "Alta"
+    mass_movement_risk: "Alto en carreteras y laderas"
+  human_urban:
+    exposed_population: 900000
+    urban_density: "Media a alta"
+    building_type: "Mamposteria y concreto reforzado mixto"
+    average_building_height_m: 9.0
+    construction_age_profile: "Heterogenea con stock vulnerable"
+    hospitals_count: 18
+    primary_roads_density_km_per_km2: 3.9
+    ports_airports_access: "Puerto de Manta y aeropuertos regionales"
+    schools_count: 160
+    critical_infrastructure: "Carretera costera, hospitales, red electrica"
 

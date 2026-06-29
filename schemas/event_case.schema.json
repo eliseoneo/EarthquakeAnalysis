@@ -18,7 +18,8 @@
     "weather_post_event",
     "landslide_instability",
     "population_density",
-    "sources"
+    "sources",
+    "advanced_features"
   ],
   "properties": {
     "event_id": { "type": "string" },
@@ -79,6 +80,114 @@
     "sources": {
       "type": "array",
       "items": { "type": "string" }
+    },
+    "advanced_features": {
+      "type": "object",
+      "required": ["seismic", "geological_geotechnical", "climatic", "human_urban"],
+      "properties": {
+        "seismic": {
+          "type": "object",
+          "required": [
+            "magnitude_mw",
+            "depth_km",
+            "focal_mechanism",
+            "distance_to_fault_km",
+            "estimated_slip_rate_mm_per_year",
+            "pga_g",
+            "pgv_cm_per_s",
+            "mmi_intensity",
+            "aftershock_count",
+            "omori_decay_p",
+            "gutenberg_richter_b_value",
+            "local_seismic_density"
+          ],
+          "properties": {
+            "magnitude_mw": { "type": "number" },
+            "depth_km": { "type": "number" },
+            "focal_mechanism": { "type": "string" },
+            "distance_to_fault_km": { "type": "number" },
+            "estimated_slip_rate_mm_per_year": { "type": "number" },
+            "pga_g": { "type": ["number", "null"] },
+            "pgv_cm_per_s": { "type": ["number", "null"] },
+            "mmi_intensity": { "type": "string" },
+            "aftershock_count": { "type": "integer" },
+            "omori_decay_p": { "type": "number" },
+            "gutenberg_richter_b_value": { "type": "number" },
+            "local_seismic_density": { "type": "string" }
+          }
+        },
+        "geological_geotechnical": {
+          "type": "object",
+          "required": [
+            "soil_type",
+            "lithology",
+            "vs30_m_per_s",
+            "slope_degrees",
+            "sedimentary_basin",
+            "liquefaction_likelihood",
+            "landslide_susceptibility",
+            "distance_to_coast_or_rivers_km"
+          ],
+          "properties": {
+            "soil_type": { "type": "string" },
+            "lithology": { "type": "string" },
+            "vs30_m_per_s": { "type": "number" },
+            "slope_degrees": { "type": "number" },
+            "sedimentary_basin": { "type": "string" },
+            "liquefaction_likelihood": { "type": "string" },
+            "landslide_susceptibility": { "type": "string" },
+            "distance_to_coast_or_rivers_km": { "type": "number" }
+          }
+        },
+        "climatic": {
+          "type": "object",
+          "required": [
+            "rainfall_7d_mm",
+            "rainfall_15d_mm",
+            "rainfall_30d_mm",
+            "soil_moisture_index",
+            "extreme_events",
+            "terrain_saturation",
+            "mass_movement_risk"
+          ],
+          "properties": {
+            "rainfall_7d_mm": { "type": "number" },
+            "rainfall_15d_mm": { "type": "number" },
+            "rainfall_30d_mm": { "type": "number" },
+            "soil_moisture_index": { "type": "number" },
+            "extreme_events": { "type": "string" },
+            "terrain_saturation": { "type": "string" },
+            "mass_movement_risk": { "type": "string" }
+          }
+        },
+        "human_urban": {
+          "type": "object",
+          "required": [
+            "exposed_population",
+            "urban_density",
+            "building_type",
+            "average_building_height_m",
+            "construction_age_profile",
+            "hospitals_count",
+            "primary_roads_density_km_per_km2",
+            "ports_airports_access",
+            "schools_count",
+            "critical_infrastructure"
+          ],
+          "properties": {
+            "exposed_population": { "type": "integer" },
+            "urban_density": { "type": "string" },
+            "building_type": { "type": "string" },
+            "average_building_height_m": { "type": "number" },
+            "construction_age_profile": { "type": "string" },
+            "hospitals_count": { "type": "integer" },
+            "primary_roads_density_km_per_km2": { "type": "number" },
+            "ports_airports_access": { "type": "string" },
+            "schools_count": { "type": "integer" },
+            "critical_infrastructure": { "type": "string" }
+          }
+        }
+      }
     }
   }
 }

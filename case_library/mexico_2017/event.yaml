@@ -9,9 +9,65 @@ soil_type: "Arcillas lacustres y sedimentos en CDMX"
 population_density: "Alta en el area metropolitana"
 construction_quality: "Heterogenea"
 event_time_local: "13:14"
+event_duration_total:
+  value: 25
+  unit: seconds
+  notes: "Evento intraplaca de duracion corta"
 aftershocks_summary: "Replicas moderadas"
 landslides: "Limitados y localizados"
 tsunami: "No"
 mortality_and_damage: "Danos urbanos relevantes y perdidas humanas"
 institutional_response: "Activacion de protocolos de emergencia y rescate"
+similar_magnitude_probability_dates:
+  main_event_date: "2017-09-19"
+  sequence_end_date: "2017-10-19"
+  reference_magnitude_mw: 7.1
+  magnitude_similarity_delta_mw: 1.0
+  highest_magnitude_events:
+    - event_date: "2017-09-23"
+      days_after_main: 4
+      magnitude_mw: 5.9
+      notes: "Mayor replica instrumental de la secuencia"
+advanced_features:
+  seismic:
+    magnitude_mw: 7.1
+    depth_km: 51.0
+    focal_mechanism: "Intraslab normal faulting"
+    distance_to_fault_km: 95.0
+    estimated_slip_rate_mm_per_year: 50.0
+    pga_g: null
+    pgv_cm_per_s: null
+    mmi_intensity: "VII-VIII"
+    aftershock_count: 30
+    omori_decay_p: 1.1
+    gutenberg_richter_b_value: 0.93
+    local_seismic_density: "Alta en cinturon de fuego"
+  geological_geotechnical:
+    soil_type: "Arcillas lacustres y sedimentos en CDMX"
+    lithology: "Arcillas lacustres, rellenos y basalto"
+    vs30_m_per_s: 200.0
+    slope_degrees: 5.0
+    sedimentary_basin: "Cuenca de Mexico (lago antiguo)"
+    liquefaction_likelihood: "Alta en arcillas lacustres"
+    landslide_susceptibility: "Baja en planicie urbana"
+    distance_to_coast_or_rivers_km: 300.0
+  climatic:
+    rainfall_7d_mm: 35.0
+    rainfall_15d_mm: 65.0
+    rainfall_30d_mm: 100.0
+    soil_moisture_index: 0.45
+    extreme_events: "Temporada de lluvias en verano"
+    terrain_saturation: "Media"
+    mass_movement_risk: "Bajo en planicie, moderado en periferia"
+  human_urban:
+    exposed_population: 9000000
+    urban_density: "Alta en el area metropolitana"
+    building_type: "Mamposteria, concreto y estructuras irregulares"
+    average_building_height_m: 11.0
+    construction_age_profile: "Stock heterogeneo con edificios pre-1985 vulnerables"
+    hospitals_count: 55
+    primary_roads_density_km_per_km2: 9.0
+    ports_airports_access: "Aeropuertos y red vial metropolitana"
+    schools_count: 800
+    critical_infrastructure: "Metro, hospitales, subestaciones, edificios publicos"
 

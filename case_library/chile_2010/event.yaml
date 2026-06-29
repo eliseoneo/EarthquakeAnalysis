@@ -9,9 +9,68 @@ soil_type: "Costero, rocoso y sedimentario"
 population_density: "Media en zonas costeras afectadas"
 construction_quality: "Media a alta"
 event_time_local: "03:34"
+event_duration_total:
+  value: 180
+  unit: seconds
+  notes: "Sacudida muy prolongada por megathrust de subduccion"
 aftershocks_summary: "Larga secuencia de replicas"
 landslides: "Si, en zonas de pendiente"
 tsunami: "Si, significativo"
 mortality_and_damage: "Danos extensos con impacto humano importante"
 institutional_response: "Respuesta nacional robusta y mejoras en alertamiento"
+similar_magnitude_probability_dates:
+  main_event_date: "2010-02-27"
+  sequence_end_date: "2010-03-29"
+  reference_magnitude_mw: 8.8
+  magnitude_similarity_delta_mw: 1.0
+  highest_magnitude_events:
+    - event_date: "2010-03-05"
+      days_after_main: 6
+      magnitude_mw: 6.6
+    - event_date: "2010-03-11"
+      days_after_main: 12
+      magnitude_mw: 6.9
+      notes: "Mayor replica documentada de la secuencia (Pichilemu)"
+advanced_features:
+  seismic:
+    magnitude_mw: 8.8
+    depth_km: 35.0
+    focal_mechanism: "Subduction interface (megathrust)"
+    distance_to_fault_km: 30.0
+    estimated_slip_rate_mm_per_year: 65.0
+    pga_g: null
+    pgv_cm_per_s: null
+    mmi_intensity: "VIII-IX"
+    aftershock_count: 200
+    omori_decay_p: 1.0
+    gutenberg_richter_b_value: 0.85
+    local_seismic_density: "Alta en zona de subduccion"
+  geological_geotechnical:
+    soil_type: "Costero, rocoso y sedimentario"
+    lithology: "Sedimentos marinos y roca metamorfica costera"
+    vs30_m_per_s: 400.0
+    slope_degrees: 18.0
+    sedimentary_basin: "Cuencas costeras y valles interandinos"
+    liquefaction_likelihood: "Moderada en suelos blandos costeros"
+    landslide_susceptibility: "Alta en zonas de pendiente"
+    distance_to_coast_or_rivers_km: 5.0
+  climatic:
+    rainfall_7d_mm: 45.0
+    rainfall_15d_mm: 80.0
+    rainfall_30d_mm: 130.0
+    soil_moisture_index: 0.55
+    extreme_events: "Lluvias estacionales en zona sur"
+    terrain_saturation: "Media"
+    mass_movement_risk: "Alto en laderas costeras"
+  human_urban:
+    exposed_population: 2000000
+    urban_density: "Media en zonas costeras afectadas"
+    building_type: "Concreto reforzado predominante"
+    average_building_height_m: 10.0
+    construction_age_profile: "Mezcla pre y post norma sismica 2010"
+    hospitals_count: 28
+    primary_roads_density_km_per_km2: 4.8
+    ports_airports_access: "Puertos y aeropuertos en corredor afectado"
+    schools_count: 250
+    critical_infrastructure: "Puertos, carretera longitudinal, centrales hidroelectricas"
 

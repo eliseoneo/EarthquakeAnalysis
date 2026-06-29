@@ -9,9 +9,69 @@ soil_type: "Costero y sedimentario en planicies"
 population_density: "Alta en el corredor oriental"
 construction_quality: "Alta"
 event_time_local: "14:46"
+event_duration_total:
+  value: 300
+  unit: seconds
+  notes: "Sacudida extendida por megathrust M9.0"
 aftershocks_summary: "Secuencia extensa de replicas"
 landslides: "Si, en sectores montanos"
 tsunami: "Si, mayor"
 mortality_and_damage: "Impacto extremo por sismo y tsunami"
 institutional_response: "Respuesta coordinada con capacidad tecnologica avanzada"
+similar_magnitude_probability_dates:
+  main_event_date: "2011-03-11"
+  sequence_end_date: "2011-04-10"
+  reference_magnitude_mw: 9.0
+  magnitude_similarity_delta_mw: 1.0
+  highest_magnitude_events:
+    - event_date: "2011-03-11"
+      days_after_main: 0
+      magnitude_mw: 7.9
+      notes: "Replica mayor M7.9 ~32 min despues del mainshock M9.0"
+    - event_date: "2011-04-07"
+      days_after_main: 27
+      magnitude_mw: 7.1
+      notes: "Segunda replica mas fuerte del primer mes"
+advanced_features:
+  seismic:
+    magnitude_mw: 9.0
+    depth_km: 29.0
+    focal_mechanism: "Megathrust subduction"
+    distance_to_fault_km: 80.0
+    estimated_slip_rate_mm_per_year: 80.0
+    pga_g: null
+    pgv_cm_per_s: null
+    mmi_intensity: "VIII-IX"
+    aftershock_count: 500
+    omori_decay_p: 0.95
+    gutenberg_richter_b_value: 0.82
+    local_seismic_density: "Muy alta en zona de subduccion"
+  geological_geotechnical:
+    soil_type: "Costero y sedimentario en planicies"
+    lithology: "Sedimentos marinos y aluviales en planicie"
+    vs30_m_per_s: 280.0
+    slope_degrees: 10.0
+    sedimentary_basin: "Cuencas sedimentarias de Tohoku"
+    liquefaction_likelihood: "Alta en suelos blandos costeros"
+    landslide_susceptibility: "Alta en sectores montanos"
+    distance_to_coast_or_rivers_km: 3.0
+  climatic:
+    rainfall_7d_mm: 40.0
+    rainfall_15d_mm: 75.0
+    rainfall_30d_mm: 120.0
+    soil_moisture_index: 0.52
+    extreme_events: "Invierno con nevadas en zonas montanosas"
+    terrain_saturation: "Media"
+    mass_movement_risk: "Alto en laderas y costa"
+  human_urban:
+    exposed_population: 5000000
+    urban_density: "Alta en el corredor oriental"
+    building_type: "Concreto reforzado con norma sismica estricta"
+    average_building_height_m: 15.0
+    construction_age_profile: "Stock moderno con normas anti-sismicas"
+    hospitals_count: 80
+    primary_roads_density_km_per_km2: 8.0
+    ports_airports_access: "Puertos, aeropuertos y red Shinkansen"
+    schools_count: 600
+    critical_infrastructure: "Plantas nucleares, puertos, red electrica, telecom"
 

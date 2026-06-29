@@ -1,17 +1,77 @@
 case_id: venezuela_2026
 event_name: Venezuela Sequence 2026
 country_or_region: Venezuela
-magnitude_mw: 6.1
-depth_km: 12.0
-fault_type: "Strike-slip with possible multi-fault interaction"
-distance_to_cities_km: 25.0
+magnitude_mw: 7.5
+depth_km: 10.0
+fault_type: "Strike-slip (San Sebastian / El Pilar, limite Caribe-Suramerica)"
+distance_to_cities_km: 300.0
 soil_type: "Mixto urbano y aluvial"
 population_density: "Alta en areas impactadas"
 construction_quality: "Heterogenea"
-event_time_local: "Variable en secuencia 24-26 junio"
-aftershocks_summary: "Replicas continuas en ventana post-evento"
+event_time_local: "18:04-18:05 VET (2026-06-24)"
+event_duration_total:
+  value: 90
+  value_max: 120
+  unit: seconds
+  notes: "Doblete M7.2+M7.5 con 39 s de separacion; secuencia activa 24-26 junio 2026"
+aftershocks_summary: "Foreshock M7.2 (22:04:33 UTC) + mainshock M7.5 (22:05:11 UTC); 130+ replicas posteriores"
 landslides: "Riesgo localizado por lluvia y pendientes"
 tsunami: "No observado"
-mortality_and_damage: "Evaluacion en actualizacion"
+mortality_and_damage: "Impacto severo en Caracas, La Guaira y zonas del centro-norte"
 institutional_response: "Monitoreo nacional y coordinacion de emergencia"
-
+similar_magnitude_probability_dates:
+  main_event_date: "2026-06-24"
+  sequence_end_date: "2026-07-24"
+  reference_magnitude_mw: 7.5
+  magnitude_similarity_delta_mw: 1.0
+  highest_magnitude_events:
+    - event_date: "2026-06-25"
+      days_after_main: 1
+      magnitude_mw: 4.5
+      notes: "Mayor subevento reportado post-mainshock (USGS)"
+    - event_date: "2026-06-26"
+      days_after_main: 2
+      magnitude_mw: 4.3
+      notes: "Segundo pico de la secuencia activa 24-26 junio"
+advanced_features:
+  seismic:
+    magnitude_mw: 7.5
+    depth_km: 10.0
+    focal_mechanism: "Strike-slip (San Sebastian / El Pilar)"
+    distance_to_fault_km: 28.0
+    estimated_slip_rate_mm_per_year: 8.0
+    pga_g: null
+    pgv_cm_per_s: null
+    mmi_intensity: "VII-VIII"
+    aftershock_count: 130
+    omori_decay_p: 1.0
+    gutenberg_richter_b_value: 0.9
+    local_seismic_density: "Alta"
+  geological_geotechnical:
+    soil_type: "Mixto urbano y aluvial"
+    lithology: "Sedimentos cuaternarios y basamento fracturado"
+    vs30_m_per_s: 300.0
+    slope_degrees: 15.0
+    sedimentary_basin: "Cuencas locales urbanas"
+    liquefaction_likelihood: "Moderada"
+    landslide_susceptibility: "Alta localizada"
+    distance_to_coast_or_rivers_km: 12.0
+  climatic:
+    rainfall_7d_mm: 55.0
+    rainfall_15d_mm: 95.0
+    rainfall_30d_mm: 145.0
+    soil_moisture_index: 0.68
+    extreme_events: "Lluvias fuertes post-evento"
+    terrain_saturation: "Alta"
+    mass_movement_risk: "Alto localizado"
+  human_urban:
+    exposed_population: 2200000
+    urban_density: "Alta en areas impactadas"
+    building_type: "Mamposteria y concreto reforzado mixto"
+    average_building_height_m: 14.0
+    construction_age_profile: "Heterogenea"
+    hospitals_count: 35
+    primary_roads_density_km_per_km2: 6.1
+    ports_airports_access: "Acceso a puerto y aeropuerto"
+    schools_count: 420
+    critical_infrastructure: "Hospitales, energia, vias troncales, telecom"

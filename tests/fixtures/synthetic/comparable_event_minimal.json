@@ -10,10 +10,76 @@
   "population_density": "Medium-high",
   "construction_quality": "Heterogeneous",
   "event_time_local": "10:30",
+  "event_duration_total": {
+    "value": 45,
+    "unit": "seconds",
+    "notes": "Synthetic shaking duration"
+  },
   "aftershocks_summary": "Several synthetic aftershocks",
   "landslides": "Possible localized events",
   "tsunami": "Not applicable",
   "mortality_and_damage": "Low-to-moderate synthetic impact",
-  "institutional_response": "Synthetic coordinated response"
+  "institutional_response": "Synthetic coordinated response",
+  "similar_magnitude_probability_dates": {
+    "main_event_date": "2026-01-15",
+    "sequence_end_date": "2026-02-14",
+    "reference_magnitude_mw": 6.7,
+    "magnitude_similarity_delta_mw": 1.0,
+    "highest_magnitude_events": [
+      {
+        "event_date": "2026-01-17",
+        "days_after_main": 2,
+        "magnitude_mw": 6.1,
+        "notes": "Mayor replica sintetica de la secuencia"
+      }
+    ]
+  },
+  "advanced_features": {
+    "seismic": {
+      "magnitude_mw": 6.7,
+      "depth_km": 14.0,
+      "focal_mechanism": "Strike-slip",
+      "distance_to_fault_km": 18.5,
+      "estimated_slip_rate_mm_per_year": 6.2,
+      "pga_g": 0.28,
+      "pgv_cm_per_s": 22.0,
+      "mmi_intensity": "VII",
+      "aftershock_count": 48,
+      "omori_decay_p": 1.05,
+      "gutenberg_richter_b_value": 0.92,
+      "local_seismic_density": "Medium-high"
+    },
+    "geological_geotechnical": {
+      "soil_type": "Mixed",
+      "lithology": "Alluvial sediments over fractured rock",
+      "vs30_m_per_s": 320.0,
+      "slope_degrees": 9.0,
+      "sedimentary_basin": "Localized basin",
+      "liquefaction_likelihood": "Moderate",
+      "landslide_susceptibility": "Moderate",
+      "distance_to_coast_or_rivers_km": 14.0
+    },
+    "climatic": {
+      "rainfall_7d_mm": 38.0,
+      "rainfall_15d_mm": 72.0,
+      "rainfall_30d_mm": 110.0,
+      "soil_moisture_index": 0.57,
+      "extreme_events": "No major extreme events in synthetic window",
+      "terrain_saturation": "Medium",
+      "mass_movement_risk": "Moderate"
+    },
+    "human_urban": {
+      "exposed_population": 420000,
+      "urban_density": "Medium-high",
+      "building_type": "Mixed masonry and reinforced concrete",
+      "average_building_height_m": 11.0,
+      "construction_age_profile": "Predominantly 1980-2010",
+      "hospitals_count": 8,
+      "primary_roads_density_km_per_km2": 4.4,
+      "ports_airports_access": "Regional airport within 35 km",
+      "schools_count": 64,
+      "critical_infrastructure": "Substation, water treatment plant, telecom hub"
+    }
+  }
 }
 

@@ -9,9 +9,69 @@ soil_type: "Mixto urbano y cuencas sedimentarias"
 population_density: "Alta en multiples centros urbanos"
 construction_quality: "Heterogenea"
 event_time_local: "04:17"
+event_duration_total:
+  value: 120
+  unit: seconds
+  notes: "Secuencia doble con evento mayor secundario en ventana corta"
 aftershocks_summary: "Secuencia intensa con evento mayor secundario"
 landslides: "Si, reportados en distintos sectores"
 tsunami: "No dominante"
 mortality_and_damage: "Danos catastroficos y alta mortalidad"
 institutional_response: "Amplia respuesta nacional e internacional"
+similar_magnitude_probability_dates:
+  main_event_date: "2023-02-06"
+  sequence_end_date: "2023-03-08"
+  reference_magnitude_mw: 7.8
+  magnitude_similarity_delta_mw: 1.0
+  highest_magnitude_events:
+    - event_date: "2023-02-06"
+      days_after_main: 0
+      magnitude_mw: 7.5
+      notes: "Segundo evento mayor de la secuencia doble (horas despues de M7.8)"
+    - event_date: "2023-02-20"
+      days_after_main: 14
+      magnitude_mw: 6.4
+      notes: "Pico de replica mas alta posteriores al doblete"
+advanced_features:
+  seismic:
+    magnitude_mw: 7.8
+    depth_km: 18.0
+    focal_mechanism: "Strike-slip (East Anatolian Fault)"
+    distance_to_fault_km: 15.0
+    estimated_slip_rate_mm_per_year: 9.0
+    pga_g: null
+    pgv_cm_per_s: null
+    mmi_intensity: "IX-X"
+    aftershock_count: 200
+    omori_decay_p: 1.0
+    gutenberg_richter_b_value: 0.9
+    local_seismic_density: "Alta en falla de Anatolia Oriental"
+  geological_geotechnical:
+    soil_type: "Mixto urbano y cuencas sedimentarias"
+    lithology: "Sedimentos aluviales y roca sedimentaria"
+    vs30_m_per_s: 340.0
+    slope_degrees: 11.0
+    sedimentary_basin: "Cuencas sedimentarias de Gaziantep y Hatay"
+    liquefaction_likelihood: "Moderada-alta en rellenos"
+    landslide_susceptibility: "Alta en sectores montanos"
+    distance_to_coast_or_rivers_km: 40.0
+  climatic:
+    rainfall_7d_mm: 25.0
+    rainfall_15d_mm: 45.0
+    rainfall_30d_mm: 70.0
+    soil_moisture_index: 0.38
+    extreme_events: "Invierno frio con posible nieve en zonas altas"
+    terrain_saturation: "Baja a media"
+    mass_movement_risk: "Alto en laderas y zonas fracturadas"
+  human_urban:
+    exposed_population: 3500000
+    urban_density: "Alta en multiples centros urbanos"
+    building_type: "Concreto no ductil y mamposteria"
+    average_building_height_m: 8.0
+    construction_age_profile: "Stock heterogeneo con edificios pre-2000 vulnerables"
+    hospitals_count: 40
+    primary_roads_density_km_per_km2: 5.5
+    ports_airports_access: "Aeropuertos regionales y carreteras troncales"
+    schools_count: 350
+    critical_infrastructure: "Hospitales, presas, carreteras, infraestructura fronteriza"
 

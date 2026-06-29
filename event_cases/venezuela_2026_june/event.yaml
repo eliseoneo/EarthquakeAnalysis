@@ -5,17 +5,17 @@ time_window:
   start_date: "2026-06-24"
   end_date: "2026-06-26"
 main_event:
-  magnitude_mw: 6.1
-  depth_km: 12.0
-  location: "Region centro-norte costera (lectura preliminar)"
+  magnitude_mw: 7.5
+  depth_km: 10.0
+  location: "28 km al SE de Yumare, Yaracuy (USGS)"
 doublet:
   present: true
-  notes: "Secuencia compatible con doblete; confirmar con solucion mecanica final."
+  notes: "Foreshock M7.2 (22:04:33 UTC) seguido 39 s despues por mainshock M7.5 (22:05:11 UTC)."
 aftershocks:
   - date: "2026-06-24"
-    magnitude_mw: 4.8
-    depth_km: 10.0
-    location: "Subevento norte"
+    magnitude_mw: 7.2
+    depth_km: 20.3
+    location: "23 km al SE de Yumare (foreshock USGS)"
   - date: "2026-06-25"
     magnitude_mw: 4.5
     depth_km: 11.0
@@ -38,7 +38,50 @@ associated_faults:
 weather_post_event: "Lluvia posterior reportada en sectores montanos."
 landslide_instability: "Riesgo localizado de deslizamientos e inestabilidad de taludes."
 population_density: "Alta en el corredor urbano principal."
+advanced_features:
+  seismic:
+    magnitude_mw: 7.5
+    depth_km: 10.0
+    focal_mechanism: "Strike-slip dominante en limite Caribe-Suramerica"
+    distance_to_fault_km: 28.0
+    estimated_slip_rate_mm_per_year: 8.0
+    pga_g: null
+    pgv_cm_per_s: null
+    mmi_intensity: "VII-VIII en sectores urbanos mas expuestos"
+    aftershock_count: 130
+    omori_decay_p: 1.0
+    gutenberg_richter_b_value: 0.9
+    local_seismic_density: "Alta en corredor tectonico activo"
+  geological_geotechnical:
+    soil_type: "Mixto: relleno urbano, aluvial y roca somera segun zona"
+    lithology: "Sedimentos cuaternarios y basamento fracturado"
+    vs30_m_per_s: 300.0
+    slope_degrees: 15.0
+    sedimentary_basin: "Presencia de cuencas locales en valles urbanos"
+    liquefaction_likelihood: "Moderada en rellenos y aluviales"
+    landslide_susceptibility: "Alta en laderas urbanas y periurbanas"
+    distance_to_coast_or_rivers_km: 12.0
+  climatic:
+    rainfall_7d_mm: 55.0
+    rainfall_15d_mm: 95.0
+    rainfall_30d_mm: 145.0
+    soil_moisture_index: 0.68
+    extreme_events: "Lluvia intensa reportada en sectores montanos"
+    terrain_saturation: "Alta"
+    mass_movement_risk: "Alto y localizado en taludes inestables"
+  human_urban:
+    exposed_population: 2200000
+    urban_density: "Alta en Caracas-La Guaira-Valencia"
+    building_type: "Mixto: mamposteria, concreto reforzado e informal"
+    average_building_height_m: 14.0
+    construction_age_profile: "Heterogenea, con stock vulnerable pre-norma"
+    hospitals_count: 35
+    primary_roads_density_km_per_km2: 6.1
+    ports_airports_access: "Corredor portuario y aeroportuario cercano"
+    schools_count: 420
+    critical_infrastructure: "Hospitales, subestaciones, vias troncales, telecom"
 sources:
+  - "USGS: M7.2 foreshock (22:04:33 UTC) y M7.5 mainshock (22:05:11 UTC), epicentro cerca de Yumare."
   - "GFZ: relacion con limite Caribe-Suramerica y fallas Bocono/San Sebastian/El Pilar."
-  - "Registros instrumentales preliminares junio 2026."
+  - "Eos/USGS: Caracas a ~300 km del epicentro; sacudida violenta en zona metropolitana."
 

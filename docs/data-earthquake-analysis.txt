@@ -1,0 +1,35 @@
+1- pruebas fase 3
+make test
+make eval-phase3
+make evaluate
+python3 scripts/evaluate_phase3.py --fail-under 100
+
+2- pruebas fase 2 y 3
+# Evaluación rápida (fixtures sintéticos) — pasa hoy
+make evaluate
+
+# Por fase (fixtures por defecto)
+make eval-phase1
+make eval-phase2
+make eval-phase3
+
+# Las 3 fases en secuencia (fixtures)
+make eval-all
+
+# Auditoría completa con datos reales
+make eval-full
+
+--------
+# Fixtures (default)
+python3 scripts/evaluate_phase1.py
+python3 scripts/evaluate_phase2.py
+python3 scripts/evaluate_phase3.py
+python3 scripts/evaluate_all.py
+
+# Incluir datos reales
+python3 scripts/evaluate_phase1.py --full
+python3 scripts/evaluate_phase2.py --full
+python3 scripts/evaluate_phase3.py --full
+python3 scripts/evaluate_all.py --full
+
+3- 

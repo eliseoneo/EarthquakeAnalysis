@@ -9,9 +9,65 @@ soil_type: "Sedimentos y rellenos urbanos en zonas criticas"
 population_density: "Alta en area metropolitana de Puerto Principe"
 construction_quality: "Baja a heterogenea"
 event_time_local: "16:53"
+event_duration_total:
+  value: 35
+  unit: seconds
+  notes: "Temblor principal unico de corta duracion"
 aftershocks_summary: "Numerosas replicas semanas posteriores"
 landslides: "Si, en laderas locales"
 tsunami: "No significativo"
 mortality_and_damage: "Impacto extremo en vidas e infraestructura"
 institutional_response: "Respuesta internacional masiva y coordinacion compleja"
+similar_magnitude_probability_dates:
+  main_event_date: "2010-01-12"
+  sequence_end_date: "2010-02-11"
+  reference_magnitude_mw: 7.0
+  magnitude_similarity_delta_mw: 1.0
+  highest_magnitude_events:
+    - event_date: "2010-01-20"
+      days_after_main: 8
+      magnitude_mw: 5.9
+      notes: "Mayor replica documentada de la secuencia"
+advanced_features:
+  seismic:
+    magnitude_mw: 7.0
+    depth_km: 13.0
+    focal_mechanism: "Strike-slip (Enriquillo-Plantain Garden)"
+    distance_to_fault_km: 10.0
+    estimated_slip_rate_mm_per_year: 7.0
+    pga_g: null
+    pgv_cm_per_s: null
+    mmi_intensity: "IX"
+    aftershock_count: 60
+    omori_decay_p: 1.05
+    gutenberg_richter_b_value: 0.95
+    local_seismic_density: "Moderada en falla Enriquillo"
+  geological_geotechnical:
+    soil_type: "Sedimentos y rellenos urbanos en zonas criticas"
+    lithology: "Sedimentos aluviales y caliza fracturada"
+    vs30_m_per_s: 250.0
+    slope_degrees: 12.0
+    sedimentary_basin: "Cuenca de Puerto Principe"
+    liquefaction_likelihood: "Alta en rellenos urbanos"
+    landslide_susceptibility: "Moderada-alta en laderas"
+    distance_to_coast_or_rivers_km: 6.0
+  climatic:
+    rainfall_7d_mm: 30.0
+    rainfall_15d_mm: 55.0
+    rainfall_30d_mm: 90.0
+    soil_moisture_index: 0.48
+    extreme_events: "Huracanes frecuentes en region"
+    terrain_saturation: "Media"
+    mass_movement_risk: "Alto en taludes urbanos"
+  human_urban:
+    exposed_population: 2500000
+    urban_density: "Alta en area metropolitana de Puerto Principe"
+    building_type: "Mamposteria no confinada predominante"
+    average_building_height_m: 6.0
+    construction_age_profile: "Stock vulnerable sin norma sismica"
+    hospitals_count: 12
+    primary_roads_density_km_per_km2: 3.2
+    ports_airports_access: "Puerto y aeropuerto de Puerto Principe"
+    schools_count: 200
+    critical_infrastructure: "Hospitales, gobierno, puerto, carreteras principales"
 

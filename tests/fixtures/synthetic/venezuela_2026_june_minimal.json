@@ -31,6 +31,53 @@
   "weather_post_event": "Rain in hillside sectors",
   "landslide_instability": "Localized instability",
   "population_density": "High",
-  "sources": ["Synthetic generator v1"]
+  "sources": ["Synthetic generator v1"],
+  "advanced_features": {
+    "seismic": {
+      "magnitude_mw": 6.0,
+      "depth_km": 11.5,
+      "focal_mechanism": "Oblique strike-slip",
+      "distance_to_fault_km": 16.0,
+      "estimated_slip_rate_mm_per_year": 7.0,
+      "pga_g": 0.22,
+      "pgv_cm_per_s": 18.0,
+      "mmi_intensity": "VI-VII",
+      "aftershock_count": 12,
+      "omori_decay_p": 1.1,
+      "gutenberg_richter_b_value": 0.95,
+      "local_seismic_density": "High"
+    },
+    "geological_geotechnical": {
+      "soil_type": "Alluvial",
+      "lithology": "Unconsolidated sediments with weathered bedrock",
+      "vs30_m_per_s": 290.0,
+      "slope_degrees": 12.0,
+      "sedimentary_basin": "Urban valley basin",
+      "liquefaction_likelihood": "Moderate-high",
+      "landslide_susceptibility": "High on slopes",
+      "distance_to_coast_or_rivers_km": 9.5
+    },
+    "climatic": {
+      "rainfall_7d_mm": 42.0,
+      "rainfall_15d_mm": 86.0,
+      "rainfall_30d_mm": 132.0,
+      "soil_moisture_index": 0.63,
+      "extreme_events": "Heavy-rain episode before sequence",
+      "terrain_saturation": "High",
+      "mass_movement_risk": "High"
+    },
+    "human_urban": {
+      "exposed_population": 780000,
+      "urban_density": "High",
+      "building_type": "Mixed informal masonry and RC frames",
+      "average_building_height_m": 13.0,
+      "construction_age_profile": "Wide range, pre-1980 to recent",
+      "hospitals_count": 14,
+      "primary_roads_density_km_per_km2": 5.2,
+      "ports_airports_access": "Major port and airport corridor",
+      "schools_count": 120,
+      "critical_infrastructure": "Hospitals, metro links, power substations"
+    }
+  }
 }
 

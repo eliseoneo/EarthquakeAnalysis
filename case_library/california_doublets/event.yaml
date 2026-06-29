@@ -9,9 +9,66 @@ soil_type: "Mixto, con cuencas sedimentarias urbanas"
 population_density: "Alta en corredores urbanos"
 construction_quality: "Media a alta"
 event_time_local: "Variable"
+event_duration_total:
+  value: 30
+  value_max: 90
+  unit: seconds
+  notes: "Variable segun par de eventos del doblete historico"
 aftershocks_summary: "Secuencias complejas con eventos cercanos en tiempo"
 landslides: "Depende del caso local"
 tsunami: "No aplica en la mayoria"
 mortality_and_damage: "Variable segun cercania urbana y norma sismica"
 institutional_response: "Alta capacidad de monitoreo y respuesta estatal"
+similar_magnitude_probability_dates:
+  main_event_date: "1992-06-28"
+  sequence_end_date: "1992-07-28"
+  reference_magnitude_mw: 7.3
+  magnitude_similarity_delta_mw: 1.0
+  highest_magnitude_events:
+    - event_date: "1992-06-28"
+      days_after_main: 0
+      magnitude_mw: 6.5
+      notes: "Big Bear M6.5 horas despues de Landers M7.3"
+advanced_features:
+  seismic:
+    magnitude_mw: 6.5
+    depth_km: 10.0
+    focal_mechanism: "Strike-slip (transform boundary)"
+    distance_to_fault_km: 12.0
+    estimated_slip_rate_mm_per_year: 25.0
+    pga_g: null
+    pgv_cm_per_s: null
+    mmi_intensity: "VI-VII"
+    aftershock_count: 40
+    omori_decay_p: 1.0
+    gutenberg_richter_b_value: 0.9
+    local_seismic_density: "Alta en fallas activas de California"
+  geological_geotechnical:
+    soil_type: "Mixto, con cuencas sedimentarias urbanas"
+    lithology: "Sedimentos cuaternarios y basamento fracturado"
+    vs30_m_per_s: 360.0
+    slope_degrees: 8.0
+    sedimentary_basin: "Cuencas urbanas de Los Angeles y San Francisco"
+    liquefaction_likelihood: "Moderada en rellenos"
+    landslide_susceptibility: "Moderada en sectores montanos"
+    distance_to_coast_or_rivers_km: 15.0
+  climatic:
+    rainfall_7d_mm: 20.0
+    rainfall_15d_mm: 35.0
+    rainfall_30d_mm: 60.0
+    soil_moisture_index: 0.35
+    extreme_events: "Sin eventos extremos dominantes en ventana tipica"
+    terrain_saturation: "Baja a media"
+    mass_movement_risk: "Moderado localizado"
+  human_urban:
+    exposed_population: 1500000
+    urban_density: "Alta en corredores urbanos"
+    building_type: "Concreto reforzado y mamposteria reforzada"
+    average_building_height_m: 12.0
+    construction_age_profile: "Amplio stock con norma sismica moderna"
+    hospitals_count: 45
+    primary_roads_density_km_per_km2: 7.5
+    ports_airports_access: "Puertos y aeropuertos internacionales cercanos"
+    schools_count: 380
+    critical_infrastructure: "Red electrica, agua, telecom y vias interestatales"
 

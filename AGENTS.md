@@ -2,10 +2,11 @@
 
 ## Objetivo operativo
 
-Este repositorio prioriza dos fases:
+Este repositorio prioriza tres fases:
 
 1. `event_cases/venezuela_2026_june` (post-evento).
 2. `case_library/*` (comparacion con eventos analogos).
+3. Feature engineering avanzado (sismico, geotecnico, climatico y humano/urbano).
 
 ## Reglas de colaboracion entre agentes
 
@@ -21,6 +22,7 @@ Este repositorio prioriza dos fases:
 
 1. Definir o actualizar schema.
 2. Crear/actualizar datos del caso.
-3. Ejecutar pruebas sinteticas (`make test`).
-4. Reportar cambios y riesgos de consistencia.
+3. Crear/actualizar variables de Fase 3 en datos del caso.
+4. Ejecutar evaluaciones por fase (`make eval-phase1`, `make eval-phase2`, `make eval-phase3`) o completa (`make evaluate`).
+5. Reportar cambios y riesgos de consistencia.
 

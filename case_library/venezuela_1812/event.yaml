@@ -9,9 +9,65 @@ soil_type: "Urbano historico sobre suelos mixtos"
 population_density: "Alta para el periodo en ciudades clave"
 construction_quality: "Baja segun estandares modernos"
 event_time_local: "Tarde (aproximada)"
+event_duration_total:
+  value: 60
+  unit: seconds
+  notes: "Estimacion historica por magnitud reportada"
 aftershocks_summary: "Informacion historica limitada"
 landslides: "Probables en zonas de relieve"
 tsunami: "No concluyente"
 mortality_and_damage: "Dano severo documentado historicamente"
 institutional_response: "Capacidad institucional limitada para la epoca"
+similar_magnitude_probability_dates:
+  main_event_date: "1812-03-26"
+  sequence_end_date: "1812-04-25"
+  reference_magnitude_mw: 7.0
+  magnitude_similarity_delta_mw: 1.0
+  highest_magnitude_events:
+    - event_date: "1812-03-27"
+      days_after_main: 1
+      magnitude_mw: 6.0
+      notes: "Magnitud estimada de replica historica mayor (dato no instrumental)"
+advanced_features:
+  seismic:
+    magnitude_mw: 7.0
+    depth_km: 20.0
+    focal_mechanism: "Probable strike-slip and regional fault interaction"
+    distance_to_fault_km: 8.0
+    estimated_slip_rate_mm_per_year: 6.0
+    pga_g: null
+    pgv_cm_per_s: null
+    mmi_intensity: "VIII-IX (estimado historico)"
+    aftershock_count: 0
+    omori_decay_p: 1.0
+    gutenberg_richter_b_value: 0.9
+    local_seismic_density: "Moderada (dato historico)"
+  geological_geotechnical:
+    soil_type: "Urbano historico sobre suelos mixtos"
+    lithology: "Sedimentos y roca fracturada (estimado)"
+    vs30_m_per_s: 280.0
+    slope_degrees: 10.0
+    sedimentary_basin: "Valles urbanos historicos"
+    liquefaction_likelihood: "Desconocida (dato historico)"
+    landslide_susceptibility: "Probable en zonas de relieve"
+    distance_to_coast_or_rivers_km: 20.0
+  climatic:
+    rainfall_7d_mm: 0.0
+    rainfall_15d_mm: 0.0
+    rainfall_30d_mm: 0.0
+    soil_moisture_index: 0.0
+    extreme_events: "Sin registro instrumental"
+    terrain_saturation: "Desconocida"
+    mass_movement_risk: "Probable en zonas de relieve"
+  human_urban:
+    exposed_population: 80000
+    urban_density: "Alta para el periodo en ciudades clave"
+    building_type: "Mamposteria y adobe historico"
+    average_building_height_m: 4.0
+    construction_age_profile: "Pre-norma, estructuras coloniales"
+    hospitals_count: 2
+    primary_roads_density_km_per_km2: 1.0
+    ports_airports_access: "Puertos coloniales y caminos historicos"
+    schools_count: 10
+    critical_infrastructure: "Iglesias, gobierno colonial, puertos"
 
