@@ -28,6 +28,30 @@ similar_magnitude_probability_dates:
       days_after_main: 8
       magnitude_mw: 5.9
       notes: "Mayor replica documentada de la secuencia"
+compound_risk_model:
+  model_type: "ensemble_jerarquico"
+  component_scores:
+    seismic_hazard: 0.84
+    human_exposure: 0.91
+    structural_vulnerability: 0.96
+    geotechnical_vulnerability: 0.74
+    climatic_conditions: 0.57
+    infrastructure_criticality: 0.89
+  component_weights:
+    seismic_hazard: 0.24
+    human_exposure: 0.2
+    structural_vulnerability: 0.18
+    geotechnical_vulnerability: 0.14
+    climatic_conditions: 0.1
+    infrastructure_criticality: 0.14
+  risk_score_total: 90.3
+  risk_category: "riesgo_critico"
+  derived_outputs:
+    probability_strong_aftershock: 0.43
+    probability_structural_damage: 0.92
+    probability_landslide: 0.62
+    population_exposure_index: 0.9
+    relative_urban_collapse_index: 0.88
 advanced_features:
   seismic:
     magnitude_mw: 7.0
@@ -48,6 +72,27 @@ advanced_features:
     vs30_m_per_s: 250.0
     slope_degrees: 12.0
     sedimentary_basin: "Cuenca de Puerto Principe"
+    location_geology_context: "Cuenca sedimentaria urbana sobre sistema de falla Enriquillo-Plantain Garden"
+    nearby_geological_faults:
+      - "Enriquillo-Plantain Garden Fault"
+      - "Septentrional-Oriente Fault"
+    nearby_tectonic_plates:
+      - "Caribbean Plate"
+      - "North American Plate"
+    faults_average_seismic_activity_events_per_year: 1.1
+    fault_linked_relevant_events:
+      - event_name: "Port-au-Prince Historical Earthquake"
+        event_year: 1770
+        magnitude_mw: 7.5
+        linked_fault: "Enriquillo-Plantain Garden Fault"
+      - event_name: "Haiti Nippes Earthquake"
+        event_year: 2021
+        magnitude_mw: 7.2
+        linked_fault: "Enriquillo-Plantain Garden Fault"
+      - event_name: "Hispaniola Earthquake"
+        event_year: 1946
+        magnitude_mw: 8.1
+        linked_fault: "North Hispaniola Fault system"
     liquefaction_likelihood: "Alta en rellenos urbanos"
     landslide_susceptibility: "Moderada-alta en laderas"
     distance_to_coast_or_rivers_km: 6.0

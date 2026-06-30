@@ -6,3 +6,21 @@ __pycache__/
 dist/
 build/
 
+# Capa A — datos descargados/procesados (no mezclar con fases 1-5)
+layer_a_tectonic/data/raw/*.json
+layer_a_tectonic/data/processed/*
+!layer_a_tectonic/data/processed/.gitkeep
+layer_a_tectonic/reports/*.md
+!layer_a_tectonic/reports/.gitkeep
+
+# Capa B — datos descargados/procesados (aislados)
+layer_b_geophysical/data/raw/*.json
+layer_b_geophysical/data/normalized/*
+!layer_b_geophysical/data/normalized/.gitkeep
+layer_b_geophysical/data/features/*
+!layer_b_geophysical/data/features/.gitkeep
+layer_b_geophysical/data/analytics/*
+!layer_b_geophysical/data/analytics/.gitkeep
+layer_b_geophysical/reports/*.md
+!layer_b_geophysical/reports/.gitkeep
+

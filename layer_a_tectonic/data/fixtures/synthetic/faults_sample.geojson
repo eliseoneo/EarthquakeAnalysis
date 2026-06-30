@@ -1,0 +1,25 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-62.5, 10.8]},
+      "properties": {
+        "name": "El Pilar Fault Segment",
+        "fault_system": "El Pilar",
+        "fault_type": "strike_slip",
+        "tectonic_zone": "Caribbean-South America boundary"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-61.0, 10.2]},
+      "properties": {
+        "name": "Warm Springs Fault",
+        "fault_system": "Trinidad",
+        "fault_type": "strike_slip",
+        "tectonic_zone": "SE Caribbean"
+      }
+    }
+  ]
+}

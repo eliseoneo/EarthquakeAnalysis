@@ -24,14 +24,23 @@
     }
   ],
   "felt_intensity": "Moderate-high",
-  "urban_areas_affected": ["City-A", "City-B"],
+  "urban_areas_affected": [
+    "City-A",
+    "City-B"
+  ],
   "structural_damage": "Moderate synthetic damage profile",
   "soil_type": "Alluvial",
-  "associated_faults": ["Bocono", "San Sebastian", "El Pilar"],
+  "associated_faults": [
+    "Bocono",
+    "San Sebastian",
+    "El Pilar"
+  ],
   "weather_post_event": "Rain in hillside sectors",
   "landslide_instability": "Localized instability",
   "population_density": "High",
-  "sources": ["Synthetic generator v1"],
+  "sources": [
+    "Synthetic generator v1"
+  ],
   "advanced_features": {
     "seismic": {
       "magnitude_mw": 6.0,
@@ -53,9 +62,34 @@
       "vs30_m_per_s": 290.0,
       "slope_degrees": 12.0,
       "sedimentary_basin": "Urban valley basin",
+      "location_geology_context": "Alluvial valley over weathered basement near active fault zone",
       "liquefaction_likelihood": "Moderate-high",
       "landslide_susceptibility": "High on slopes",
-      "distance_to_coast_or_rivers_km": 9.5
+      "distance_to_coast_or_rivers_km": 9.5,
+      "nearby_geological_faults": [
+        "Bocono Fault",
+        "San Sebastian Fault",
+        "El Pilar Fault"
+      ],
+      "nearby_tectonic_plates": [
+        "Caribbean Plate",
+        "South American Plate"
+      ],
+      "faults_average_seismic_activity_events_per_year": 1.6,
+      "fault_linked_relevant_events": [
+        {
+          "event_name": "Venezuela Earthquake",
+          "event_year": 1812,
+          "magnitude_mw": 7.7,
+          "linked_fault": "Bocono Fault system"
+        },
+        {
+          "event_name": "Cariaco Earthquake",
+          "event_year": 1997,
+          "magnitude_mw": 6.9,
+          "linked_fault": "El Pilar Fault"
+        }
+      ]
     },
     "climatic": {
       "rainfall_7d_mm": 42.0,
@@ -78,6 +112,33 @@
       "schools_count": 120,
       "critical_infrastructure": "Hospitals, metro links, power substations"
     }
+  },
+  "compound_risk_model": {
+    "model_type": "ensemble_jerarquico",
+    "component_scores": {
+      "seismic_hazard": 0.72,
+      "human_exposure": 0.7,
+      "structural_vulnerability": 0.64,
+      "geotechnical_vulnerability": 0.66,
+      "climatic_conditions": 0.62,
+      "infrastructure_criticality": 0.69
+    },
+    "component_weights": {
+      "seismic_hazard": 0.24,
+      "human_exposure": 0.2,
+      "structural_vulnerability": 0.18,
+      "geotechnical_vulnerability": 0.14,
+      "climatic_conditions": 0.1,
+      "infrastructure_criticality": 0.14
+    },
+    "risk_score_total": 67.8,
+    "risk_category": "riesgo_alto",
+    "derived_outputs": {
+      "probability_strong_aftershock": 0.32,
+      "probability_structural_damage": 0.58,
+      "probability_landslide": 0.55,
+      "population_exposure_index": 0.74,
+      "relative_urban_collapse_index": 0.52
+    }
   }
 }
-

@@ -1,0 +1,106 @@
+{
+  "as_of_date": "2026-06-29",
+  "event_date_utc": "2026-06-24",
+  "region": "Near coast of Venezuela (Yumare, Yaracuy)",
+  "verification_notes": [
+    "Consulta FDSN realizada el 2026-06-29 contra catalogos publicos.",
+    "USGS devolvio mainshock, foreshock y replicas M>=4.0 hasta 2026-06-29.",
+    "GFZ/Geofon y EMSC no devolvieron eventos en el mismo bbox/ventana (sin respuesta util en API)."
+  ],
+  "catalog_results": [
+    {
+      "agency": "USGS",
+      "country": "Estados Unidos",
+      "api": "https://earthquake.usgs.gov/fdsnws/event/1/query",
+      "status": "ok",
+      "events_found_m_ge_4": 9,
+      "contributor_networks": ["us", "at"]
+    },
+    {
+      "agency": "GFZ Geofon",
+      "country": "Alemania",
+      "api": "https://geofon.gfz-potsdam.de/fdsnws/event/1/query",
+      "status": "no_events_in_response",
+      "events_found_m_ge_4": 0
+    },
+    {
+      "agency": "EMSC",
+      "country": "Union Europea",
+      "api": "https://www.seismicportal.eu/fdsnws/event/1/query",
+      "status": "no_events_in_response",
+      "events_found_m_ge_4": 0
+    }
+  ],
+  "primary_events_usgs": [
+    {
+      "role": "foreshock",
+      "usgs_event_id": "us6000t7zc",
+      "alternate_ids": "atth5pbk",
+      "sources": "at,us",
+      "time_utc": "2026-06-24T22:04:33.389Z",
+      "magnitude_mww": 7.2,
+      "depth_km": 20.294,
+      "latitude": 10.436,
+      "longitude": -68.5277,
+      "mmi": 8.887
+    },
+    {
+      "role": "mainshock",
+      "usgs_event_id": "us6000t7zp",
+      "alternate_ids": "us6000t7zp",
+      "sources": "us",
+      "time_utc": "2026-06-24T22:05:11.566Z",
+      "magnitude_mww": 7.5,
+      "depth_km": 10.0,
+      "latitude": 10.4351,
+      "longitude": -68.4716,
+      "mmi": 9.046,
+      "felt_reports": 659
+    }
+  ],
+  "aftershocks_usgs_m_ge_4": [
+    {
+      "time_utc": "2026-06-25T22:23:53.774Z",
+      "magnitude_mb": 4.5,
+      "place": "12 km NNE of Caucaguito, Venezuela",
+      "depth_km": 10.0
+    },
+    {
+      "time_utc": "2026-06-26T05:48:23.136Z",
+      "magnitude_mb": 4.4,
+      "place": "5 km NE of Guatire, Venezuela",
+      "depth_km": 10.0
+    },
+    {
+      "time_utc": "2026-06-27T04:19:30.378Z",
+      "magnitude_mb": 4.4,
+      "place": "17 km WSW of Moron, Venezuela",
+      "depth_km": 10.0
+    },
+    {
+      "time_utc": "2026-06-27T22:16:11.931Z",
+      "magnitude_mww": 4.7,
+      "place": "54 km N of El Limon, Venezuela",
+      "depth_km": 10.0
+    },
+    {
+      "time_utc": "2026-06-28T19:20:36.606Z",
+      "magnitude_mb": 4.8,
+      "place": "35 km NNE of El Limon, Venezuela",
+      "depth_km": 10.0
+    },
+    {
+      "time_utc": "2026-06-29T08:46:10.376Z",
+      "magnitude_mb": 4.5,
+      "place": "20 km W of Boca de Aroa, Venezuela",
+      "depth_km": 10.0
+    },
+    {
+      "time_utc": "2026-06-29T09:33:58.852Z",
+      "magnitude_mb": 4.3,
+      "place": "19 km WSW of Moron, Venezuela",
+      "depth_km": 10.0
+    }
+  ],
+  "pga_bias_note_1967": "No usar PGA estimada de Caracas 1967 (sin acelerogramas fuertes) para calibrar modelos forward 2026 sin correccion de sesgo metodologico y de sitio."
+}

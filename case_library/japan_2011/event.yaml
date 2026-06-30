@@ -32,6 +32,30 @@ similar_magnitude_probability_dates:
       days_after_main: 27
       magnitude_mw: 7.1
       notes: "Segunda replica mas fuerte del primer mes"
+compound_risk_model:
+  model_type: "ensemble_jerarquico"
+  component_scores:
+    seismic_hazard: 0.99
+    human_exposure: 0.83
+    structural_vulnerability: 0.46
+    geotechnical_vulnerability: 0.72
+    climatic_conditions: 0.5
+    infrastructure_criticality: 0.95
+  component_weights:
+    seismic_hazard: 0.24
+    human_exposure: 0.2
+    structural_vulnerability: 0.18
+    geotechnical_vulnerability: 0.14
+    climatic_conditions: 0.1
+    infrastructure_criticality: 0.14
+  risk_score_total: 92.0
+  risk_category: "riesgo_critico"
+  derived_outputs:
+    probability_strong_aftershock: 0.73
+    probability_structural_damage: 0.68
+    probability_landslide: 0.59
+    population_exposure_index: 0.82
+    relative_urban_collapse_index: 0.65
 advanced_features:
   seismic:
     magnitude_mw: 9.0
@@ -52,6 +76,27 @@ advanced_features:
     vs30_m_per_s: 280.0
     slope_degrees: 10.0
     sedimentary_basin: "Cuencas sedimentarias de Tohoku"
+    location_geology_context: "Antepais de subduccion con planicies costeras, rellenos y cuencas sedimentarias extensas"
+    nearby_geological_faults:
+      - "Japan Trench Megathrust"
+      - "Outer Rise Faults off Tohoku"
+    nearby_tectonic_plates:
+      - "Pacific Plate"
+      - "Okhotsk Plate"
+    faults_average_seismic_activity_events_per_year: 3.1
+    fault_linked_relevant_events:
+      - event_name: "Sanriku Tsunami Earthquake"
+        event_year: 1896
+        magnitude_mw: 8.5
+        linked_fault: "Japan Trench Megathrust"
+      - event_name: "Sanriku Earthquake"
+        event_year: 1933
+        magnitude_mw: 8.4
+        linked_fault: "Outer Rise Faults off Tohoku"
+      - event_name: "Miyagi-oki Earthquake"
+        event_year: 1978
+        magnitude_mw: 7.7
+        linked_fault: "Japan Trench Megathrust"
     liquefaction_likelihood: "Alta en suelos blandos costeros"
     landslide_susceptibility: "Alta en sectores montanos"
     distance_to_coast_or_rivers_km: 3.0

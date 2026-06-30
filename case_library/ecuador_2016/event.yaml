@@ -34,6 +34,30 @@ similar_magnitude_probability_dates:
       days_after_main: 32
       magnitude_mw: 6.8
       notes: "Replica maxima reportada fuera de ventana de 30 dias"
+compound_risk_model:
+  model_type: "ensemble_jerarquico"
+  component_scores:
+    seismic_hazard: 0.85
+    human_exposure: 0.68
+    structural_vulnerability: 0.66
+    geotechnical_vulnerability: 0.76
+    climatic_conditions: 0.69
+    infrastructure_criticality: 0.64
+  component_weights:
+    seismic_hazard: 0.24
+    human_exposure: 0.2
+    structural_vulnerability: 0.18
+    geotechnical_vulnerability: 0.14
+    climatic_conditions: 0.1
+    infrastructure_criticality: 0.14
+  risk_score_total: 76.4
+  risk_category: "riesgo_alto"
+  derived_outputs:
+    probability_strong_aftershock: 0.49
+    probability_structural_damage: 0.66
+    probability_landslide: 0.71
+    population_exposure_index: 0.69
+    relative_urban_collapse_index: 0.61
 advanced_features:
   seismic:
     magnitude_mw: 7.8
@@ -54,6 +78,27 @@ advanced_features:
     vs30_m_per_s: 310.0
     slope_degrees: 14.0
     sedimentary_basin: "Cuencas costeras y valles fluviales"
+    location_geology_context: "Franja costera de subduccion con sedimentos aluviales y zonas volcanicas cercanas"
+    nearby_geological_faults:
+      - "Ecuador-Colombia Subduction Interface"
+      - "Jama-Pedernales Fault Zone"
+    nearby_tectonic_plates:
+      - "Nazca Plate"
+      - "South American Plate"
+    faults_average_seismic_activity_events_per_year: 1.8
+    fault_linked_relevant_events:
+      - event_name: "Ecuador-Colombia Earthquake"
+        event_year: 1906
+        magnitude_mw: 8.8
+        linked_fault: "Ecuador-Colombia Subduction Interface"
+      - event_name: "Ecuador Offshore Earthquake"
+        event_year: 1942
+        magnitude_mw: 7.8
+        linked_fault: "Ecuador-Colombia Subduction Interface"
+      - event_name: "Tumaco Earthquake"
+        event_year: 1979
+        magnitude_mw: 8.2
+        linked_fault: "Ecuador-Colombia Subduction Interface"
     liquefaction_likelihood: "Moderada-alta en suelos blandos"
     landslide_susceptibility: "Alta en laderas"
     distance_to_coast_or_rivers_km: 8.0

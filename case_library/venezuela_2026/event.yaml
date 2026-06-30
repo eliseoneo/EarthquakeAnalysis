@@ -33,6 +33,30 @@ similar_magnitude_probability_dates:
       days_after_main: 2
       magnitude_mw: 4.3
       notes: "Segundo pico de la secuencia activa 24-26 junio"
+compound_risk_model:
+  model_type: "ensemble_jerarquico"
+  component_scores:
+    seismic_hazard: 0.88
+    human_exposure: 0.86
+    structural_vulnerability: 0.72
+    geotechnical_vulnerability: 0.74
+    climatic_conditions: 0.68
+    infrastructure_criticality: 0.82
+  component_weights:
+    seismic_hazard: 0.24
+    human_exposure: 0.2
+    structural_vulnerability: 0.18
+    geotechnical_vulnerability: 0.14
+    climatic_conditions: 0.1
+    infrastructure_criticality: 0.14
+  risk_score_total: 79.4
+  risk_category: "riesgo_alto"
+  derived_outputs:
+    probability_strong_aftershock: 0.41
+    probability_structural_damage: 0.69
+    probability_landslide: 0.58
+    population_exposure_index: 0.84
+    relative_urban_collapse_index: 0.63
 advanced_features:
   seismic:
     magnitude_mw: 7.5
@@ -53,6 +77,28 @@ advanced_features:
     vs30_m_per_s: 300.0
     slope_degrees: 15.0
     sedimentary_basin: "Cuencas locales urbanas"
+    location_geology_context: "Corredor urbano sobre cuencas aluviales y basamento fracturado entre fallas activas"
+    nearby_geological_faults:
+      - "Bocono Fault"
+      - "San Sebastian Fault"
+      - "El Pilar Fault"
+    nearby_tectonic_plates:
+      - "Caribbean Plate"
+      - "South American Plate"
+    faults_average_seismic_activity_events_per_year: 1.6
+    fault_linked_relevant_events:
+      - event_name: "Venezuela Earthquake"
+        event_year: 1812
+        magnitude_mw: 7.7
+        linked_fault: "Bocono Fault system"
+      - event_name: "Caracas Earthquake"
+        event_year: 1967
+        magnitude_mw: 6.5
+        linked_fault: "San Sebastian Fault"
+      - event_name: "Cariaco Earthquake"
+        event_year: 1997
+        magnitude_mw: 6.9
+        linked_fault: "El Pilar Fault"
     liquefaction_likelihood: "Moderada"
     landslide_susceptibility: "Alta localizada"
     distance_to_coast_or_rivers_km: 12.0

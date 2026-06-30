@@ -1,0 +1,21 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-62.0, 11.0]},
+      "properties": {
+        "name": "Caribbean-South America plate boundary",
+        "plate_context": "transform boundary"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-65.0, 8.0]},
+      "properties": {
+        "name": "South American Plate interior",
+        "plate_context": "continental interior"
+      }
+    }
+  ]
+}

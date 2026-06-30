@@ -1,0 +1,75 @@
+project:
+  region_name: "Venezuela-Caribe-Suramerica"
+  start_date: "2000-01-01"
+  end_date: null
+
+catalog:
+  min_magnitude: 2.5
+  sources:
+    - usgs
+    - funvisis
+  source_priority:
+    - usgs
+    - funvisis
+    - gcmt
+    - isc
+
+region:
+  bbox:
+    min_lat: -5.0
+    max_lat: 15.0
+    min_lon: -85.0
+    max_lon: -55.0
+
+deduplication:
+  time_tolerance_seconds: 120
+  distance_tolerance_km: 50
+  magnitude_tolerance: 0.3
+  depth_tolerance_km: 25
+
+aftershocks:
+  mainshock_min_magnitude: 6.0
+  radius_km: 250
+  extended_radius_km: 500
+  max_days: 365
+
+doublets:
+  min_magnitude: 6.0
+  max_time_delta_hours: 24
+  strict_time_delta_hours: 1
+  max_distance_km: 250
+  strict_distance_km: 100
+  max_magnitude_delta: 0.5
+  strict_magnitude_delta: 0.3
+
+temporal_windows_days:
+  - -365
+  - -180
+  - -90
+  - -30
+  - -15
+  - -7
+  - -3
+  - 0
+  - 3
+  - 7
+  - 15
+  - 30
+  - 90
+  - 180
+  - 365
+
+target_mainshock:
+  event_id: "venezuela_2026_06_24"
+  datetime_utc: "2026-06-24 12:00:00"
+  latitude: 10.5
+  longitude: -62.8
+  magnitude: 7.2
+  depth_km: 10.0
+
+outputs:
+  format:
+    - parquet
+    - geojson
+    - json
+    - markdown

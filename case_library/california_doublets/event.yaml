@@ -29,6 +29,30 @@ similar_magnitude_probability_dates:
       days_after_main: 0
       magnitude_mw: 6.5
       notes: "Big Bear M6.5 horas despues de Landers M7.3"
+compound_risk_model:
+  model_type: "ensemble_jerarquico"
+  component_scores:
+    seismic_hazard: 0.62
+    human_exposure: 0.66
+    structural_vulnerability: 0.38
+    geotechnical_vulnerability: 0.45
+    climatic_conditions: 0.3
+    infrastructure_criticality: 0.58
+  component_weights:
+    seismic_hazard: 0.24
+    human_exposure: 0.2
+    structural_vulnerability: 0.18
+    geotechnical_vulnerability: 0.14
+    climatic_conditions: 0.1
+    infrastructure_criticality: 0.14
+  risk_score_total: 54.2
+  risk_category: "riesgo_medio"
+  derived_outputs:
+    probability_strong_aftershock: 0.28
+    probability_structural_damage: 0.42
+    probability_landslide: 0.36
+    population_exposure_index: 0.61
+    relative_urban_collapse_index: 0.34
 advanced_features:
   seismic:
     magnitude_mw: 6.5
@@ -49,6 +73,29 @@ advanced_features:
     vs30_m_per_s: 360.0
     slope_degrees: 8.0
     sedimentary_basin: "Cuencas urbanas de Los Angeles y San Francisco"
+    location_geology_context: "Cuencas sedimentarias urbanas atravesadas por sistema transformante de fallas activas"
+    nearby_geological_faults:
+      - "San Andreas Fault"
+      - "Imperial Fault"
+      - "Brawley Seismic Zone"
+    nearby_tectonic_plates:
+      - "Pacific Plate"
+      - "North American Plate"
+    faults_average_seismic_activity_events_per_year: 4.6
+    fault_linked_relevant_events:
+      - event_name: "Landers Earthquake"
+        event_year: 1992
+        magnitude_mw: 7.3
+        linked_fault: "San Andreas Fault system"
+      - event_name: "Hector Mine Earthquake"
+        event_year: 1999
+        magnitude_mw: 7.1
+        linked_fault: "Eastern California Shear Zone"
+      - event_name: "Ridgecrest Sequence"
+        event_year: 2019
+        magnitude_mw: 7.1
+        linked_fault: "Eastern California Shear Zone"
+        notes: "Secuencia compuesta con ruptura en fallas proximas"
     liquefaction_likelihood: "Moderada en rellenos"
     landslide_susceptibility: "Moderada en sectores montanos"
     distance_to_coast_or_rivers_km: 15.0

@@ -25,6 +25,15 @@ PHASE3_FEATURE_PATHS: tuple[tuple[str, ...], ...] = (
     ("advanced_features", "geological_geotechnical", "vs30_m_per_s"),
     ("advanced_features", "geological_geotechnical", "slope_degrees"),
     ("advanced_features", "geological_geotechnical", "sedimentary_basin"),
+    ("advanced_features", "geological_geotechnical", "location_geology_context"),
+    ("advanced_features", "geological_geotechnical", "nearby_geological_faults"),
+    ("advanced_features", "geological_geotechnical", "nearby_tectonic_plates"),
+    (
+        "advanced_features",
+        "geological_geotechnical",
+        "faults_average_seismic_activity_events_per_year",
+    ),
+    ("advanced_features", "geological_geotechnical", "fault_linked_relevant_events"),
     ("advanced_features", "geological_geotechnical", "liquefaction_likelihood"),
     ("advanced_features", "geological_geotechnical", "landslide_susceptibility"),
     ("advanced_features", "geological_geotechnical", "distance_to_coast_or_rivers_km"),
@@ -45,6 +54,23 @@ PHASE3_FEATURE_PATHS: tuple[tuple[str, ...], ...] = (
     ("advanced_features", "human_urban", "ports_airports_access"),
     ("advanced_features", "human_urban", "schools_count"),
     ("advanced_features", "human_urban", "critical_infrastructure"),
+)
+
+PHASE4_RISK_PATHS: tuple[tuple[str, ...], ...] = (
+    ("compound_risk_model", "model_type"),
+    ("compound_risk_model", "component_scores", "seismic_hazard"),
+    ("compound_risk_model", "component_scores", "human_exposure"),
+    ("compound_risk_model", "component_scores", "structural_vulnerability"),
+    ("compound_risk_model", "component_scores", "geotechnical_vulnerability"),
+    ("compound_risk_model", "component_scores", "climatic_conditions"),
+    ("compound_risk_model", "component_scores", "infrastructure_criticality"),
+    ("compound_risk_model", "risk_score_total"),
+    ("compound_risk_model", "risk_category"),
+    ("compound_risk_model", "derived_outputs", "probability_strong_aftershock"),
+    ("compound_risk_model", "derived_outputs", "probability_structural_damage"),
+    ("compound_risk_model", "derived_outputs", "probability_landslide"),
+    ("compound_risk_model", "derived_outputs", "population_exposure_index"),
+    ("compound_risk_model", "derived_outputs", "relative_urban_collapse_index"),
 )
 
 
@@ -199,6 +225,20 @@ def evaluate_feature_coverage(
             missing.append(".".join(feature_path))
 
     total = len(feature_paths)
+    present = total - len(missing)
+    return present, total, missing
+
+
+def evaluate_risk_model_coverage(
+    data: dict[str, Any],
+    risk_paths: tuple[tuple[str, ...], ...] = PHASE4_RISK_PATHS,
+) -> tuple[int, int, list[str]]:
+    missing: list[str] = []
+    for risk_path in risk_paths:
+        if not path_exists(data, risk_path):
+            missing.append(".".join(risk_path))
+
+    total = len(risk_paths)
     present = total - len(missing)
     return present, total, missing
 

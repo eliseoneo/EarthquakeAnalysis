@@ -31,6 +31,30 @@ similar_magnitude_probability_dates:
       days_after_main: 12
       magnitude_mw: 6.9
       notes: "Mayor replica documentada de la secuencia (Pichilemu)"
+compound_risk_model:
+  model_type: "ensemble_jerarquico"
+  component_scores:
+    seismic_hazard: 0.97
+    human_exposure: 0.71
+    structural_vulnerability: 0.58
+    geotechnical_vulnerability: 0.74
+    climatic_conditions: 0.52
+    infrastructure_criticality: 0.8
+  component_weights:
+    seismic_hazard: 0.24
+    human_exposure: 0.2
+    structural_vulnerability: 0.18
+    geotechnical_vulnerability: 0.14
+    climatic_conditions: 0.1
+    infrastructure_criticality: 0.14
+  risk_score_total: 88.1
+  risk_category: "riesgo_critico"
+  derived_outputs:
+    probability_strong_aftershock: 0.64
+    probability_structural_damage: 0.77
+    probability_landslide: 0.66
+    population_exposure_index: 0.73
+    relative_urban_collapse_index: 0.7
 advanced_features:
   seismic:
     magnitude_mw: 8.8
@@ -51,6 +75,27 @@ advanced_features:
     vs30_m_per_s: 400.0
     slope_degrees: 18.0
     sedimentary_basin: "Cuencas costeras y valles interandinos"
+    location_geology_context: "Margen de subduccion con planicies costeras sedimentarias y laderas andinas inestables"
+    nearby_geological_faults:
+      - "Peru-Chile Megathrust"
+      - "Pichilemu Fault System"
+    nearby_tectonic_plates:
+      - "Nazca Plate"
+      - "South American Plate"
+    faults_average_seismic_activity_events_per_year: 2.4
+    fault_linked_relevant_events:
+      - event_name: "Valdivia Earthquake"
+        event_year: 1960
+        magnitude_mw: 9.5
+        linked_fault: "Peru-Chile Megathrust"
+      - event_name: "Algarrobo Earthquake"
+        event_year: 1985
+        magnitude_mw: 7.8
+        linked_fault: "Peru-Chile Megathrust"
+      - event_name: "Illapel Earthquake"
+        event_year: 2015
+        magnitude_mw: 8.3
+        linked_fault: "Peru-Chile Megathrust"
     liquefaction_likelihood: "Moderada en suelos blandos costeros"
     landslide_susceptibility: "Alta en zonas de pendiente"
     distance_to_coast_or_rivers_km: 5.0

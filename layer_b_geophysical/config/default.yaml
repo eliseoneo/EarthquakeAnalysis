@@ -1,0 +1,77 @@
+project:
+  region_name: "Venezuela-Caribe-Suramerica"
+  reference_datetime_utc: "2026-06-24 12:00:00"
+  start_date: "2024-01-01"
+  end_date: null
+
+region:
+  primary_region_code: "venezuela"
+  bbox:
+    min_lat: -5.0
+    max_lat: 15.0
+    min_lon: -85.0
+    max_lon: -55.0
+
+connectors:
+  - sst
+  - pressure
+  - rainfall
+  - soil_moisture
+  - earth_tides
+  - climate_indices
+
+temporal_windows_days:
+  - -365
+  - -180
+  - -90
+  - -30
+  - -15
+  - -7
+  - -3
+  - 0
+  - 3
+  - 7
+  - 15
+  - 30
+  - 90
+  - 180
+  - 365
+
+international_regions:
+  - venezuela
+  - colombia
+  - ecuador
+  - trinidad
+  - puerto_rico
+  - chile
+  - california
+  - turkey
+  - new_zealand
+  - japan
+  - indonesia
+
+statistics:
+  correlation_methods:
+    - pearson
+    - spearman
+    - kendall
+  comparison_tests:
+    - mann_whitney
+    - kolmogorov_smirnov
+    - permutation
+  temporal:
+    - cross_correlation
+    - rolling_correlation
+    - granger_placeholder
+
+clustering:
+  methods:
+    - dbscan
+    - gaussian_mixture
+    - spectral
+
+outputs:
+  format:
+    - parquet
+    - json
+    - markdown

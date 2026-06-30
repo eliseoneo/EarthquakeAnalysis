@@ -1,0 +1,83 @@
+{
+  "events": [
+    {
+      "event_id": "usgs_ven_2026_main",
+      "source_event_id": "us7000abc1",
+      "datetime_utc": "2026-06-24 12:00:00",
+      "latitude": 10.52,
+      "longitude": -62.78,
+      "depth_km": 10.0,
+      "magnitude": 7.2,
+      "magnitude_type": "Mw",
+      "place": "Near Trinidad and Tobago",
+      "rake": 90,
+      "moment_tensor_available": true
+    },
+    {
+      "event_id": "usgs_ven_2026_as1",
+      "source_event_id": "us7000abc2",
+      "datetime_utc": "2026-06-24 18:30:00",
+      "latitude": 10.48,
+      "longitude": -62.85,
+      "depth_km": 12.0,
+      "magnitude": 5.8,
+      "magnitude_type": "Mw",
+      "place": "Aftershock zone"
+    },
+    {
+      "event_id": "usgs_ven_2026_as2",
+      "source_event_id": "us7000abc3",
+      "datetime_utc": "2026-06-25 06:00:00",
+      "latitude": 10.55,
+      "longitude": -62.70,
+      "depth_km": 8.0,
+      "magnitude": 5.2,
+      "magnitude_type": "Mw",
+      "place": "Aftershock zone"
+    },
+    {
+      "event_id": "usgs_ven_2026_as3",
+      "source_event_id": "us7000abc4",
+      "datetime_utc": "2026-07-02 14:00:00",
+      "latitude": 10.40,
+      "longitude": -62.90,
+      "depth_km": 15.0,
+      "magnitude": 4.9,
+      "magnitude_type": "ML",
+      "place": "Aftershock zone"
+    },
+    {
+      "event_id": "usgs_ven_2026_fore1",
+      "source_event_id": "us7000abf0",
+      "datetime_utc": "2026-06-10 08:00:00",
+      "latitude": 10.60,
+      "longitude": -62.65,
+      "depth_km": 18.0,
+      "magnitude": 4.5,
+      "magnitude_type": "ML",
+      "place": "Foreshock candidate"
+    },
+    {
+      "event_id": "usgs_col_1999_ref",
+      "source_event_id": "us7000col99",
+      "datetime_utc": "1999-01-25 18:22:00",
+      "latitude": 4.75,
+      "longitude": -75.82,
+      "depth_km": 17.0,
+      "magnitude": 6.2,
+      "magnitude_type": "Mw",
+      "place": "Colombia reference"
+    },
+    {
+      "event_id": "usgs_background_1",
+      "source_event_id": "us7000bg01",
+      "datetime_utc": "2025-12-01 10:00:00",
+      "latitude": 9.0,
+      "longitude": -64.0,
+      "depth_km": 25.0,
+      "magnitude": 4.0,
+      "magnitude_type": "ML",
+      "place": "Venezuela interior"
+    }
+  ]
+}

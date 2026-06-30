@@ -19,7 +19,8 @@
     "landslide_instability",
     "population_density",
     "sources",
-    "advanced_features"
+    "advanced_features",
+    "compound_risk_model"
   ],
   "properties": {
     "event_id": { "type": "string" },
@@ -108,6 +109,32 @@
             "distance_to_fault_km": { "type": "number" },
             "estimated_slip_rate_mm_per_year": { "type": "number" },
             "pga_g": { "type": ["number", "null"] },
+            "pga_measurement_quality": {
+              "type": "string",
+              "enum": [
+                "instrumented_strong_motion",
+                "estimated_indirect",
+                "unknown"
+              ]
+            },
+            "pga_calibration_bias_warning": { "type": "string" },
+            "pga_station_estimates": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["location", "pga_g", "estimate_method", "source"],
+                "properties": {
+                  "location": { "type": "string" },
+                  "pga_g": { "type": "number" },
+                  "pga_g_min": { "type": "number" },
+                  "pga_g_max": { "type": "number" },
+                  "site_class": { "type": "string" },
+                  "estimate_method": { "type": "string" },
+                  "source": { "type": "string" },
+                  "notes": { "type": "string" }
+                }
+              }
+            },
             "pgv_cm_per_s": { "type": ["number", "null"] },
             "mmi_intensity": { "type": "string" },
             "aftershock_count": { "type": "integer" },
@@ -124,6 +151,11 @@
             "vs30_m_per_s",
             "slope_degrees",
             "sedimentary_basin",
+            "location_geology_context",
+            "nearby_geological_faults",
+            "nearby_tectonic_plates",
+            "faults_average_seismic_activity_events_per_year",
+            "fault_linked_relevant_events",
             "liquefaction_likelihood",
             "landslide_susceptibility",
             "distance_to_coast_or_rivers_km"
@@ -134,6 +166,30 @@
             "vs30_m_per_s": { "type": "number" },
             "slope_degrees": { "type": "number" },
             "sedimentary_basin": { "type": "string" },
+            "location_geology_context": { "type": "string" },
+            "nearby_geological_faults": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "nearby_tectonic_plates": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "faults_average_seismic_activity_events_per_year": { "type": "number" },
+            "fault_linked_relevant_events": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["event_name", "event_year", "magnitude_mw", "linked_fault"],
+                "properties": {
+                  "event_name": { "type": "string" },
+                  "event_year": { "type": "integer" },
+                  "magnitude_mw": { "type": "number" },
+                  "linked_fault": { "type": "string" },
+                  "notes": { "type": "string" }
+                }
+              }
+            },
             "liquefaction_likelihood": { "type": "string" },
             "landslide_susceptibility": { "type": "string" },
             "distance_to_coast_or_rivers_km": { "type": "number" }
@@ -185,6 +241,71 @@
             "ports_airports_access": { "type": "string" },
             "schools_count": { "type": "integer" },
             "critical_infrastructure": { "type": "string" }
+          }
+        }
+      }
+    },
+    "compound_risk_model": {
+      "type": "object",
+      "required": [
+        "model_type",
+        "component_scores",
+        "risk_score_total",
+        "risk_category",
+        "derived_outputs"
+      ],
+      "properties": {
+        "model_type": { "type": "string" },
+        "component_scores": {
+          "type": "object",
+          "required": [
+            "seismic_hazard",
+            "human_exposure",
+            "structural_vulnerability",
+            "geotechnical_vulnerability",
+            "climatic_conditions",
+            "infrastructure_criticality"
+          ],
+          "properties": {
+            "seismic_hazard": { "type": "number" },
+            "human_exposure": { "type": "number" },
+            "structural_vulnerability": { "type": "number" },
+            "geotechnical_vulnerability": { "type": "number" },
+            "climatic_conditions": { "type": "number" },
+            "infrastructure_criticality": { "type": "number" }
+          }
+        },
+        "component_weights": {
+          "type": "object",
+          "properties": {
+            "seismic_hazard": { "type": "number" },
+            "human_exposure": { "type": "number" },
+            "structural_vulnerability": { "type": "number" },
+            "geotechnical_vulnerability": { "type": "number" },
+            "climatic_conditions": { "type": "number" },
+            "infrastructure_criticality": { "type": "number" }
+          }
+        },
+        "risk_score_total": { "type": "number" },
+        "risk_category": {
+          "type": "string",
+          "enum": ["riesgo_bajo", "riesgo_medio", "riesgo_alto", "riesgo_critico"]
+        },
+        "derived_outputs": {
+          "type": "object",
+          "required": [
+            "probability_strong_aftershock",
+            "probability_structural_damage",
+            "probability_landslide",
+            "population_exposure_index",
+            "relative_urban_collapse_index"
+          ],
+          "properties": {
+            "probability_strong_aftershock": { "type": "number" },
+            "probability_structural_damage": { "type": "number" },
+            "probability_landslide": { "type": "number" },
+            "population_exposure_index": { "type": "number" },
+            "relative_urban_collapse_index": { "type": "number" }
           }
         }
       }

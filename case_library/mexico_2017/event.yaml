@@ -28,6 +28,30 @@ similar_magnitude_probability_dates:
       days_after_main: 4
       magnitude_mw: 5.9
       notes: "Mayor replica instrumental de la secuencia"
+compound_risk_model:
+  model_type: "ensemble_jerarquico"
+  component_scores:
+    seismic_hazard: 0.79
+    human_exposure: 0.93
+    structural_vulnerability: 0.69
+    geotechnical_vulnerability: 0.58
+    climatic_conditions: 0.44
+    infrastructure_criticality: 0.82
+  component_weights:
+    seismic_hazard: 0.24
+    human_exposure: 0.2
+    structural_vulnerability: 0.18
+    geotechnical_vulnerability: 0.14
+    climatic_conditions: 0.1
+    infrastructure_criticality: 0.14
+  risk_score_total: 74.8
+  risk_category: "riesgo_alto"
+  derived_outputs:
+    probability_strong_aftershock: 0.36
+    probability_structural_damage: 0.71
+    probability_landslide: 0.27
+    population_exposure_index: 0.89
+    relative_urban_collapse_index: 0.69
 advanced_features:
   seismic:
     magnitude_mw: 7.1
@@ -48,6 +72,27 @@ advanced_features:
     vs30_m_per_s: 200.0
     slope_degrees: 5.0
     sedimentary_basin: "Cuenca de Mexico (lago antiguo)"
+    location_geology_context: "Cuenca lacustre compresible con fuerte amplificacion sismica y rellenos urbanos"
+    nearby_geological_faults:
+      - "Middle America Trench Subduction Interface"
+      - "Puebla-Morelos Intraslab Zone"
+    nearby_tectonic_plates:
+      - "Cocos Plate"
+      - "North American Plate"
+    faults_average_seismic_activity_events_per_year: 2.2
+    fault_linked_relevant_events:
+      - event_name: "Michoacan Earthquake"
+        event_year: 1985
+        magnitude_mw: 8.0
+        linked_fault: "Middle America Trench Subduction Interface"
+      - event_name: "Colima-Jalisco Earthquake"
+        event_year: 1995
+        magnitude_mw: 8.0
+        linked_fault: "Middle America Trench Subduction Interface"
+      - event_name: "Michoacan Earthquake"
+        event_year: 2022
+        magnitude_mw: 7.6
+        linked_fault: "Middle America Trench Subduction Interface"
     liquefaction_likelihood: "Alta en arcillas lacustres"
     landslide_susceptibility: "Baja en planicie urbana"
     distance_to_coast_or_rivers_km: 300.0

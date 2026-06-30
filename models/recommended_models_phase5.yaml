@@ -1,0 +1,23 @@
+sismicidad:
+  - ETAS
+  - Omori-Utsu
+  - Gutenberg-Richter
+  - Bayesian hierarchical models
+  - Hawkes processes
+  - Spatio-temporal clustering
+
+riesgo_territorial:
+  - XGBoost
+  - LightGBM
+  - Random Forest
+  - Bayesian networks
+  - Graph Neural Networks
+  - Gaussian Processes espaciales
+  - Modelos geoespaciales con PySAL
+
+incertidumbre:
+  - Monte Carlo
+  - Bayesian inference
+  - Quantile regression
+  - Conformal prediction
+  - Sensitivity analysis

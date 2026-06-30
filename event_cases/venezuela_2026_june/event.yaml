@@ -58,6 +58,28 @@ advanced_features:
     vs30_m_per_s: 300.0
     slope_degrees: 15.0
     sedimentary_basin: "Presencia de cuencas locales en valles urbanos"
+    location_geology_context: "Valles aluviales urbanizados sobre basamento fracturado cercano a fallas activas"
+    nearby_geological_faults:
+      - "Bocono Fault"
+      - "San Sebastian Fault"
+      - "El Pilar Fault"
+    nearby_tectonic_plates:
+      - "Caribbean Plate"
+      - "South American Plate"
+    faults_average_seismic_activity_events_per_year: 1.6
+    fault_linked_relevant_events:
+      - event_name: "Venezuela Earthquake"
+        event_year: 1812
+        magnitude_mw: 7.7
+        linked_fault: "Bocono Fault system"
+      - event_name: "Caracas Earthquake"
+        event_year: 1967
+        magnitude_mw: 6.5
+        linked_fault: "San Sebastian Fault"
+      - event_name: "Cariaco Earthquake"
+        event_year: 1997
+        magnitude_mw: 6.9
+        linked_fault: "El Pilar Fault"
     liquefaction_likelihood: "Moderada en rellenos y aluviales"
     landslide_susceptibility: "Alta en laderas urbanas y periurbanas"
     distance_to_coast_or_rivers_km: 12.0
@@ -80,8 +102,35 @@ advanced_features:
     ports_airports_access: "Corredor portuario y aeroportuario cercano"
     schools_count: 420
     critical_infrastructure: "Hospitales, subestaciones, vias troncales, telecom"
+compound_risk_model:
+  model_type: "ensemble_jerarquico"
+  component_scores:
+    seismic_hazard: 0.88
+    human_exposure: 0.86
+    structural_vulnerability: 0.72
+    geotechnical_vulnerability: 0.74
+    climatic_conditions: 0.68
+    infrastructure_criticality: 0.82
+  component_weights:
+    seismic_hazard: 0.24
+    human_exposure: 0.2
+    structural_vulnerability: 0.18
+    geotechnical_vulnerability: 0.14
+    climatic_conditions: 0.1
+    infrastructure_criticality: 0.14
+  risk_score_total: 79.4
+  risk_category: "riesgo_alto"
+  derived_outputs:
+    probability_strong_aftershock: 0.41
+    probability_structural_damage: 0.69
+    probability_landslide: 0.58
+    population_exposure_index: 0.84
+    relative_urban_collapse_index: 0.63
 sources:
-  - "USGS: M7.2 foreshock (22:04:33 UTC) y M7.5 mainshock (22:05:11 UTC), epicentro cerca de Yumare."
-  - "GFZ: relacion con limite Caribe-Suramerica y fallas Bocono/San Sebastian/El Pilar."
-  - "Eos/USGS: Caracas a ~300 km del epicentro; sacudida violenta en zona metropolitana."
+  - "USGS us6000t7zc: M7.2 foreshock (2026-06-24T22:04:33Z), 23 km SE Yumare; redes us+at."
+  - "USGS us6000t7zp: M7.5 mainshock (2026-06-24T22:05:11Z), 28 km SE Yumare; MMI~9.0, felt=659."
+  - "USGS FDSN: 7 replicas M>=4.0 adicionales entre 2026-06-25 y 2026-06-29 (ver docs/venezuela_2026_international_catalog_verification.json)."
+  - "GFZ (citado tectonica): sin eventos en respuesta FDSN Geofon para bbox 2026-06-24/25 al 2026-06-29."
+  - "EMSC: sin eventos en respuesta FDSN para bbox 2026-06-24/25 al 2026-06-29."
+  - "Eos/USGS: Caracas ~300 km del epicentro; sacudida violenta en zona metropolitana."
 

@@ -1,0 +1,39 @@
+{
+  "events": [
+    {
+      "event_id": "funvisis_ven_2026_main_dup",
+      "source_event_id": "funv-2026-0624-001",
+      "datetime_utc": "2026-06-24 12:00:45",
+      "latitude": 10.51,
+      "longitude": -62.79,
+      "depth_km": 12.0,
+      "magnitude": 7.3,
+      "magnitude_type": "Mw",
+      "place": "Frente costero oriental Venezuela",
+      "rake": 85,
+      "moment_tensor_available": true
+    },
+    {
+      "event_id": "funvisis_ven_2026_as1",
+      "source_event_id": "funv-2026-0624-002",
+      "datetime_utc": "2026-06-24 19:00:00",
+      "latitude": 10.47,
+      "longitude": -62.86,
+      "depth_km": 11.0,
+      "magnitude": 5.7,
+      "magnitude_type": "Mw",
+      "place": "Réplica reportada FUNVISIS"
+    },
+    {
+      "event_id": "funvisis_background_1",
+      "source_event_id": "funv-2025-1201",
+      "datetime_utc": "2025-11-28 14:00:00",
+      "latitude": 8.5,
+      "longitude": -63.5,
+      "depth_km": 20.0,
+      "magnitude": 3.8,
+      "magnitude_type": "ML",
+      "place": "Región central"
+    }
+  ]
+}

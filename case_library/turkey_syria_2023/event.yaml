@@ -32,6 +32,30 @@ similar_magnitude_probability_dates:
       days_after_main: 14
       magnitude_mw: 6.4
       notes: "Pico de replica mas alta posteriores al doblete"
+compound_risk_model:
+  model_type: "ensemble_jerarquico"
+  component_scores:
+    seismic_hazard: 0.9
+    human_exposure: 0.84
+    structural_vulnerability: 0.88
+    geotechnical_vulnerability: 0.73
+    climatic_conditions: 0.41
+    infrastructure_criticality: 0.86
+  component_weights:
+    seismic_hazard: 0.24
+    human_exposure: 0.2
+    structural_vulnerability: 0.18
+    geotechnical_vulnerability: 0.14
+    climatic_conditions: 0.1
+    infrastructure_criticality: 0.14
+  risk_score_total: 91.2
+  risk_category: "riesgo_critico"
+  derived_outputs:
+    probability_strong_aftershock: 0.67
+    probability_structural_damage: 0.87
+    probability_landslide: 0.64
+    population_exposure_index: 0.85
+    relative_urban_collapse_index: 0.83
 advanced_features:
   seismic:
     magnitude_mw: 7.8
@@ -52,6 +76,28 @@ advanced_features:
     vs30_m_per_s: 340.0
     slope_degrees: 11.0
     sedimentary_basin: "Cuencas sedimentarias de Gaziantep y Hatay"
+    location_geology_context: "Cuencas neogenas y rellenos urbanos alineados al sistema de falla de Anatolia Oriental"
+    nearby_geological_faults:
+      - "East Anatolian Fault"
+      - "Dead Sea Transform"
+    nearby_tectonic_plates:
+      - "Anatolian Plate"
+      - "Arabian Plate"
+      - "Eurasian Plate"
+    faults_average_seismic_activity_events_per_year: 2.9
+    fault_linked_relevant_events:
+      - event_name: "Aleppo-Antakya Historical Earthquake"
+        event_year: 1822
+        magnitude_mw: 7.0
+        linked_fault: "East Anatolian Fault"
+      - event_name: "Amik Basin Earthquake"
+        event_year: 1872
+        magnitude_mw: 7.2
+        linked_fault: "Dead Sea Transform"
+      - event_name: "Elazig Earthquake"
+        event_year: 2020
+        magnitude_mw: 6.8
+        linked_fault: "East Anatolian Fault"
     liquefaction_likelihood: "Moderada-alta en rellenos"
     landslide_susceptibility: "Alta en sectores montanos"
     distance_to_coast_or_rivers_km: 40.0

@@ -1,0 +1,155 @@
+case_id: venezuela_1967
+event_name: Caracas Earthquake 1967
+country_or_region: Venezuela
+magnitude_mw: 6.6
+depth_km: 23.0
+fault_type: "Strike-slip (San Sebastian Fault, margen Caribe-Suramerica)"
+distance_to_cities_km: 32.0
+soil_type: "Sedimentos aluviales y rellenos urbanos en cuenca de Caracas"
+population_density: "Alta en area metropolitana de Caracas"
+construction_quality: "Heterogenea; edificios altos vulnerables pre-norma moderna"
+event_time_local: "20:00:04 VET (1967-07-29)"
+event_duration_total:
+  value: 35
+  unit: seconds
+  notes: "Duracion reportada en campo; ruptura compleja con multiples subeventos en ~65 s (Schmitt et al. 1990)"
+aftershocks_summary: "Secuencia de replicas documentada; mayor replica ~40 min post-main a ~50 km al este (Schmitt et al. 1990 JGR); conteo total estimado de catalogo regional"
+landslides: "Localizados en laderas; no el modo dominante de dano"
+tsunami: "No reportado"
+mortality_and_damage: "~240 muertos, ~1,536 heridos y ~80,000 damnificados; colapso de edificios de 10-12 pisos en Altamira y Los Palos Grandes; danos > US$100M (1967)"
+institutional_response: "Operaciones de rescate nacional; informe NAS (Sozen et al. 1968) sin acelerogramas fuertes en Caracas"
+similar_magnitude_probability_dates:
+  main_event_date: "1967-07-29"
+  sequence_end_date: "1967-08-28"
+  reference_magnitude_mw: 6.6
+  magnitude_similarity_delta_mw: 1.0
+  highest_magnitude_events:
+    - event_date: "1967-07-29"
+      days_after_main: 0
+      magnitude_mw: 5.4
+      notes: "Mayor replica ~40 min post-main; magnitud estimada (Schmitt et al. 1990; sin Mw instrumental publicado)"
+    - event_date: "1967-07-30"
+      days_after_main: 1
+      magnitude_mw: 5.0
+      notes: "Replica documentada en secuencia post-1967-07-29 (estimada)"
+compound_risk_model:
+  model_type: "ensemble_jerarquico"
+  component_scores:
+    seismic_hazard: 0.84
+    human_exposure: 0.78
+    structural_vulnerability: 0.90
+    geotechnical_vulnerability: 0.72
+    climatic_conditions: 0.40
+    infrastructure_criticality: 0.76
+  component_weights:
+    seismic_hazard: 0.24
+    human_exposure: 0.2
+    structural_vulnerability: 0.18
+    geotechnical_vulnerability: 0.14
+    climatic_conditions: 0.1
+    infrastructure_criticality: 0.14
+  risk_score_total: 81.2
+  risk_category: "riesgo_alto"
+  derived_outputs:
+    probability_strong_aftershock: 0.39
+    probability_structural_damage: 0.85
+    probability_landslide: 0.52
+    population_exposure_index: 0.76
+    relative_urban_collapse_index: 0.79
+advanced_features:
+  seismic:
+    magnitude_mw: 6.6
+    depth_km: 23.0
+    focal_mechanism: "Strike-slip (San Sebastian Fault; ruptura multi-segmento E-W)"
+    distance_to_fault_km: 12.0
+    estimated_slip_rate_mm_per_year: 8.0
+    pga_g: 0.08
+    pga_measurement_quality: "estimated_indirect"
+    pga_calibration_bias_warning: "No usar PGA 1967 para calibrar proyecciones forward 2026: sin acelerogramas fuertes, estimaciones NAS indirectas (sesgo de sitio y metodo)."
+    pga_station_estimates:
+      - location: "Los Palos Grandes (LPG-A, edificio Covent Garden)"
+        pga_g: 0.07
+        pga_g_min: 0.06
+        pga_g_max: 0.08
+        site_class: "aluvion profundo"
+        estimate_method: "analisis_estructural_pergola"
+        source: "Sozen et al. (1968) NAS Engineering Report"
+        notes: "Estimacion NAS por dano/analisis de pergola; no acelerografo fuerte"
+      - location: "Valle metropolitano de Caracas"
+        pga_g: 0.08
+        site_class: "mixto urbano"
+        estimate_method: "sintesis_informe_NAS"
+        source: "Sozen et al. (1968) NAS; NIST NEHRP review PB80119027"
+        notes: "PGA no medida directamente; valor probable citado para el valle"
+      - location: "Observatorio Cajigal (roca firme)"
+        pga_g: 0.071
+        pga_g_min: 0.012
+        pga_g_max: 0.071
+        site_class: "roca firme"
+        estimate_method: "sismoscopio_Cajigal"
+        source: "Fiedler; citado en Alonso (2017) Redalyc / revision post-evento"
+        notes: "Unico registro instrumental local fue sismoscopio, no acelerografo"
+      - location: "Superficie aluvial Caracas (Skinner 1967)"
+        pga_g: 0.10
+        pga_g_min: 0.05
+        pga_g_max: 0.10
+        site_class: "aluvion"
+        estimate_method: "consistencia_dano_estructural"
+        source: "Skinner (1967) NAS companion study"
+        notes: "0.05 g roca firme y 0.10 g superficie aluvial"
+    pgv_cm_per_s: null
+    mmi_intensity: "IX (Violent) Los Palos Grandes/Altamira; VI-VII valle promedio (NAS)"
+    aftershock_count: 28
+    omori_decay_p: 1.0
+    gutenberg_richter_b_value: 0.92
+    local_seismic_density: "Alta en falla San Sebastian"
+  geological_geotechnical:
+    soil_type: "Sedimentos aluviales y rellenos urbanos en cuenca de Caracas"
+    lithology: "Sedimentos cuaternarios sobre basamento metamorfico"
+    vs30_m_per_s: 290.0
+    slope_degrees: 14.0
+    sedimentary_basin: "Cuenca de Caracas y valles costeros"
+    location_geology_context: "Area metropolitana sobre cuenca sedimentaria y falla San Sebastian activa al norte"
+    nearby_geological_faults:
+      - "San Sebastian Fault"
+      - "Bocono Fault"
+      - "El Pilar Fault"
+    nearby_tectonic_plates:
+      - "Caribbean Plate"
+      - "South American Plate"
+    faults_average_seismic_activity_events_per_year: 1.5
+    fault_linked_relevant_events:
+      - event_name: "Venezuela Earthquake"
+        event_year: 1812
+        magnitude_mw: 7.7
+        linked_fault: "Bocono Fault system"
+      - event_name: "Cariaco Earthquake"
+        event_year: 1997
+        magnitude_mw: 6.9
+        linked_fault: "El Pilar Fault"
+      - event_name: "Venezuela Sequence"
+        event_year: 2026
+        magnitude_mw: 7.5
+        linked_fault: "San Sebastian / El Pilar system"
+    liquefaction_likelihood: "Moderada en rellenos y suelos blandos urbanos"
+    landslide_susceptibility: "Moderada-alta en laderas periurbanas"
+    distance_to_coast_or_rivers_km: 8.0
+  climatic:
+    rainfall_7d_mm: 40.0
+    rainfall_15d_mm: 75.0
+    rainfall_30d_mm: 110.0
+    soil_moisture_index: 0.55
+    extreme_events: "Estacion lluviosa; sin evento climatico extremo co-reportado"
+    terrain_saturation: "Media-alta"
+    mass_movement_risk: "Moderado en taludes"
+  human_urban:
+    exposed_population: 1200000
+    urban_density: "Alta en Caracas, Altamira, Los Palos Grandes y Litoral Central"
+    building_type: "Concreto y mamposteria; edificios altos pre-norma sismica moderna"
+    average_building_height_m: 10.0
+    construction_age_profile: "Stock urbano vulnerable de mediados del siglo XX"
+    hospitals_count: 18
+    primary_roads_density_km_per_km2: 4.8
+    ports_airports_access: "Puerto La Guaira y aeropuerto Maiquetia"
+    schools_count: 180
+    critical_infrastructure: "Hospitales, vias troncales, edificios publicos, telecom"

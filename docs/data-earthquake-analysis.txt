@@ -32,4 +32,13 @@ python3 scripts/evaluate_phase2.py --full
 python3 scripts/evaluate_phase3.py --full
 python3 scripts/evaluate_all.py --full
 
-3- 
+3- interface grafica fase 1 a la 3
+python3 -m pip install -e ".[ui]"
+make ui
+make ui-uvicorn
+
+4- layer Capa A
+make ui                    # :7860 con ambas pestañas
+make layer-a-ui            # :7861 solo Capa A (opcional)
+
+5- 

@@ -21,7 +21,7 @@ def _run(script_name: str, extra_args: list[str] | None = None) -> int:
 
 def main() -> int:
     parser = argparse.ArgumentParser(
-        description="Ejecuta evaluaciones de Fase 1, Fase 2 y Fase 3."
+        description="Ejecuta evaluaciones de Fase 1, Fase 2, Fase 3, Fase 4 y Fase 5."
     )
     parser.add_argument(
         "--full",
@@ -38,11 +38,14 @@ def main() -> int:
 
     phase_args = ["--full"] if args.full else []
     phase3_args = [*phase_args, "--fail-under", str(args.fail_under)]
+    phase4_args = [*phase_args, "--fail-under", str(args.fail_under)]
 
     results = {
         "phase1": _run("evaluate_phase1.py", phase_args),
         "phase2": _run("evaluate_phase2.py", phase_args),
         "phase3": _run("evaluate_phase3.py", phase3_args),
+        "phase4": _run("evaluate_phase4.py", phase4_args),
+        "phase5": _run("evaluate_phase5.py"),
     }
 
     print("\nSummary")
