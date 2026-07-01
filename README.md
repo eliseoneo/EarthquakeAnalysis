@@ -312,7 +312,56 @@ La interfaz principal (`make ui`, puerto 7860) organiza pestañas:
    - Efectividad del modelo (hindcast en eventos anteriores, días subsiguientes observados)
    - Calibración automática (K, b) + proyección ajustada para `venezuela_2026`
 2. **Análisis comparativo (Fases 1-5)**: barras, dispersión, riesgo, geología, PGA
-3. **Capa A — Tectónica** y **Capa B — Geofísica Ambiental**
+3. **Calculo y Estimacion Internacional** (nuevo layout Fases 1-8):
+   - Fuentes internacionales: USGS, INGV, SGC
+   - Foco geografico: Venezuela (filtro geoespacial)
+   - Evento anomalo de referencia: 2026-06-26
+   - Fase 2.2: placeholders InSAR/GNSS (VSR/SSR/NSR)
+   - Salida de similitud por ventana contra el patron anomalo
+4. **Capa A — Tectónica** y **Capa B — Geofísica Ambiental**
+
+## Layout Internacional (Venezuela)
+
+El layout **Calculo y Estimacion Internacional** implementa un flujo metodologico en 8 fases para estimacion dual:
+
+- Clasificacion binaria: probabilidad de ocurrencia de evento con magnitud por encima del umbral.
+- Regresion: magnitud maxima esperada por ventana temporal.
+
+Elementos clave del layout:
+
+- Fase 1: configuracion de lookback, ventana, stride y horizonte.
+- Fase 2: feature engineering sismico por ventana.
+- Fase 2.2: placeholders tecnicos InSAR/GNSS (`vsr_mm_per_year`, `ssr_mm_per_year`, `nsr_mm_per_year`).
+- Fases 3-5: entrenamiento y prediccion (clasificacion + regresion).
+- Fases 6-7: metricas de validacion pseudo-prospectiva.
+- Fase 8: importancia de variables y ablacion.
+- Tabla de similitud: similitud coseno de cada ventana de prueba respecto a la ventana anomala (2026-06-26).
+
+Ejecucion por UI:
+
+```bash
+make ui
+```
+
+Ejecucion por CLI (sin UI):
+
+```bash
+python3 scripts/run_international_estimation.py \
+  --as-of 2026-06-30 \
+  --lookback-days 900 \
+  --window-days 120 \
+  --stride-days 20 \
+  --horizon-days 40 \
+  --threshold-magnitude 4.8 \
+  --min-magnitude 2.5
+
+# atajo Make
+make international-estimation
+```
+
+Salidas del flujo internacional:
+
+- `storage/venezuela/international/YYYY/MM/DD/international_estimation_<timestamp>.json`
 
 Persistencia Capa A/B (nuevo, mismo patrón de índices + latest):
 
