@@ -10,7 +10,23 @@ from pydantic import BaseModel, Field
 from layer_a.formatting import format_datetime_utc
 
 
-class SeismicEvent(BaseModel):
+class CompatBaseModel(BaseModel):
+    """Pydantic v1/v2 compatibility shim used across Layer A models."""
+
+    def model_dump(self, *args: Any, **kwargs: Any) -> dict[str, Any]:
+        base = super()
+        if hasattr(base, "model_dump"):
+            return base.model_dump(*args, **kwargs)
+        return self.dict(*args, **kwargs)
+
+    def model_copy(self, *args: Any, **kwargs: Any) -> Any:
+        base = super()
+        if hasattr(base, "model_copy"):
+            return base.model_copy(*args, **kwargs)
+        return self.copy(*args, **kwargs)
+
+
+class SeismicEvent(CompatBaseModel):
     event_id: str
     source: str
     source_event_id: str
@@ -79,7 +95,7 @@ class SeismicEvent(BaseModel):
         return data
 
 
-class DoubletCandidate(BaseModel):
+class DoubletCandidate(CompatBaseModel):
     doublet_id: str
     event_id_1: str
     event_id_2: str
@@ -93,7 +109,7 @@ class DoubletCandidate(BaseModel):
     classification: str
 
 
-class AftershockSequence(BaseModel):
+class AftershockSequence(CompatBaseModel):
     mainshock_id: str
     aftershock_ids: list[str]
     aftershock_count_3d: int
@@ -106,7 +122,7 @@ class AftershockSequence(BaseModel):
     spatial_dispersion_km: float | None
 
 
-class TectonicIndexRecord(BaseModel):
+class TectonicIndexRecord(CompatBaseModel):
     event_id: str
     tectonic_activity_index: str
     fault_proximity_index: str

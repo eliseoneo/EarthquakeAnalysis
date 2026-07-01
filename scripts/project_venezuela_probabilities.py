@@ -4,6 +4,7 @@ from __future__ import annotations
 import argparse
 import csv
 import json
+import io
 import sys
 import urllib.parse
 import urllib.request
@@ -17,6 +18,7 @@ if str(SCRIPT_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPT_DIR))
 
 from validation import ROOT, load_yaml
+from persistence_store import write_projection_artifacts
 from projection_model import (
     MAGNITUDE_MIN_REFERENCE,
     OMORI_C_DAYS,
@@ -215,7 +217,7 @@ def _download_usgs_events(
     return rows, f"ok ({len(rows)} eventos)"
 
 
-def _write_events_csv(path: Path, rows: list[dict[str, Any]]) -> None:
+def _events_csv_text(rows: list[dict[str, Any]]) -> str:
     headers = [
         "source",
         "event_date",
@@ -226,11 +228,12 @@ def _write_events_csv(path: Path, rows: list[dict[str, Any]]) -> None:
         "longitude",
         "depth_km",
     ]
-    with path.open("w", newline="", encoding="utf-8") as fh:
-        writer = csv.DictWriter(fh, fieldnames=headers)
-        writer.writeheader()
-        for row in rows:
-            writer.writerow({key: row.get(key, "") for key in headers})
+    out = io.StringIO(newline="")
+    writer = csv.DictWriter(out, fieldnames=headers)
+    writer.writeheader()
+    for row in rows:
+        writer.writerow({key: row.get(key, "") for key in headers})
+    return out.getvalue()
 
 
 def main() -> int:
@@ -318,11 +321,7 @@ def main() -> int:
         except Exception as exc:  # noqa: BLE001
             usgs_status = f"failed ({type(exc).__name__}: {exc})"
 
-    docs_dir = ROOT / "docs"
-    docs_dir.mkdir(parents=True, exist_ok=True)
-    base_name = f"venezuela_projection_{as_of_date.isoformat()}"
-    json_path = docs_dir / f"{base_name}.json"
-    csv_path = docs_dir / f"{base_name}_events.csv"
+    csv_content = _events_csv_text(event_rows)
 
     report = {
         "as_of_date": as_of_date.isoformat(),
@@ -351,11 +350,11 @@ def main() -> int:
         },
         "projection": projections,
         "usgs_download_status": usgs_status,
-        "events_file": str(csv_path.relative_to(ROOT)),
+        "events_file": f"docs/venezuela_projection_{as_of_date.isoformat()}_events.csv",
     }
 
-    json_path.write_text(json.dumps(report, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
-    _write_events_csv(csv_path, event_rows)
+    paths = write_projection_artifacts(as_of_date, report, csv_content)
+    report["events_file"] = str(paths.docs_csv.relative_to(ROOT))
 
     print(json.dumps(report, indent=2, ensure_ascii=False))
     return 0

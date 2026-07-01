@@ -48,6 +48,16 @@ def main() -> int:
         action="store_true",
         help="Descargar catálogo USGS FDSN a layer_a_tectonic/data/raw/ antes del pipeline",
     )
+    parser.add_argument(
+        "--download-ingv",
+        action="store_true",
+        help="Descargar catálogo INGV a layer_a_tectonic/data/raw/ antes del pipeline",
+    )
+    parser.add_argument(
+        "--download-sgc",
+        action="store_true",
+        help="Descargar catálogo SGC a layer_a_tectonic/data/raw/ antes del pipeline",
+    )
     args = parser.parse_args()
 
     use_fixtures = not args.no_fixtures
@@ -56,6 +66,8 @@ def main() -> int:
         output_dir=args.output_dir,
         use_fixtures=use_fixtures,
         download_usgs=args.download_usgs,
+        download_ingv=args.download_ingv,
+        download_sgc=args.download_sgc,
     )
     print(json.dumps(summary, indent=2, default=str))
     return 0

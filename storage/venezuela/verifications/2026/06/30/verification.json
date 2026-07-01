@@ -1,0 +1,72 @@
+{
+  "verification_date": "2026-06-30",
+  "comparison": {
+    "estimate_source_date": "2026-06-29",
+    "estimate_source_file": "docs/venezuela_projection_2026-06-29.json",
+    "real_values_date": "2026-06-30"
+  },
+  "model_incremental_prediction_1d": {
+    "from_date": "2026-06-29",
+    "to_date": "2026-06-30",
+    "additional_expected_aftershocks": 5.835667,
+    "probabilities_by_threshold": {
+      "M>=4.0": 0.997079,
+      "M>=5.0": 0.520335,
+      "M>=6.0": 0.088341
+    }
+  },
+  "observed_real_values_today": {
+    "source": "USGS FDSN GeoJSON",
+    "query_url": "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2026-06-30&endtime=2026-07-01&minlatitude=0.0&maxlatitude=13.5&minlongitude=-74.5&maxlongitude=-59.5&orderby=time-asc&limit=20000",
+    "events_count_all_magnitudes": 0,
+    "max_magnitude_mw": null,
+    "events_count_m_ge_4_0": 0,
+    "events_count_m_ge_5_0": 0,
+    "events_count_m_ge_6_0": 0
+  },
+  "effectiveness_metrics": {
+    "threshold_metrics": [
+      {
+        "threshold_mw": 4.0,
+        "predicted_probability": 0.997079,
+        "observed_event_reached": false,
+        "observed_binary": 0,
+        "predicted_binary_at_0_5": 1,
+        "hit": false,
+        "brier_score": 0.994166,
+        "absolute_error": 0.997079
+      },
+      {
+        "threshold_mw": 5.0,
+        "predicted_probability": 0.520335,
+        "observed_event_reached": false,
+        "observed_binary": 0,
+        "predicted_binary_at_0_5": 1,
+        "hit": false,
+        "brier_score": 0.270748,
+        "absolute_error": 0.520335
+      },
+      {
+        "threshold_mw": 6.0,
+        "predicted_probability": 0.088341,
+        "observed_event_reached": false,
+        "observed_binary": 0,
+        "predicted_binary_at_0_5": 0,
+        "hit": true,
+        "brier_score": 0.007804,
+        "absolute_error": 0.088341
+      }
+    ],
+    "mean_brier_score": 0.424239,
+    "mean_absolute_error": 0.535252,
+    "binary_accuracy_at_0_5_threshold": 0.333333
+  },
+  "interpretation": {
+    "summary": "Verificacion diaria generada con comparacion entre estimacion del dia previo y observacion real del dia actual en bbox Venezuela.",
+    "generated_at_utc": "2026-07-01T01:13:39.040177+00:00"
+  },
+  "persistence": {
+    "store_json": "storage/venezuela/verifications/2026/06/30/verification.json",
+    "latest_json": "storage/venezuela/verifications/latest/verification.json"
+  }
+}

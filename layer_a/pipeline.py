@@ -10,6 +10,8 @@ from layer_a.config import load_config
 from layer_a.formatting import parse_datetime_utc
 from layer_a.geospatial.spatial_join import associate_faults_and_plates
 from layer_a.ingestion.catalog_loader import load_raw_or_fixture
+from layer_a.ingestion.ingv_client import download_and_save_ingv
+from layer_a.ingestion.sgc_client import download_and_save_sgc
 from layer_a.ingestion.usgs_client import download_and_save_usgs
 from layer_a.models import SeismicEvent
 from layer_a.normalization.event_normalizer import normalize_catalog
@@ -19,6 +21,7 @@ from layer_a.output.writers import (
     write_mainshock_report,
     write_parquet_records,
 )
+from layer_a.persistence import persist_run
 from layer_a.paths import FIXTURES_DIR, PROCESSED_DIR, REPORTS_DIR
 from layer_a.quality.deduplication import deduplicate_events
 from layer_a.tectonic.aftershocks import apply_aftershock_metrics, detect_aftershocks
@@ -60,17 +63,33 @@ def run_pipeline(
     output_dir: Path | None = None,
     use_fixtures: bool = True,
     download_usgs: bool = False,
+    download_ingv: bool = False,
+    download_sgc: bool = False,
 ) -> dict[str, Any]:
     config = load_config(config_path)
     out = output_dir or PROCESSED_DIR
     out.mkdir(parents=True, exist_ok=True)
 
     usgs_download_status = "skipped"
+    ingv_download_status = "skipped"
+    sgc_download_status = "skipped"
     if download_usgs:
         try:
             _, usgs_download_status = download_and_save_usgs(config)
         except Exception as exc:
             usgs_download_status = f"failed ({type(exc).__name__}: {exc})"
+
+    if download_ingv:
+        try:
+            _, ingv_download_status = download_and_save_ingv(config)
+        except Exception as exc:
+            ingv_download_status = f"failed ({type(exc).__name__}: {exc})"
+
+    if download_sgc:
+        try:
+            _, sgc_download_status = download_and_save_sgc(config)
+        except Exception as exc:
+            sgc_download_status = f"failed ({type(exc).__name__}: {exc})"
 
     raw_by_source: dict[str, list[dict[str, Any]]] = {}
     for source in config["catalog"]["sources"]:
@@ -153,6 +172,8 @@ def run_pipeline(
     summary = {
         "layer": "A_tectonic",
         "usgs_download_status": usgs_download_status,
+        "ingv_download_status": ingv_download_status,
+        "sgc_download_status": sgc_download_status,
         "events_normalized": len(normalized),
         "events_deduplicated": len(deduped),
         "events_with_faults": len(with_faults),
@@ -168,5 +189,19 @@ def run_pipeline(
             "report": str(report_path),
         },
     }
-    write_json_compact(out / "pipeline_summary.json", summary)
+    summary_path = out / "pipeline_summary.json"
+    write_json_compact(summary_path, summary)
+
+    artifacts = {
+        "summary": summary_path,
+        "catalog_deduplicated": out / "catalog_deduplicated.parquet",
+        "catalog_with_faults": out / "catalog_with_faults.parquet",
+        "catalog_with_faults_geojson": out / "catalog_with_faults.geojson",
+        "aftershock_sequences": out / "aftershock_sequences.parquet",
+        "doublet_candidates": out / "doublet_candidates.parquet",
+        "tectonic_indexes": out / "tectonic_indexes.parquet",
+        "report": report_path,
+    }
+    summary["persistence"] = persist_run(summary, artifacts)
+    write_json_compact(summary_path, summary)
     return summary

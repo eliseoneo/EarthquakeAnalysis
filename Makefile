@@ -1,4 +1,4 @@
-.PHONY: test eval-phase1 eval-phase2 eval-phase3 eval-phase4 eval-phase5 eval-all eval-full evaluate ui ui-uvicorn project-venezuela layer-a-run layer-a-run-usgs layer-a-ui layer-b-run layer-b-ui
+.PHONY: test eval-phase1 eval-phase2 eval-phase3 eval-phase4 eval-phase5 eval-all eval-full evaluate ui ui-uvicorn project-venezuela verify-venezuela-daily layer-a-run layer-a-run-usgs layer-a-run-ingv layer-a-run-sgc layer-a-run-all layer-a-ui layer-b-run layer-b-ui
 
 PYTHON := python3
 ifneq ("$(wildcard .venv/bin/python3)","")
@@ -39,11 +39,23 @@ ui-uvicorn:
 project-venezuela:
 	$(PYTHON) scripts/project_venezuela_probabilities.py
 
+verify-venezuela-daily:
+	$(PYTHON) scripts/verify_venezuela_daily_effectiveness.py
+
 layer-a-run:
 	$(PYTHON) scripts/layer_a_pipeline.py
 
 layer-a-run-usgs:
 	$(PYTHON) scripts/layer_a_pipeline.py --download-usgs --no-fixtures
+
+layer-a-run-ingv:
+	$(PYTHON) scripts/layer_a_pipeline.py --download-ingv --no-fixtures
+
+layer-a-run-sgc:
+	$(PYTHON) scripts/layer_a_pipeline.py --download-sgc --no-fixtures
+
+layer-a-run-all:
+	$(PYTHON) scripts/layer_a_pipeline.py --download-usgs --download-ingv --download-sgc --no-fixtures
 
 layer-a-ui:
 	$(PYTHON) scripts/layer_a_ui.py
