@@ -1195,6 +1195,7 @@ def build_interface():
 
     if str(ROOT) not in sys.path:
         sys.path.insert(0, str(ROOT))
+    from international_calculation_workflow import mount_international_calculation_panel
     from layer_a.ui import mount_layer_a_panel
     from layer_b.ui import mount_layer_b_panel
     from venezuela_projection_workflow import mount_venezuela_projection_panel
@@ -1239,6 +1240,9 @@ def build_interface():
                     _hindcast_certainty_table,
                     _parse_as_of_date,
                 )
+
+            with gr.Tab("Calculo y Estimacion Internacional"):
+                mount_international_calculation_panel(gr, default_projection_as_of_date)
 
             with gr.Tab("Análisis comparativo (Fases 1-5)"):
                 gr.Markdown("## Graficas comparativas de `case_library/`")

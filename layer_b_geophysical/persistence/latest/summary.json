@@ -16,20 +16,20 @@
     "report": "/Users/eliseogelvis/Projects/EarthquakeAnalysis/layer_b_geophysical/reports/reporte_ambiental_venezuela.md"
   },
   "persistence": {
-    "run_id": "20260701T012917Z",
-    "run_dir": "persistence/runs/20260701T012917Z",
+    "run_id": "20260701T035407Z",
+    "run_dir": "persistence/runs/20260701T035407Z",
     "latest_dir": "persistence/latest",
     "artifacts": {
-      "summary": "persistence/runs/20260701T012917Z/pipeline_summary.json",
-      "normalized": "persistence/runs/20260701T012917Z/environmental_normalized.parquet",
-      "features": "persistence/runs/20260701T012917Z/environmental_features.parquet",
-      "correlations": "persistence/runs/20260701T012917Z/correlations.parquet",
-      "comparison_tests": "persistence/runs/20260701T012917Z/comparison_tests.parquet",
-      "temporal_analysis": "persistence/runs/20260701T012917Z/temporal_analysis.parquet",
-      "clustering": "persistence/runs/20260701T012917Z/clustering.parquet",
-      "indexes": "persistence/runs/20260701T012917Z/environmental_indexes.parquet",
-      "international_comparison": "persistence/runs/20260701T012917Z/international_comparison.parquet",
-      "report": "persistence/runs/20260701T012917Z/reporte_ambiental_venezuela.md"
+      "summary": "persistence/runs/20260701T035407Z/pipeline_summary.json",
+      "normalized": "persistence/runs/20260701T035407Z/environmental_normalized.parquet",
+      "features": "persistence/runs/20260701T035407Z/environmental_features.parquet",
+      "correlations": "persistence/runs/20260701T035407Z/correlations.parquet",
+      "comparison_tests": "persistence/runs/20260701T035407Z/comparison_tests.parquet",
+      "temporal_analysis": "persistence/runs/20260701T035407Z/temporal_analysis.parquet",
+      "clustering": "persistence/runs/20260701T035407Z/clustering.parquet",
+      "indexes": "persistence/runs/20260701T035407Z/environmental_indexes.parquet",
+      "international_comparison": "persistence/runs/20260701T035407Z/international_comparison.parquet",
+      "report": "persistence/runs/20260701T035407Z/reporte_ambiental_venezuela.md"
     }
   }
 }

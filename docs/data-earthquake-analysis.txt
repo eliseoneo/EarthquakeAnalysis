@@ -41,4 +41,10 @@ make ui-uvicorn
 make ui                    # :7860 con ambas pestañas
 make layer-a-ui            # :7861 solo Capa A (opcional)
 
-5- 
+5- analisis version 2.0.0
+python3 scripts/run_international_estimation.py --as-of 2026-06-30 --lookback-days 900 --window-days 120 --stride-days 20 --horizon-days 40 --threshold-magnitude 4.8 --min-magnitude 2.5
+
+(make)
+make international-estimation
+
+6- 
