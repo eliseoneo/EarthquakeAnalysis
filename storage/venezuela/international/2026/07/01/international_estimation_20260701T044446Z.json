@@ -1,0 +1,334 @@
+{
+  "created_at_utc": "2026-07-01T04:44:46Z",
+  "as_of_date": "2026-07-01",
+  "parameters": {
+    "lookback_days": 364,
+    "window_days": 15,
+    "stride_days": 15,
+    "horizon_days": 30,
+    "threshold_magnitude": 5.0,
+    "min_magnitude": 3.0,
+    "use_live_sources": true
+  },
+  "event_count": 105,
+  "window_count": 13,
+  "training_windows": 9,
+  "testing_windows": 4,
+  "source_table": [
+    [
+      "USGS",
+      "USA",
+      "live: ok (95 eventos); focus=Venezuela",
+      95,
+      "2025-07-06",
+      "2026-06-29"
+    ],
+    [
+      "INGV",
+      "Italia",
+      "fallback (HTTPError); focus=Venezuela",
+      6,
+      "2025-09-25",
+      "2026-06-25"
+    ],
+    [
+      "SGC",
+      "Colombia",
+      "live: ok (400 eventos API, 0 descartados); focus=Venezuela",
+      4,
+      "2026-06-27",
+      "2026-06-30"
+    ]
+  ],
+  "metrics_rows": [
+    [
+      "F1",
+      0.0
+    ],
+    [
+      "GM",
+      0.0
+    ],
+    [
+      "PRC AUC",
+      0.16666666666666666
+    ],
+    [
+      "Molchan alarm fraction",
+      0.5
+    ],
+    [
+      "Molchan missed fraction",
+      1.0
+    ],
+    [
+      "L-test log-likelihood",
+      -4.190241955743005
+    ],
+    [
+      "MSE",
+      2.6735135467818267
+    ],
+    [
+      "MAE",
+      1.497519001202129
+    ],
+    [
+      "R2",
+      -0.6135879573183411
+    ],
+    [
+      "S-test spatial skill",
+      -0.33815706143831104
+    ]
+  ],
+  "importance_rows": [
+    [
+      "delta_m",
+      2.5641004654142066,
+      23.10199876232081
+    ],
+    [
+      "gr_a",
+      2.4690787564423275,
+      22.24587341439793
+    ],
+    [
+      "m_mean",
+      2.0839782606335464,
+      18.776200015268294
+    ],
+    [
+      "mu_recurrence_days",
+      1.7129288736409247,
+      15.433124112164506
+    ],
+    [
+      "gr_b",
+      0.6222604426835645,
+      5.606433979721104
+    ],
+    [
+      "eta_rms",
+      0.4693415769724253,
+      4.228667587941459
+    ],
+    [
+      "n_ingv",
+      0.4571770368991836,
+      4.119067674245865
+    ],
+    [
+      "benioff_rate",
+      0.3329081401116813,
+      2.9994313969223514
+    ],
+    [
+      "n_events",
+      0.19855759453603908,
+      1.7889616125006134
+    ],
+    [
+      "n_usgs",
+      0.18871050613651702,
+      1.700241444517073
+    ],
+    [
+      "n_sgc",
+      0.0,
+      0.0
+    ]
+  ],
+  "ablation_rows": [
+    [
+      "n_events",
+      0.0
+    ],
+    [
+      "m_mean",
+      0.0
+    ],
+    [
+      "gr_b",
+      0.0
+    ],
+    [
+      "gr_a",
+      0.0
+    ],
+    [
+      "benioff_rate",
+      0.0
+    ],
+    [
+      "delta_m",
+      0.0
+    ],
+    [
+      "mu_recurrence_days",
+      0.0
+    ],
+    [
+      "eta_rms",
+      0.0
+    ],
+    [
+      "n_usgs",
+      0.0
+    ],
+    [
+      "n_ingv",
+      0.0
+    ],
+    [
+      "n_sgc",
+      0.0
+    ]
+  ],
+  "insar_gnss_rows": [
+    [
+      "2025-08-16",
+      "2025-08-30",
+      null,
+      null,
+      null,
+      "placeholder_pending_source",
+      "Fase 2.2: VSR/SSR/NSR no disponible en catalogo actual."
+    ],
+    [
+      "2025-09-15",
+      "2025-09-29",
+      null,
+      null,
+      null,
+      "placeholder_pending_source",
+      "Fase 2.2: VSR/SSR/NSR no disponible en catalogo actual."
+    ],
+    [
+      "2025-09-30",
+      "2025-10-14",
+      null,
+      null,
+      null,
+      "placeholder_pending_source",
+      "Fase 2.2: VSR/SSR/NSR no disponible en catalogo actual."
+    ],
+    [
+      "2025-10-15",
+      "2025-10-29",
+      null,
+      null,
+      null,
+      "placeholder_pending_source",
+      "Fase 2.2: VSR/SSR/NSR no disponible en catalogo actual."
+    ],
+    [
+      "2025-10-30",
+      "2025-11-13",
+      null,
+      null,
+      null,
+      "placeholder_pending_source",
+      "Fase 2.2: VSR/SSR/NSR no disponible en catalogo actual."
+    ],
+    [
+      "2025-11-14",
+      "2025-11-28",
+      null,
+      null,
+      null,
+      "placeholder_pending_source",
+      "Fase 2.2: VSR/SSR/NSR no disponible en catalogo actual."
+    ],
+    [
+      "2025-11-29",
+      "2025-12-13",
+      null,
+      null,
+      null,
+      "placeholder_pending_source",
+      "Fase 2.2: VSR/SSR/NSR no disponible en catalogo actual."
+    ],
+    [
+      "2025-12-29",
+      "2026-01-12",
+      null,
+      null,
+      null,
+      "placeholder_pending_source",
+      "Fase 2.2: VSR/SSR/NSR no disponible en catalogo actual."
+    ],
+    [
+      "2026-03-14",
+      "2026-03-28",
+      null,
+      null,
+      null,
+      "placeholder_pending_source",
+      "Fase 2.2: VSR/SSR/NSR no disponible en catalogo actual."
+    ],
+    [
+      "2026-03-29",
+      "2026-04-12",
+      null,
+      null,
+      null,
+      "placeholder_pending_source",
+      "Fase 2.2: VSR/SSR/NSR no disponible en catalogo actual."
+    ],
+    [
+      "2026-04-13",
+      "2026-04-27",
+      null,
+      null,
+      null,
+      "placeholder_pending_source",
+      "Fase 2.2: VSR/SSR/NSR no disponible en catalogo actual."
+    ],
+    [
+      "2026-05-13",
+      "2026-05-27",
+      null,
+      null,
+      null,
+      "placeholder_pending_source",
+      "Fase 2.2: VSR/SSR/NSR no disponible en catalogo actual."
+    ]
+  ],
+  "similarity_rows": [
+    [
+      "2026-03-14",
+      "2026-03-28",
+      "2026-04-27",
+      -0.0022366042429994336
+    ],
+    [
+      "2026-03-29",
+      "2026-04-12",
+      "2026-05-12",
+      0.16684863732963873
+    ],
+    [
+      "2026-04-13",
+      "2026-04-27",
+      "2026-05-27",
+      -0.35547573062448895
+    ],
+    [
+      "2026-05-13",
+      "2026-05-27",
+      "2026-06-26",
+      1.0
+    ]
+  ],
+  "anomaly_reference_window": "2026-05-13->2026-05-27",
+  "insar_gnss_placeholder_policy": {
+    "fields": [
+      "vsr_mm_per_year",
+      "ssr_mm_per_year",
+      "nsr_mm_per_year"
+    ],
+    "status": "placeholder_pending_source",
+    "notes": "Agregar proveedor InSAR/GNSS para reemplazar placeholders."
+  }
+}

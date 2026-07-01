@@ -1,4 +1,4 @@
-.PHONY: test eval-phase1 eval-phase2 eval-phase3 eval-phase4 eval-phase5 eval-all eval-full evaluate ui ui-uvicorn project-venezuela verify-venezuela-daily layer-a-run layer-a-run-usgs layer-a-run-ingv layer-a-run-sgc layer-a-run-all layer-a-ui layer-b-run layer-b-ui
+.PHONY: test eval-phase1 eval-phase2 eval-phase3 eval-phase4 eval-phase5 eval-all eval-full evaluate ui ui-uvicorn project-venezuela verify-venezuela-daily international-estimation layer-a-run layer-a-run-usgs layer-a-run-ingv layer-a-run-sgc layer-a-run-all layer-a-ui layer-b-run layer-b-ui
 
 PYTHON := python3
 ifneq ("$(wildcard .venv/bin/python3)","")
@@ -41,6 +41,9 @@ project-venezuela:
 
 verify-venezuela-daily:
 	$(PYTHON) scripts/verify_venezuela_daily_effectiveness.py
+
+international-estimation:
+	$(PYTHON) scripts/run_international_estimation.py
 
 layer-a-run:
 	$(PYTHON) scripts/layer_a_pipeline.py
