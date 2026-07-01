@@ -241,8 +241,33 @@ python3 scripts/project_venezuela_probabilities.py --skip-usgs-download
 ```
 
 Salidas:
+
 - `docs/venezuela_projection_<YYYY-MM-DD>.json`
 - `docs/venezuela_projection_<YYYY-MM-DD>_events.csv`
+
+Persistencia estructurada (nuevo):
+
+- `storage/venezuela/projections/YYYY/MM/DD/projection.json`
+- `storage/venezuela/projections/YYYY/MM/DD/events.csv`
+- `storage/venezuela/projections/latest/*`
+- `storage/venezuela/indices/projections.jsonl`
+
+Verificacion diaria (estimacion de ayer vs valor real de hoy):
+
+```bash
+make verify-venezuela-daily
+# o
+python3 scripts/verify_venezuela_daily_effectiveness.py \
+  --estimate-source-date 2026-06-29 \
+  --real-values-date 2026-06-30
+```
+
+Salidas de verificacion:
+
+- `docs/venezuela_daily_effectiveness_<YYYY-MM-DD>.json`
+- `storage/venezuela/verifications/YYYY/MM/DD/verification.json`
+- `storage/venezuela/verifications/latest/verification.json`
+- `storage/venezuela/indices/verifications.jsonl`
 
 Opciones utiles:
 
@@ -289,7 +314,22 @@ La interfaz principal (`make ui`, puerto 7860) organiza pestañas:
 2. **Análisis comparativo (Fases 1-5)**: barras, dispersión, riesgo, geología, PGA
 3. **Capa A — Tectónica** y **Capa B — Geofísica Ambiental**
 
+Persistencia Capa A/B (nuevo, mismo patrón de índices + latest):
+
+- `layer_a_tectonic/persistence/runs/<RUN_ID>/...`
+- `layer_a_tectonic/persistence/latest/...`
+- `layer_a_tectonic/persistence/index.jsonl`
+- `layer_b_geophysical/persistence/runs/<RUN_ID>/...`
+- `layer_b_geophysical/persistence/latest/...`
+- `layer_b_geophysical/persistence/index.jsonl`
+
+Se genera automáticamente al ejecutar:
+
+- `make layer-a-run`
+- `make layer-b-run`
+
 Detalle pestaña comparativa:
+
 - barras comparativas por metrica
 - probabilidad de magnitud similar en dias posteriores, usando `similar_magnitude_probability_dates.highest_magnitude_events`
 - tabla-resumen con `case_id`, `n_eventos_horizonte`, `n_similares` y `%`
@@ -310,4 +350,3 @@ make ui-uvicorn
 # o
 python3 scripts/comparative_charts.py --use-uvicorn --host 0.0.0.0 --port 7860
 ```
-

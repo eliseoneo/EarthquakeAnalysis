@@ -1,0 +1,62 @@
+{
+  "as_of_date": "2026-06-30",
+  "country": "Venezuela",
+  "data_source": [
+    "case_library/venezuela_2026/event.yaml",
+    "case_library/venezuela_1812/event.yaml",
+    "event_cases/venezuela_2026_june/event.yaml"
+  ],
+  "modeling_notes": {
+    "models_used": [
+      "Omori-Utsu (conteo temporal de replicas)",
+      "Gutenberg-Richter (probabilidad por umbral de magnitud)",
+      "Bayesian blend simple con prior de analogos (fase 5)"
+    ],
+    "parameters": {
+      "main_event_date": "2026-06-24",
+      "elapsed_days_from_main": 6,
+      "omori_p": 1.0,
+      "omori_c_days": 1.0,
+      "omori_K": 37.8569,
+      "b_value": 0.9,
+      "magnitude_min_reference": 4.0,
+      "analog_prior_strong_aftershock": 0.375
+    }
+  },
+  "projection": [
+    {
+      "horizon_days_from_main": 30,
+      "date_target": "2026-07-24",
+      "forward_days_from_as_of": 24,
+      "additional_expected_aftershocks": 56.33,
+      "expected_max_magnitude_mw": 5.95,
+      "probabilities": {
+        "P_M_ge_4.0": 1.0,
+        "P_M_ge_5.0": 0.9992,
+        "P_M_ge_6.0": 0.5905
+      },
+      "bayesian_blend_strong_aftershock_ge_6_0": 0.5043
+    },
+    {
+      "horizon_days_from_main": 45,
+      "date_target": "2026-08-08",
+      "forward_days_from_as_of": 39,
+      "additional_expected_aftershocks": 71.27,
+      "expected_max_magnitude_mw": 6.06,
+      "probabilities": {
+        "P_M_ge_4.0": 1.0,
+        "P_M_ge_5.0": 0.9999,
+        "P_M_ge_6.0": 0.6768
+      },
+      "bayesian_blend_strong_aftershock_ge_6_0": 0.5561
+    }
+  ],
+  "usgs_download_status": "skipped",
+  "events_file": "docs/venezuela_projection_2026-06-30_events.csv",
+  "persistence": {
+    "store_json": "storage/venezuela/projections/2026/06/30/projection.json",
+    "store_csv": "storage/venezuela/projections/2026/06/30/events.csv",
+    "latest_json": "storage/venezuela/projections/latest/projection.json",
+    "latest_csv": "storage/venezuela/projections/latest/events.csv"
+  }
+}

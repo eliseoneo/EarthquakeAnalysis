@@ -1,0 +1,7 @@
+source,event_date,event_time_utc,magnitude_mw,location,latitude,longitude,depth_km
+event_cases/venezuela_2026_june.aftershocks,2026-06-24,,7.2,23 km al SE de Yumare (foreshock USGS),,,20.3
+event_cases/venezuela_2026_june.aftershocks,2026-06-25,,4.5,Subevento oeste,,,11.0
+event_cases/venezuela_2026_june.aftershocks,2026-06-26,,4.3,Subevento sur,,,9.0
+case_library/venezuela_2026.highest_magnitude_events,2026-06-25,,4.5,N/A,,,
+case_library/venezuela_2026.highest_magnitude_events,2026-06-26,,4.3,N/A,,,
+case_library/venezuela_1812.highest_magnitude_events,1812-03-27,,6.0,N/A (historico),,,

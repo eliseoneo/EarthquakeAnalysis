@@ -3,10 +3,13 @@
 
 from __future__ import annotations
 
-from datetime import date
+from datetime import date, timedelta
 from typing import Any
 
+from persistence_store import latest_verification_report
 from projection_model import (
+    MAGNITUDE_MIN_REFERENCE,
+    OMORI_C_DAYS,
     TARGET_CASE_ID,
     CalibrationResult,
     ForwardProjectionRow,
@@ -14,8 +17,9 @@ from projection_model import (
     build_forward_projection_row,
     build_hindcast_certainty_rows,
     calibrate_from_hindcast,
+    cum_omori,
+    probability_m_ge,
 )
-
 
 def _projection_row_table(row: ForwardProjectionRow | None) -> list[list[Any]]:
     if row is None:
@@ -41,6 +45,230 @@ PROJECTION_TABLE_HEADERS = [
     "magnitude_target_mw", "omori_K", "b_value", "expected_aftershocks",
     "expected_max_mw", "probability_m_ge_target", "observed_max_mw",
 ]
+
+DAILY_VERIFICATION_HEADERS = [
+    "ventana", "fecha", "umbral_mw", "probabilidad_estimada", "valor_real",
+    "acierto", "brier", "error_abs", "ajuste_aplicado",
+]
+
+
+def _latest_daily_effectiveness_report() -> dict[str, Any] | None:
+    return latest_verification_report()
+
+
+def _daily_adjustment_factor(report: dict[str, Any] | None, magnitude_target: float) -> float:
+    if not report:
+        return 1.0
+    metrics = report.get("effectiveness_metrics", {}).get("threshold_metrics", [])
+    if not isinstance(metrics, list):
+        return 1.0
+
+    selected = None
+    for item in metrics:
+        if not isinstance(item, dict):
+            continue
+        threshold = item.get("threshold_mw")
+        if isinstance(threshold, (int, float)) and abs(float(threshold) - magnitude_target) < 1e-6:
+            selected = item
+            break
+    if selected is None:
+        selected = min(
+            (item for item in metrics if isinstance(item, dict)),
+            key=lambda item: abs(float(item.get("threshold_mw", magnitude_target)) - magnitude_target),
+            default=None,
+        )
+    if not isinstance(selected, dict):
+        return 1.0
+
+    predicted = selected.get("predicted_probability", 0.0)
+    observed = 1.0 if selected.get("observed_event_reached") else 0.0
+    if not isinstance(predicted, (int, float)):
+        return 1.0
+    error = observed - float(predicted)
+    return round(min(max(1.0 + error, 0.15), 1.75), 4)
+
+
+def _next_day_prediction_from_row(
+    row: ForwardProjectionRow | None,
+    adjustment_factor: float,
+    omori_p: float,
+) -> tuple[dict[str, Any], dict[str, Any]] | None:
+    if row is None:
+        return None
+
+    current_elapsed = int(row.elapsed_days_from_main)
+    next_day_elapsed = current_elapsed + 1
+    base_n = max(
+        0.0,
+        cum_omori(float(next_day_elapsed), row.omori_K, omori_p, OMORI_C_DAYS)
+        - cum_omori(float(current_elapsed), row.omori_K, omori_p, OMORI_C_DAYS),
+    )
+    adjusted_n = base_n * adjustment_factor
+    base_probability = probability_m_ge(
+        base_n,
+        row.magnitude_target_mw,
+        row.b_value,
+        MAGNITUDE_MIN_REFERENCE,
+    )
+    adjusted_probability = probability_m_ge(
+        adjusted_n,
+        row.magnitude_target_mw,
+        row.b_value,
+        MAGNITUDE_MIN_REFERENCE,
+    )
+    next_date = date.fromisoformat(row.as_of_date) + timedelta(days=1)
+    return (
+        {
+            "date": next_date.isoformat(),
+            "expected_aftershocks": round(base_n, 4),
+            "probability": round(base_probability, 6),
+            "adjustment_factor": 1.0,
+        },
+        {
+            "date": next_date.isoformat(),
+            "expected_aftershocks": round(adjusted_n, 4),
+            "probability": round(adjusted_probability, 6),
+            "adjustment_factor": adjustment_factor,
+        },
+    )
+
+
+def _daily_verification_table(
+    report: dict[str, Any] | None,
+    tomorrow_base: dict[str, Any] | None,
+    tomorrow_adjusted: dict[str, Any] | None,
+    magnitude_target: float,
+) -> list[list[Any]]:
+    rows: list[list[Any]] = []
+    if report:
+        verification_date = report.get("verification_date", "")
+        metrics = report.get("effectiveness_metrics", {}).get("threshold_metrics", [])
+        if isinstance(metrics, list):
+            for item in metrics:
+                if not isinstance(item, dict):
+                    continue
+                rows.append([
+                    "Estimado ayer -> real hoy",
+                    verification_date,
+                    item.get("threshold_mw", ""),
+                    item.get("predicted_probability", ""),
+                    item.get("observed_binary", ""),
+                    item.get("hit", ""),
+                    item.get("brier_score", ""),
+                    item.get("absolute_error", ""),
+                    1.0,
+                ])
+    if tomorrow_base:
+        rows.append([
+            "Estimacion manana base",
+            tomorrow_base.get("date", ""),
+            magnitude_target,
+            tomorrow_base.get("probability", ""),
+            "pendiente",
+            "pendiente",
+            "pendiente",
+            "pendiente",
+            tomorrow_base.get("adjustment_factor", 1.0),
+        ])
+    if tomorrow_adjusted:
+        rows.append([
+            "Estimacion manana ajustada",
+            tomorrow_adjusted.get("date", ""),
+            magnitude_target,
+            tomorrow_adjusted.get("probability", ""),
+            "pendiente",
+            "pendiente",
+            "pendiente",
+            "pendiente",
+            tomorrow_adjusted.get("adjustment_factor", ""),
+        ])
+    return rows
+
+
+def _plot_daily_verification(
+    report: dict[str, Any] | None,
+    tomorrow_base: dict[str, Any] | None,
+    tomorrow_adjusted: dict[str, Any] | None,
+    magnitude_target: float,
+):
+    import matplotlib.pyplot as plt
+
+    fig, ax = plt.subplots(figsize=(9, 4.5))
+    labels: list[str] = []
+    values: list[float] = []
+    colors: list[str] = []
+
+    if report:
+        metrics = report.get("effectiveness_metrics", {}).get("threshold_metrics", [])
+        selected = None
+        if isinstance(metrics, list):
+            for item in metrics:
+                if not isinstance(item, dict):
+                    continue
+                threshold = item.get("threshold_mw")
+                if isinstance(threshold, (int, float)) and abs(float(threshold) - magnitude_target) < 1e-6:
+                    selected = item
+                    break
+            if selected is None:
+                selected = min(
+                    (item for item in metrics if isinstance(item, dict)),
+                    key=lambda item: abs(float(item.get("threshold_mw", magnitude_target)) - magnitude_target),
+                    default=None,
+                )
+        if isinstance(selected, dict):
+            labels.extend(["Ayer estimado", "Hoy real"])
+            values.extend([
+                float(selected.get("predicted_probability", 0.0)) * 100.0,
+                100.0 if selected.get("observed_event_reached") else 0.0,
+            ])
+            colors.extend(["#457B9D", "#2A9D8F"])
+
+    if tomorrow_base:
+        labels.append("Manana base")
+        values.append(float(tomorrow_base.get("probability", 0.0)) * 100.0)
+        colors.append("#F4A261")
+    if tomorrow_adjusted:
+        labels.append("Manana ajustada")
+        values.append(float(tomorrow_adjusted.get("probability", 0.0)) * 100.0)
+        colors.append("#E63946")
+
+    if not labels:
+        ax.text(0.5, 0.5, "Sin verificacion diaria disponible", ha="center", va="center")
+        ax.axis("off")
+        fig.tight_layout()
+        return fig
+
+    ax.bar(labels, values, color=colors)
+    ax.set_ylim(0, 100)
+    ax.set_ylabel("Probabilidad / ocurrencia real (%)")
+    ax.set_title(f"Verificacion diaria y estimacion siguiente dia (M≥{magnitude_target:.1f})")
+    ax.tick_params(axis="x", rotation=15)
+    fig.tight_layout()
+    return fig
+
+
+def _daily_verification_markdown(
+    report: dict[str, Any] | None,
+    adjustment_factor: float,
+    tomorrow_adjusted: dict[str, Any] | None,
+) -> str:
+    if report is None:
+        return "No hay verificacion diaria disponible en `docs/venezuela_daily_effectiveness_*.json`."
+    metrics = report.get("effectiveness_metrics", {})
+    observed = report.get("observed_real_values_today", {})
+    next_date = tomorrow_adjusted.get("date", "pendiente") if tomorrow_adjusted else "pendiente"
+    next_prob = tomorrow_adjusted.get("probability", "pendiente") if tomorrow_adjusted else "pendiente"
+    return (
+        f"**Resumen diario**\n\n"
+        f"- Fecha verificada: {report.get('verification_date', '')}\n"
+        f"- Eventos reales hoy: {observed.get('events_count_all_magnitudes', 'N/D')} "
+        f"(Mmax: {observed.get('max_magnitude_mw', 'N/D')})\n"
+        f"- Brier medio: {metrics.get('mean_brier_score', 'N/D')} | "
+        f"MAE: {metrics.get('mean_absolute_error', 'N/D')} | "
+        f"Accuracy binaria: {metrics.get('binary_accuracy_at_0_5_threshold', 'N/D')}\n"
+        f"- Factor de ajuste aplicado a manana: {adjustment_factor}\n"
+        f"- Estimacion ajustada para {next_date}: {next_prob}"
+    )
 
 
 def _plot_single_projection(
@@ -212,11 +440,15 @@ def render_venezuela_workflow(
     initial_row = None
     calibrated_row = None
     calibration: CalibrationResult | None = None
+    target_omori_p = 1.0
 
     if target_case:
         seismic = target_case.get("advanced_features", {}).get("seismic", {})
         similarity = target_case.get("similar_magnitude_probability_dates", {})
         if isinstance(seismic, dict) and isinstance(similarity, dict):
+            omori_p_value = seismic.get("omori_decay_p")
+            if isinstance(omori_p_value, (int, float)):
+                target_omori_p = float(omori_p_value)
             initial_row = build_forward_projection_row(
                 TARGET_CASE_ID,
                 seismic,
@@ -286,6 +518,33 @@ def render_venezuela_workflow(
     )
     calibrated_table = _projection_row_table(calibrated_row)
 
+    daily_report = _latest_daily_effectiveness_report()
+    daily_adjustment = _daily_adjustment_factor(daily_report, magnitude_target)
+    tomorrow_prediction = _next_day_prediction_from_row(
+        calibrated_row or initial_row,
+        daily_adjustment,
+        target_omori_p,
+    )
+    tomorrow_base = tomorrow_prediction[0] if tomorrow_prediction else None
+    tomorrow_adjusted = tomorrow_prediction[1] if tomorrow_prediction else None
+    daily_plot = _plot_daily_verification(
+        daily_report,
+        tomorrow_base,
+        tomorrow_adjusted,
+        magnitude_target,
+    )
+    daily_table = _daily_verification_table(
+        daily_report,
+        tomorrow_base,
+        tomorrow_adjusted,
+        magnitude_target,
+    )
+    daily_md = _daily_verification_markdown(
+        daily_report,
+        daily_adjustment,
+        tomorrow_adjusted,
+    )
+
     return (
         initial_plot,
         initial_table,
@@ -296,6 +555,9 @@ def render_venezuela_workflow(
         calibration_md,
         calibrated_plot,
         calibrated_table,
+        daily_plot,
+        daily_table,
+        daily_md,
     )
 
 
@@ -318,7 +580,8 @@ def mount_venezuela_projection_panel(
     gr.Markdown(
         "## Proyección Venezuela 2026\n"
         "Flujo: **proyección inicial** → **similitudes históricas** → "
-        "**efectividad del modelo** → **proyección calibrada**."
+        "**efectividad del modelo** → **proyección calibrada** → "
+        "**verificación diaria y estimación siguiente día**."
     )
     with gr.Row():
         wf_as_of = gr.Textbox(value=default_as_of, label="Fecha de corte (YYYY-MM-DD)")
@@ -362,6 +625,15 @@ def mount_venezuela_projection_panel(
         wf_calibrated_plot = gr.Plot(label="Proyección calibrada")
         wf_calibrated_table = gr.Dataframe(headers=PROJECTION_TABLE_HEADERS, label="Detalle proyección calibrada")
 
+    gr.Markdown("### 5. Verificación diaria y estimación del siguiente día")
+    wf_daily_md = gr.Markdown()
+    with gr.Row():
+        wf_daily_plot = gr.Plot(label="Ayer estimado, hoy real, mañana estimado")
+        wf_daily_table = gr.Dataframe(
+            headers=DAILY_VERIFICATION_HEADERS,
+            label="Resumen diario y estimación siguiente día",
+        )
+
     def _run_workflow(as_of_s, fwd, val_d, mag, horizon):
         try:
             as_of = parse_as_of_date_fn(as_of_s)
@@ -389,6 +661,7 @@ def mount_venezuela_projection_panel(
             wf_effectiveness_plot, wf_effectiveness_table,
             wf_calibration_md,
             wf_calibrated_plot, wf_calibrated_table,
+            wf_daily_plot, wf_daily_table, wf_daily_md,
         ],
     )
 
@@ -399,5 +672,6 @@ def mount_venezuela_projection_panel(
         wf_effectiveness_plot, wf_effectiveness_table,
         wf_calibration_md,
         wf_calibrated_plot, wf_calibrated_table,
+        wf_daily_plot, wf_daily_table, wf_daily_md,
     ]
     return demo_load_inputs, demo_load_outputs, _run_workflow

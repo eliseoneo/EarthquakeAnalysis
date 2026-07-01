@@ -182,3 +182,115 @@ class TestUsgsClient:
         assert event["magnitude"] == 7.2
         assert event["source_event_id"] == "us6000test"
         assert event["event_id"] == "us6000test"
+
+
+class TestIngvClient:
+        def test_feature_to_event(self) -> None:
+                from layer_a.ingestion.ingv_client import _feature_to_event
+
+                feature = {
+                        "id": "INGV123",
+                        "properties": {
+                                "mag": 4.2,
+                                "magType": "ML",
+                                "place": "Test Italy",
+                                "time": "2026-06-30T21:45:43Z",
+                                "eventid": "INGV123",
+                                "status": "reviewed",
+                        },
+                        "geometry": {"coordinates": [12.34, 41.89, 8.0]},
+                }
+                event = _feature_to_event(feature)
+                assert event is not None
+                assert event["magnitude"] == 4.2
+                assert event["source_event_id"] == "INGV123"
+                assert event["event_id"] == "ingv_INGV123"
+
+        def test_parse_quakeml_events(self) -> None:
+                from layer_a.ingestion.ingv_client import _parse_quakeml_events
+
+                xml = b"""
+<?xml version='1.0' encoding='UTF-8'?>
+<q:quakeml xmlns:q='http://quakeml.org/xmlns/bed/1.2'>
+    <q:eventParameters>
+        <q:event publicID='smi:ingv.it/event/abc123'>
+            <q:description><q:text>Near Italy</q:text></q:description>
+            <q:origin>
+                <q:time><q:value>2026-06-30T21:45:43Z</q:value></q:time>
+                <q:latitude><q:value>41.9</q:value></q:latitude>
+                <q:longitude><q:value>12.5</q:value></q:longitude>
+                <q:depth><q:value>8000</q:value></q:depth>
+            </q:origin>
+            <q:magnitude>
+                <q:mag><q:value>4.1</q:value></q:mag>
+                <q:type>ML</q:type>
+            </q:magnitude>
+        </q:event>
+    </q:eventParameters>
+</q:quakeml>
+"""
+                events = _parse_quakeml_events(xml)
+                assert len(events) == 1
+                assert events[0]["event_id"] == "ingv_abc123"
+                assert events[0]["depth_km"] == 8.0
+
+
+class TestSgcClient:
+    def test_api_row_to_event(self) -> None:
+        from layer_a.ingestion.sgc_client import _api_row_to_event
+
+        row = {
+            "id": "SGC2026mukwpq",
+            "status": "manual",
+            "agency": "SGC",
+            "place": "Yacopi - Cundinamarca, Colombia",
+            "utc_time": "2026-07-01 02:13:58",
+            "magnitude": 3.4,
+            "mag_type": "M",
+            "depth": "superficial",
+            "latitude": 5.75,
+            "longitude": -74.35,
+            "latitude_error": 0.2,
+            "longitude_error": 0.3,
+            "depth_error": 1.5,
+            "magnitude_error": 0.1,
+        }
+
+        event = _api_row_to_event(row)
+        assert event is not None
+        assert event["event_id"] == "sgc_SGC2026mukwpq"
+        assert event["depth_km"] == 10.0
+        assert event["magnitude"] == 3.4
+
+        def test_extract_event_ids_from_sismos_html(self) -> None:
+                from layer_a.ingestion.sgc_client import _extract_event_ids_from_sismos_html
+
+                html = """
+<a href='/detallesismo/SGC2026abc123/resumen'>Mas informacion</a>
+<a href='/detallesismo/USGS2026def456/resumen'>Mas informacion</a>
+<a href='/detallesismo/SGC2026abc123/resumen'>Duplicado</a>
+"""
+                ids = _extract_event_ids_from_sismos_html(html, max_events=10)
+                assert ids == ["SGC2026abc123", "USGS2026def456"]
+
+        def test_parse_sgc_detail_page(self) -> None:
+                from layer_a.ingestion.sgc_client import _parse_sgc_detail_page
+
+                html = """
+<html>
+    <body>
+        <div>Magnitud: 4.6</div>
+        <div>Tiempo de origen: 2026-06-30 08:51 Hora local (2026-06-30 13:51 UTC)</div>
+        <div>Profundidad: 85 km</div>
+        <div>Localizaci\u00f3n: 11.59\u00b0,-71.46\u00b0</div>
+        <div>Municipios cercanos: Sinamaica (Venezuela) a 71 km</div>
+        <div>Agencia: SGC</div>
+    </body>
+</html>
+"""
+                event = _parse_sgc_detail_page(html, "SGC2026mtmgwi")
+                assert event is not None
+                assert event["event_id"] == "sgc_SGC2026mtmgwi"
+                assert event["magnitude"] == 4.6
+                assert event["latitude"] == 11.59
+                assert event["longitude"] == -71.46

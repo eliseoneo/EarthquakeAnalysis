@@ -31,6 +31,7 @@ from layer_b.output.writers import (
     write_json_compact,
     write_parquet_records,
 )
+from layer_b.persistence import persist_run
 from layer_b.paths import ANALYTICS_DIR, FEATURES_DIR, NORMALIZED_DIR, REPORTS_DIR
 
 
@@ -182,5 +183,21 @@ def run_pipeline(
             "report": str(report_path),
         },
     }
-    write_json_compact(ANALYTICS_DIR / "pipeline_summary.json", summary)
+    summary_path = ANALYTICS_DIR / "pipeline_summary.json"
+    write_json_compact(summary_path, summary)
+
+    artifacts = {
+        "summary": summary_path,
+        "normalized": NORMALIZED_DIR / "environmental_normalized.parquet",
+        "features": FEATURES_DIR / "environmental_features.parquet",
+        "correlations": ANALYTICS_DIR / "correlations.parquet",
+        "comparison_tests": ANALYTICS_DIR / "comparison_tests.parquet",
+        "temporal_analysis": ANALYTICS_DIR / "temporal_analysis.parquet",
+        "clustering": ANALYTICS_DIR / "clustering.parquet",
+        "indexes": ANALYTICS_DIR / "environmental_indexes.parquet",
+        "international_comparison": ANALYTICS_DIR / "international_comparison.parquet",
+        "report": report_path,
+    }
+    summary["persistence"] = persist_run(summary, artifacts)
+    write_json_compact(summary_path, summary)
     return summary
