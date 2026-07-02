@@ -4,7 +4,14 @@ Documento de referencia para el dashboard comparativo (`scripts/comparative_char
 
 - **Fuente de datos:** `case_library/*/event.yaml` (10 casos comparativos).
 - **Catálogo Fase 5:** `models/recommended_models_phase5.yaml`.
-- **Script relacionado (fuera de UI):** `scripts/project_venezuela_probabilities.py` → `docs/venezuela_projection_<fecha>.json`.
+- **Modelo geológico (FCN):** `models/geological_geospatial_fcn.yaml`, paquete `geological_model/`.
+- **Proveedores InSAR/GNSS:** `models/insar_gnss_providers.yaml`.
+- **Marco teórico geológico:** `docs/foco-geologico.md`.
+- **Scripts relacionados (fuera de UI):**
+  - `scripts/project_venezuela_probabilities.py` → `docs/venezuela_projection_<fecha>.json`
+  - `scripts/run_international_estimation.py` → `storage/venezuela/international/.../international_estimation_*.json`
+  - `scripts/run_geological_model.py` → `storage/geological_model/outputs/latest.json`
+  - `scripts/fetch_insar_gnss.py` → actualiza filas InSAR/GNSS medidas y el JSON internacional
 
 ---
 
@@ -154,7 +161,7 @@ Salidas probabilísticas (`derived_outputs`):
 - `population_exposure_index`
 - `relative_urban_collapse_index`
 
-Modelos Fase 5 relacionados: **XGBoost/LightGBM**, **Random Forest**, **Bayesian networks**, **GNN**, **Gaussian Processes**, **PySAL**.
+Modelos Fase 5 relacionados: **XGBoost/LightGBM**, **Random Forest**, **Bayesian networks**, **GNN**, **Gaussian Processes**, **PySAL**, **FCN geoespacial geológico** (ver §11).
 
 ---
 
@@ -257,7 +264,7 @@ Modelos Fase 5 relacionados: **XGBoost/LightGBM**, **Random Forest**, **Bayesian
 - Hawkes processes
 - Spatio-temporal clustering
 
-**riesgo_territorial (7 modelos)**
+**riesgo_territorial (10 modelos)**
 
 - XGBoost
 - LightGBM
@@ -266,6 +273,9 @@ Modelos Fase 5 relacionados: **XGBoost/LightGBM**, **Random Forest**, **Bayesian
 - Graph Neural Networks
 - Gaussian Processes espaciales
 - Modelos geoespaciales con PySAL
+- FCN geoespacial geologico
+- ConvLSTM InSAR-temporal
+- CNN geoespacial multicapa
 
 **incertidumbre (5 modelos)**
 
@@ -280,7 +290,7 @@ Modelos Fase 5 relacionados: **XGBoost/LightGBM**, **Random Forest**, **Bayesian
 | Dominio | Uso en el proyecto | Referencia conceptual |
 |---|---|---|
 | Sismicidad | Réplicas, clustering, magnitudes | Procesos puntuales auto-excitados (ETAS/Hawkes); leyes empíricas Omori y G-R |
-| Riesgo territorial | Score compuesto, exposición, daño | ML tabular/geoespacial; redes bayesianas causales; GNN sobre grafos falla-ciudad-infra |
+| Riesgo territorial | Score compuesto, exposición, daño | ML tabular/geoespacial; redes bayesianas causales; GNN sobre grafos falla-ciudad-infra; **FCN geoespacial geológico** con capas InSAR/tectónica/suelo (§11) |
 | Incertidumbre | Intervalos y sensibilidad | MC/Bayes para propagación; quantile regression y conformal prediction para bandas predictivas |
 
 ---
@@ -518,6 +528,14 @@ Features registrados en `scripts/validation.py` (42 campos). No todos se muestra
 | landslide_susceptibility | No |
 | distance_to_coast_or_rivers_km | No |
 
+**Campos operativos InSAR/GNSS (fuera del schema de casos, vía workflow internacional + FCN):**
+
+| Campo | En UI directa | Fuente |
+|---|---|---|
+| `insar_gnss_rows` (VSR/SSR/NSR) | No (ver §11) | `storage/venezuela/international/...` |
+| `insar_displacement_cm` | No (ver §11) | Puente `geological_model/insar_bridge.py` |
+| Salidas FCN (`geotechnical_vulnerability`, etc.) | No (ver §11) | `storage/geological_model/outputs/latest.json` |
+
 ### Climáticas (`advanced_features.climatic`)
 
 | Campo | En UI directa |
@@ -560,14 +578,139 @@ Modelos: Omori-Utsu + Gutenberg-Richter + prior bayesiano de análogos (`venezue
 
 ---
 
-## 11. Referencias y trazabilidad
+## 11. Modelo FCN geoespacial geológico e integración InSAR/GNSS
+
+Implementación fuera del dashboard comparativo principal, alineada con `docs/foco-geologico.md` y `docs/earthquake-venezuela-new-focus-Calculo.md` (§2.2 deformación del suelo).
+
+### Comandos operativos
+
+| Comando | Script | Salida principal |
+|---|---|---|
+| `make geological-model-run` | `scripts/run_geological_model.py` | `storage/geological_model/outputs/latest.json` |
+| `make fetch-insar-gnss` | `scripts/fetch_insar_gnss.py` | `storage/geological_model/raw/insar_gnss_measured_windows.json` + JSON internacional actualizado |
+| `make international-estimation` | `scripts/run_international_estimation.py` | `storage/venezuela/international/YYYY/MM/DD/international_estimation_*.json` |
+| Estimación + GNSS medido | `... --use-live-insar-gnss` | Mismo JSON internacional con filas `measured` |
+
+### Arquitectura FCN (`fcn_geoespacial_geologico`)
+
+Proxy tabular multicapa (4 canales) sobre features Fase 3 ya implementadas en `event_cases/` y `case_library/`:
+
+| Canal | Peso | Campos de entrada (schema) | Marco teórico |
+|---|---:|---|---|
+| InSAR | 0.20 | `insar_displacement_cm`, VSR/SSR/NSR vía puente internacional | Deformación superficial (SNAPHU/InSAR; proxy o GNSS MIDAS) |
+| Tectónica | 0.30 | `distance_to_fault_km`, `estimated_slip_rate_mm_per_year`, `nearby_geological_faults` | Proximidad y acoplamiento con fallas activas (GEM/USGS) |
+| Suelo | 0.30 | `vs30_m_per_s`, `slope_degrees` | Amplificación local NEHRP / site class |
+| Hidro-geotecnia | 0.20 | `liquefaction_likelihood`, `landslide_susceptibility`, `soil_moisture_index`, `distance_to_coast_or_rivers_km` | Licuefacción y remoción en masa |
+
+**Salidas del modelo** (`geological_model/fcn_model.py`):
+
+| Salida | Rango | Uso |
+|---|---|---|
+| `geotechnical_vulnerability` | 0–1 | Complementa `component_scores.geotechnical_vulnerability` (Fase 4) |
+| `liquefaction_probability` | 0–1 | Riesgo de licuefacción |
+| `spatial_amplification_factor` | factor | Derivado de Vs30 (NEHRP-like) |
+| `fault_coupling_index` | 0–1 | Acoplamiento tectónica + InSAR |
+| `structural_damage_probability` | 0–1 | Daño estructural esperado |
+| `landslide_probability` | 0–1 | Deslizamiento / remoción |
+| `risk_category` | categoría | `riesgo_bajo` … `riesgo_critico` |
+
+Configuración: `models/geological_geospatial_fcn.yaml`. Tests: `tests/test_geological_model.py`.
+
+### Variables InSAR/GNSS (workflow internacional, Fase 2.2)
+
+Tabla `insar_gnss_rows` en el payload internacional (`scripts/international_calculation_workflow.py`):
+
+| Columna | Unidad | Descripción |
+|---|---|---|
+| `window_start` | fecha | Inicio de ventana temporal |
+| `window_end` | fecha | Fin de ventana temporal |
+| `vsr_mm_per_year` | mm/año | Tasa de deslizamiento **vertical** (InSAR/GNSS) |
+| `ssr_mm_per_year` | mm/año | Tasa de deslizamiento **lateral** (plano horizontal) |
+| `nsr_mm_per_year` | mm/año | Tasa **neta** \( \sqrt{VSR^2 + SSR^2} \) |
+| `data_status` | enum | `measured`, `proxy_from_seismic_catalog`, `placeholder_pending_source` |
+| `notes` | texto | Trazabilidad de fuente |
+
+**Estados de calidad InSAR en el FCN:**
+
+| `data_status` | `insar_quality` | Origen |
+|---|---|---|
+| `measured` | `instrumented_insar` | GNSS MIDAS NGL (56 estaciones en bbox Venezuela-Caribe) |
+| `proxy_from_seismic_catalog` | `proxy_seismic_catalog` | Proxy desde `benioff_rate`, `delta_m`, `m_mean` de ventana internacional |
+| (sin dato) | `unknown` | Canal InSAR neutral 0.5 |
+
+### Puente internacional → FCN (`geological_model/insar_bridge.py`)
+
+1. Lee `insar_gnss_rows` del último JSON en `storage/venezuela/international/`.
+2. Empareja ventana con `time_window` del caso (`event_cases/` / `case_library/`).
+3. Convierte VSR/SSR/NSR a `insar_displacement_cm`:
+
+\[
+d_{\text{cm}} = \frac{\sqrt{VSR^2 + SSR^2 + NSR^2} \cdot (d_{\text{ventana}}/365.25)}{10}
+\]
+
+4. Inyecta desplazamiento en el canal InSAR del FCN; cada predicción incluye bloque `insar_bridge` con ventana, tasas y fuente.
+
+### Obtención de datos reales y reemplazo (`geological_model/insar_gnss_fetch.py`)
+
+| Función | Rol |
+|---|---|
+| `fetch_measured_insar_gnss_rows()` | Descarga/agrega VSR/SSR/NSR por ventana |
+| `replace_insar_gnss_rows()` | Sustituye filas proxy por medidas (misma ventana) |
+| `fetch_and_replace_insar_gnss_rows()` | Obtiene + reemplaza en un paso |
+| `fetch_and_replace_international_payload_file()` | Reemplaza y **persiste el JSON internacional** |
+| `apply_insar_replacement_to_payload()` | Actualiza `insar_gnss_rows`, `insar_fetch_meta`, `geological_insar_bridge`, `insar_updated_at_utc` |
+
+**Fuente GNSS:** [NGL MIDAS IGS14](https://geodesy.unr.edu/velocities/midas.IGS14.txt) — bbox 0.3°–13.5°N, −73.7° a −59.7°W.
+
+**Persistencia:**
+
+| Archivo | Contenido |
+|---|---|
+| `storage/geological_model/raw/ngl_midas_igs14.txt` | Cache catálogo MIDAS |
+| `storage/geological_model/raw/insar_gnss_measured_windows.json` | Ventanas medidas |
+| `storage/geological_model/outputs/latest.json` | Predicciones FCN por caso |
+| `storage/venezuela/international/.../international_estimation_*.json` | Payload internacional (filas InSAR actualizables in-place) |
+
+CLI de reemplazo (por defecto actualiza el JSON internacional del día `--as-of`):
+
+```bash
+python3 scripts/fetch_insar_gnss.py --international-json storage/venezuela/international/.../international_estimation_*.json
+python3 scripts/fetch_insar_gnss.py --as-of 2026-07-01          # busca último JSON del día
+python3 scripts/fetch_insar_gnss.py --no-update-international   # solo raw de ventanas
+```
+
+### Funciones de pérdida espacial (entrenamiento futuro)
+
+Registradas en `geological_model/losses.py` según `docs/foco-geologico.md` §4:
+
+| Función | Uso |
+|---|---|
+| `weighted_mse_mae` | Pérdida ponderada MSE-MAE para píxeles/eventos raros |
+| `stpidn_combined_weights` | Pesos Gutenberg-Richter (magnitud) + distancia a fallas (epicentro) |
+| `seismology_informed_mse_star` | MSE* penalizada vs modelo de referencia (p. ej. ETAS) |
+
+### Relación con features UI existentes
+
+El FCN consume las mismas variables geológicas/geotécnicas documentadas en §5, §6 y §9 (`vs30_m_per_s`, fallas cercanas, licuefacción, humedad de suelo). La UI comparativa **no expone aún** las salidas FCN; el JSON `storage/geological_model/outputs/latest.json` es la referencia operativa hasta integrar una pestaña dedicada.
+
+---
+
+## 12. Referencias y trazabilidad
 
 - Implementación UI: `scripts/comparative_charts.py`
 - Modelo compartido de proyección forward: `scripts/projection_model.py`
+- Modelo FCN geológico: `geological_model/`, `scripts/run_geological_model.py`
+- Puente y fetch InSAR/GNSS: `geological_model/insar_bridge.py`, `geological_model/insar_gnss_fetch.py`, `scripts/fetch_insar_gnss.py`
+- Estimación internacional: `scripts/international_calculation_workflow.py`, `scripts/run_international_estimation.py`
 - Contratos de datos: `schemas/comparable_event.schema.json`, `schemas/event_case.schema.json`
 - Validación Fase 3/4/5: `scripts/validation.py`, `scripts/evaluate_phase5.py`
 - Catálogo modelos: `models/recommended_models_phase5.yaml`
+- Especificación FCN: `models/geological_geospatial_fcn.yaml`
+- Proveedores InSAR/GNSS: `models/insar_gnss_providers.yaml`
+- Marco geológico: `docs/foco-geologico.md`
 - Datos comparativos: `case_library/*/event.yaml`
+- Salidas geológicas: `storage/geological_model/outputs/`
+- Salidas internacionales: `storage/venezuela/international/`
 
 ### Lecturas sugeridas
 
@@ -575,7 +718,9 @@ Modelos: Omori-Utsu + Gutenberg-Richter + prior bayesiano de análogos (`venezue
 - Gutenberg, B. & Richter, C. — Frequency-magnitude relation.
 - Ogata, Y. — ETAS model for seismicity.
 - NEHRP — Vs30 site classification for seismic design.
+- Blewitt et al. — MIDAS GNSS velocities (NGL).
+- `docs/foco-geologico.md` — capas InSAR, FCN, ConvLSTM y pérdidas espaciales.
 
 ---
 
-*Generado para EarthquakeAnalysis. Actualizar este documento cuando cambien controles UI, métricas o schemas.*
+*Generado para EarthquakeAnalysis. Actualizar este documento cuando cambien controles UI, métricas, schemas o pipelines geológicos/InSAR.*

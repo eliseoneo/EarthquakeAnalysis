@@ -1,0 +1,410 @@
+{
+  "created_at_utc": "2026-07-02T02:48:23Z",
+  "as_of_date": "2026-07-01",
+  "parameters": {
+    "lookback_days": 900,
+    "window_days": 90,
+    "stride_days": 15,
+    "horizon_days": 30,
+    "threshold_magnitude": 5.0,
+    "alternative_threshold_magnitude": 4.5,
+    "min_magnitude": 3.0,
+    "use_live_sources": true,
+    "validation_strategy": "walk_forward",
+    "walk_forward_min_train": 8,
+    "walk_forward_test_size": 3,
+    "walk_forward_step": 3,
+    "class_weight": true,
+    "probability_calibration": "platt",
+    "mmax_model": "gutenberg_richter_tail"
+  },
+  "event_count": 246,
+  "window_count": 53,
+  "training_windows": 50,
+  "testing_windows": 3,
+  "walk_forward_folds": 15,
+  "source_table": [
+    [
+      "USGS",
+      "USA",
+      "fallback (URLError); focus=Venezuela",
+      237,
+      "2024-01-15",
+      "2026-06-29"
+    ],
+    [
+      "INGV",
+      "Italia",
+      "fallback (URLError); focus=Venezuela",
+      8,
+      "2024-06-23",
+      "2026-06-25"
+    ],
+    [
+      "SGC",
+      "Colombia",
+      "fallback (URLError); focus=Venezuela",
+      1,
+      "2026-06-30",
+      "2026-06-30"
+    ]
+  ],
+  "metrics_rows": [
+    [
+      "F1",
+      0.6666666666666666
+    ],
+    [
+      "GM",
+      0.7071067811865476
+    ],
+    [
+      "PRC AUC",
+      1.0
+    ],
+    [
+      "Molchan alarm fraction",
+      0.6666666666666666
+    ],
+    [
+      "Molchan missed fraction",
+      0.0
+    ],
+    [
+      "L-test log-likelihood",
+      -0.06227598399019529
+    ],
+    [
+      "F1 walk-forward avg",
+      0.12000000000000001
+    ],
+    [
+      "PRC AUC walk-forward avg",
+      0.3
+    ],
+    [
+      "F1 M>=4.5 holdout",
+      1.0
+    ],
+    [
+      "Operational threshold M>=5",
+      0.050666666666666665
+    ],
+    [
+      "Operational threshold M>=4.5",
+      0.01
+    ],
+    [
+      "MSE exceedance GR",
+      3.619579579898375e-05
+    ],
+    [
+      "MSE Mmax GR-tail",
+      0.5123349014289249
+    ],
+    [
+      "MAE Mmax GR-tail",
+      0.6019899329531393
+    ],
+    [
+      "R2 Mmax GR-tail",
+      0.6954416041703881
+    ],
+    [
+      "S-test spatial skill",
+      0.9940765769302411
+    ]
+  ],
+  "importance_rows": [
+    [
+      "benioff_rate",
+      1.5061223102092276,
+      15.365288576206348
+    ],
+    [
+      "n_ingv",
+      1.4486542695546178,
+      14.7790061590469
+    ],
+    [
+      "gr_a",
+      1.2498428412285993,
+      12.750754570334513
+    ],
+    [
+      "delta_m",
+      1.19017054279919,
+      12.141984565960824
+    ],
+    [
+      "gr_b",
+      1.1317862145856303,
+      11.546354287298618
+    ],
+    [
+      "mu_recurrence_days",
+      0.7611134834868456,
+      7.764793226781455
+    ],
+    [
+      "eta_rms",
+      0.535270901189106,
+      5.4607728784484335
+    ],
+    [
+      "event_rate_trend",
+      0.529328775245575,
+      5.400151985138757
+    ],
+    [
+      "benioff_accel",
+      0.5250885871278475,
+      5.3568940680329185
+    ],
+    [
+      "max_magnitude_in_window",
+      0.3400068386528494,
+      3.4687111122196392
+    ],
+    [
+      "n_usgs",
+      0.20252943877859572,
+      2.0661823086452635
+    ],
+    [
+      "gr_b_delta",
+      0.19346498610190754,
+      1.97370779298436
+    ],
+    [
+      "m_mean",
+      0.15679560245013474,
+      1.5996109099477882
+    ],
+    [
+      "n_events",
+      0.03193405112412376,
+      0.3257875589541759
+    ],
+    [
+      "n_sgc",
+      0.0,
+      0.0
+    ]
+  ],
+  "ablation_rows": [
+    [
+      "n_events",
+      0.0
+    ],
+    [
+      "m_mean",
+      0.0
+    ],
+    [
+      "gr_b",
+      0.0
+    ],
+    [
+      "gr_a",
+      0.0
+    ],
+    [
+      "benioff_rate",
+      0.0
+    ],
+    [
+      "delta_m",
+      0.0
+    ],
+    [
+      "mu_recurrence_days",
+      0.0
+    ],
+    [
+      "eta_rms",
+      0.0
+    ],
+    [
+      "n_usgs",
+      0.0
+    ],
+    [
+      "n_ingv",
+      0.0
+    ],
+    [
+      "n_sgc",
+      0.0
+    ],
+    [
+      "max_magnitude_in_window",
+      0.0
+    ],
+    [
+      "benioff_accel",
+      0.0
+    ],
+    [
+      "gr_b_delta",
+      0.0
+    ],
+    [
+      "event_rate_trend",
+      0.0
+    ]
+  ],
+  "insar_gnss_rows": [
+    [
+      "2025-09-19",
+      "2025-12-17",
+      15.0,
+      0.0,
+      4.2193,
+      "proxy_from_seismic_catalog",
+      "Proxy InSAR desde catalogo sismico internacional (benioff=933954.023, delta_m=-0.842)."
+    ],
+    [
+      "2025-10-04",
+      "2026-01-01",
+      15.0,
+      0.346,
+      3.9981,
+      "proxy_from_seismic_catalog",
+      "Proxy InSAR desde catalogo sismico internacional (benioff=225425.882, delta_m=0.115)."
+    ],
+    [
+      "2025-10-19",
+      "2026-01-16",
+      15.0,
+      0.3636,
+      4.032,
+      "proxy_from_seismic_catalog",
+      "Proxy InSAR desde catalogo sismico internacional (benioff=232514.410, delta_m=0.121)."
+    ],
+    [
+      "2025-11-03",
+      "2026-01-31",
+      15.0,
+      0.1883,
+      4.0286,
+      "proxy_from_seismic_catalog",
+      "Proxy InSAR desde catalogo sismico internacional (benioff=202744.183, delta_m=0.063)."
+    ],
+    [
+      "2025-11-18",
+      "2026-02-15",
+      15.0,
+      0.3799,
+      4.0582,
+      "proxy_from_seismic_catalog",
+      "Proxy InSAR desde catalogo sismico internacional (benioff=216592.144, delta_m=0.127)."
+    ],
+    [
+      "2025-12-03",
+      "2026-03-02",
+      15.0,
+      0.4151,
+      4.0974,
+      "proxy_from_seismic_catalog",
+      "Proxy InSAR desde catalogo sismico internacional (benioff=201535.566, delta_m=0.138)."
+    ],
+    [
+      "2025-12-18",
+      "2026-03-17",
+      15.0,
+      0.0,
+      3.9937,
+      "proxy_from_seismic_catalog",
+      "Proxy InSAR desde catalogo sismico internacional (benioff=106277.740, delta_m=-0.125)."
+    ],
+    [
+      "2026-01-02",
+      "2026-04-01",
+      15.0,
+      0.0,
+      3.9825,
+      "proxy_from_seismic_catalog",
+      "Proxy InSAR desde catalogo sismico internacional (benioff=104286.998, delta_m=-0.125)."
+    ],
+    [
+      "2026-01-17",
+      "2026-04-16",
+      15.0,
+      0.0,
+      3.9531,
+      "proxy_from_seismic_catalog",
+      "Proxy InSAR desde catalogo sismico internacional (benioff=78820.769, delta_m=-0.043)."
+    ],
+    [
+      "2026-02-01",
+      "2026-05-01",
+      15.0,
+      0.0,
+      3.948,
+      "proxy_from_seismic_catalog",
+      "Proxy InSAR desde catalogo sismico internacional (benioff=90003.925, delta_m=-0.040)."
+    ],
+    [
+      "2026-02-16",
+      "2026-05-16",
+      15.0,
+      0.0,
+      3.9323,
+      "proxy_from_seismic_catalog",
+      "Proxy InSAR desde catalogo sismico internacional (benioff=75090.528, delta_m=-0.274)."
+    ],
+    [
+      "2026-03-03",
+      "2026-05-31",
+      15.0,
+      0.0,
+      3.8764,
+      "proxy_from_seismic_catalog",
+      "Proxy InSAR desde catalogo sismico internacional (benioff=72159.927, delta_m=-1.354)."
+    ]
+  ],
+  "insar_fetch_meta": {
+    "enabled": false,
+    "measured_rows": 0,
+    "proxy_rows": 12
+  },
+  "similarity_rows": [
+    [
+      "2026-02-01",
+      "2026-05-01",
+      "2026-05-31",
+      0.29899530242586186
+    ],
+    [
+      "2026-02-16",
+      "2026-05-16",
+      "2026-06-15",
+      0.5286432292041494
+    ],
+    [
+      "2026-03-03",
+      "2026-05-31",
+      "2026-06-30",
+      1.0
+    ]
+  ],
+  "anomaly_reference_window": "2026-03-03->2026-05-31",
+  "insar_gnss_placeholder_policy": {
+    "fields": [
+      "vsr_mm_per_year",
+      "ssr_mm_per_year",
+      "nsr_mm_per_year"
+    ],
+    "status": "proxy_from_seismic_catalog",
+    "notes": "Proxy conectado al FCN geologico via geological_model.insar_bridge; usar --use-live-insar-gnss o scripts/fetch_insar_gnss.py para datos MIDAS medidos."
+  },
+  "geological_insar_bridge": {
+    "status": "connected",
+    "model_target": "fcn_geoespacial_geologico",
+    "rows_available": 12,
+    "latest_window": "2026-03-03->2026-05-31",
+    "latest_displacement_cm": 0.3818,
+    "latest_data_status": "proxy_from_seismic_catalog"
+  }
+}

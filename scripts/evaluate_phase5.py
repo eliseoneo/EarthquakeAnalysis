@@ -30,6 +30,9 @@ REQUIRED_MODELS: dict[str, set[str]] = {
         "Graph Neural Networks",
         "Gaussian Processes espaciales",
         "Modelos geoespaciales con PySAL",
+        "FCN geoespacial geologico",
+        "ConvLSTM InSAR-temporal",
+        "CNN geoespacial multicapa",
     },
     "incertidumbre": {
         "Monte Carlo",

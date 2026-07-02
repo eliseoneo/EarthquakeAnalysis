@@ -1,0 +1,20 @@
+{
+  "layer": "A_tectonic",
+  "usgs_download_status": "ok (8019 eventos)",
+  "ingv_download_status": "skipped",
+  "sgc_download_status": "skipped",
+  "events_normalized": 8234,
+  "events_deduplicated": 8213,
+  "events_with_faults": 8213,
+  "aftershock_sequences": 1,
+  "doublet_candidates": 60,
+  "mainshock_id": "funvisis_ven_2026_main_dup",
+  "outputs": {
+    "catalog_deduplicated": "/Users/eliseogelvis/Projects/EarthquakeAnalysis/layer_a_tectonic/data/processed/catalog_deduplicated.parquet",
+    "catalog_with_faults": "/Users/eliseogelvis/Projects/EarthquakeAnalysis/layer_a_tectonic/data/processed/catalog_with_faults.parquet",
+    "aftershock_sequences": "/Users/eliseogelvis/Projects/EarthquakeAnalysis/layer_a_tectonic/data/processed/aftershock_sequences.parquet",
+    "doublet_candidates": "/Users/eliseogelvis/Projects/EarthquakeAnalysis/layer_a_tectonic/data/processed/doublet_candidates.parquet",
+    "tectonic_indexes": "/Users/eliseogelvis/Projects/EarthquakeAnalysis/layer_a_tectonic/data/processed/tectonic_indexes.parquet",
+    "report": "/Users/eliseogelvis/Projects/EarthquakeAnalysis/layer_a_tectonic/reports/reporte_evento_venezuela_2026_06_24.md"
+  }
+}

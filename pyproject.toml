@@ -42,5 +42,5 @@ addopts = "-q"
 
 [tool.setuptools.packages.find]
 where = ["."]
-include = ["layer_a*", "layer_b*"]
+include = ["layer_a*", "layer_b*", "geological_model*"]
 

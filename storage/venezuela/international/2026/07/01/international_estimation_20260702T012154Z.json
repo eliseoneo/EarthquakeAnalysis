@@ -1,0 +1,414 @@
+{
+  "created_at_utc": "2026-07-02T01:21:54Z",
+  "as_of_date": "2026-07-01",
+  "parameters": {
+    "lookback_days": 900,
+    "window_days": 90,
+    "stride_days": 15,
+    "horizon_days": 30,
+    "threshold_magnitude": 5.0,
+    "min_magnitude": 3.0,
+    "use_live_sources": false
+  },
+  "event_count": 245,
+  "window_count": 53,
+  "training_windows": 37,
+  "testing_windows": 16,
+  "source_table": [
+    [
+      "USGS",
+      "USA",
+      "fallback; focus=Venezuela",
+      236,
+      "2024-01-15",
+      "2026-06-28"
+    ],
+    [
+      "INGV",
+      "Italia",
+      "fallback; focus=Venezuela",
+      8,
+      "2024-06-23",
+      "2026-06-25"
+    ],
+    [
+      "SGC",
+      "Colombia",
+      "fallback; focus=Venezuela",
+      1,
+      "2026-06-30",
+      "2026-06-30"
+    ]
+  ],
+  "metrics_rows": [
+    [
+      "F1",
+      0.0
+    ],
+    [
+      "GM",
+      0.0
+    ],
+    [
+      "PRC AUC",
+      0.1496961371961372
+    ],
+    [
+      "Molchan alarm fraction",
+      0.25
+    ],
+    [
+      "Molchan missed fraction",
+      1.0
+    ],
+    [
+      "L-test log-likelihood",
+      -2.278514973907239
+    ],
+    [
+      "MSE",
+      1.1479184297998561
+    ],
+    [
+      "MAE",
+      0.8968756465446652
+    ],
+    [
+      "R2",
+      -1.2509928611931302
+    ],
+    [
+      "S-test spatial skill",
+      -0.42169898013562446
+    ]
+  ],
+  "importance_rows": [
+    [
+      "delta_m",
+      1.7038956118059954,
+      24.597373377645944
+    ],
+    [
+      "gr_a",
+      0.8462531670596846,
+      12.21647909528891
+    ],
+    [
+      "gr_b",
+      0.8033859634333236,
+      11.597649745681293
+    ],
+    [
+      "benioff_rate",
+      0.8007413075340142,
+      11.559471591949352
+    ],
+    [
+      "m_mean",
+      0.4944128343795178,
+      7.137325200951277
+    ],
+    [
+      "n_usgs",
+      0.48927616812041375,
+      7.063172478791485
+    ],
+    [
+      "n_events",
+      0.4786779070899534,
+      6.9101763786115695
+    ],
+    [
+      "eta_rms",
+      0.462897727566129,
+      6.682374296709158
+    ],
+    [
+      "mu_recurrence_days",
+      0.43745880490396455,
+      6.3151389598078005
+    ],
+    [
+      "n_ingv",
+      0.41014506799929273,
+      5.920838874563203
+    ],
+    [
+      "n_sgc",
+      0.0,
+      0.0
+    ]
+  ],
+  "ablation_rows": [
+    [
+      "n_events",
+      0.0
+    ],
+    [
+      "m_mean",
+      0.0
+    ],
+    [
+      "gr_b",
+      0.0
+    ],
+    [
+      "gr_a",
+      0.0
+    ],
+    [
+      "benioff_rate",
+      0.0
+    ],
+    [
+      "delta_m",
+      0.0
+    ],
+    [
+      "mu_recurrence_days",
+      0.0
+    ],
+    [
+      "eta_rms",
+      0.0
+    ],
+    [
+      "n_usgs",
+      0.0
+    ],
+    [
+      "n_ingv",
+      0.0
+    ],
+    [
+      "n_sgc",
+      0.0
+    ]
+  ],
+  "insar_gnss_rows": [
+    [
+      "2025-09-19",
+      "2025-12-17",
+      15.0,
+      0.0,
+      4.2193,
+      "proxy_from_seismic_catalog",
+      "Proxy InSAR desde catalogo sismico internacional (benioff=933954.023, delta_m=-0.842)."
+    ],
+    [
+      "2025-10-04",
+      "2026-01-01",
+      15.0,
+      0.346,
+      3.9981,
+      "proxy_from_seismic_catalog",
+      "Proxy InSAR desde catalogo sismico internacional (benioff=225425.882, delta_m=0.115)."
+    ],
+    [
+      "2025-10-19",
+      "2026-01-16",
+      15.0,
+      0.3636,
+      4.032,
+      "proxy_from_seismic_catalog",
+      "Proxy InSAR desde catalogo sismico internacional (benioff=232514.410, delta_m=0.121)."
+    ],
+    [
+      "2025-11-03",
+      "2026-01-31",
+      15.0,
+      0.1883,
+      4.0286,
+      "proxy_from_seismic_catalog",
+      "Proxy InSAR desde catalogo sismico internacional (benioff=202744.183, delta_m=0.063)."
+    ],
+    [
+      "2025-11-18",
+      "2026-02-15",
+      15.0,
+      0.3799,
+      4.0582,
+      "proxy_from_seismic_catalog",
+      "Proxy InSAR desde catalogo sismico internacional (benioff=216592.144, delta_m=0.127)."
+    ],
+    [
+      "2025-12-03",
+      "2026-03-02",
+      15.0,
+      0.4151,
+      4.0974,
+      "proxy_from_seismic_catalog",
+      "Proxy InSAR desde catalogo sismico internacional (benioff=201535.566, delta_m=0.138)."
+    ],
+    [
+      "2025-12-18",
+      "2026-03-17",
+      15.0,
+      0.0,
+      3.9937,
+      "proxy_from_seismic_catalog",
+      "Proxy InSAR desde catalogo sismico internacional (benioff=106277.740, delta_m=-0.125)."
+    ],
+    [
+      "2026-01-02",
+      "2026-04-01",
+      15.0,
+      0.0,
+      3.9825,
+      "proxy_from_seismic_catalog",
+      "Proxy InSAR desde catalogo sismico internacional (benioff=104286.998, delta_m=-0.125)."
+    ],
+    [
+      "2026-01-17",
+      "2026-04-16",
+      15.0,
+      0.0,
+      3.9531,
+      "proxy_from_seismic_catalog",
+      "Proxy InSAR desde catalogo sismico internacional (benioff=78820.769, delta_m=-0.043)."
+    ],
+    [
+      "2026-02-01",
+      "2026-05-01",
+      15.0,
+      0.0,
+      3.948,
+      "proxy_from_seismic_catalog",
+      "Proxy InSAR desde catalogo sismico internacional (benioff=90003.925, delta_m=-0.040)."
+    ],
+    [
+      "2026-02-16",
+      "2026-05-16",
+      15.0,
+      0.0,
+      3.9323,
+      "proxy_from_seismic_catalog",
+      "Proxy InSAR desde catalogo sismico internacional (benioff=75090.528, delta_m=-0.274)."
+    ],
+    [
+      "2026-03-03",
+      "2026-05-31",
+      15.0,
+      0.0,
+      3.8764,
+      "proxy_from_seismic_catalog",
+      "Proxy InSAR desde catalogo sismico internacional (benioff=72159.927, delta_m=-1.354)."
+    ]
+  ],
+  "similarity_rows": [
+    [
+      "2025-07-21",
+      "2025-10-18",
+      "2025-11-17",
+      -0.2992879365701902
+    ],
+    [
+      "2025-08-05",
+      "2025-11-02",
+      "2025-12-02",
+      -0.3670818295738971
+    ],
+    [
+      "2025-08-20",
+      "2025-11-17",
+      "2025-12-17",
+      -0.37054479303553906
+    ],
+    [
+      "2025-09-04",
+      "2025-12-02",
+      "2026-01-01",
+      -0.40362383345290676
+    ],
+    [
+      "2025-09-19",
+      "2025-12-17",
+      "2026-01-16",
+      -0.3873624073959909
+    ],
+    [
+      "2025-10-04",
+      "2026-01-01",
+      "2026-01-31",
+      -0.48080329320673676
+    ],
+    [
+      "2025-10-19",
+      "2026-01-16",
+      "2026-02-15",
+      -0.4401589898711025
+    ],
+    [
+      "2025-11-03",
+      "2026-01-31",
+      "2026-03-02",
+      0.032861099069259644
+    ],
+    [
+      "2025-11-18",
+      "2026-02-15",
+      "2026-03-17",
+      -0.12399615553265181
+    ],
+    [
+      "2025-12-03",
+      "2026-03-02",
+      "2026-04-01",
+      0.053996579178380986
+    ],
+    [
+      "2025-12-18",
+      "2026-03-17",
+      "2026-04-16",
+      0.5397820240788767
+    ],
+    [
+      "2026-01-02",
+      "2026-04-01",
+      "2026-05-01",
+      0.5572201446540437
+    ],
+    [
+      "2026-01-17",
+      "2026-04-16",
+      "2026-05-16",
+      0.5300770972243879
+    ],
+    [
+      "2026-02-01",
+      "2026-05-01",
+      "2026-05-31",
+      0.4458367610742424
+    ],
+    [
+      "2026-02-16",
+      "2026-05-16",
+      "2026-06-15",
+      0.7291468515185464
+    ],
+    [
+      "2026-03-03",
+      "2026-05-31",
+      "2026-06-30",
+      1.0
+    ]
+  ],
+  "anomaly_reference_window": "2026-03-03->2026-05-31",
+  "insar_gnss_placeholder_policy": {
+    "fields": [
+      "vsr_mm_per_year",
+      "ssr_mm_per_year",
+      "nsr_mm_per_year"
+    ],
+    "status": "proxy_from_seismic_catalog",
+    "notes": "Proxy conectado al FCN geologico via geological_model.insar_bridge; reemplazar con proveedor InSAR/GNSS cuando este disponible."
+  },
+  "geological_insar_bridge": {
+    "status": "connected",
+    "model_target": "fcn_geoespacial_geologico",
+    "rows_available": 12,
+    "latest_window": "2026-03-03->2026-05-31",
+    "latest_displacement_cm": 0.3818,
+    "latest_data_status": "proxy_from_seismic_catalog"
+  }
+}

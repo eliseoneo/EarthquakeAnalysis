@@ -1,0 +1,66 @@
+model_id: fcn_geoespacial_geologico
+model_name: "FCN Geoespacial Geológico"
+reference_doc: docs/foco-geologico.md
+architecture: FCN
+version: "1.0.0"
+
+description: >
+  Fully Convolutional Network geoespacial para riesgo geotécnico, licuación y
+  acoplamiento con fallas activas. Usa capas InSAR, tectónica, suelo (Vs30)
+  e hidro-geotecnia descritas en foco-geologico.md.
+
+input_channels:
+  insar:
+    source_fields:
+      - insar_displacement_cm
+      - insar_gnss_rows.vsr_mm_per_year
+      - insar_gnss_rows.ssr_mm_per_year
+      - insar_gnss_rows.nsr_mm_per_year
+    bridge_module: geological_model.insar_bridge
+    bridge_source: international_calculation_workflow
+    fallback: neutral_0.5
+    notes: "Conectado a placeholders/proxy InSAR del workflow internacional"
+  tectonic:
+    source_fields:
+      - advanced_features.seismic.distance_to_fault_km
+      - advanced_features.seismic.estimated_slip_rate_mm_per_year
+      - advanced_features.geological_geotechnical.nearby_geological_faults
+  soil:
+    source_fields:
+      - advanced_features.geological_geotechnical.vs30_m_per_s
+      - advanced_features.geological_geotechnical.slope_degrees
+  hydro_geotech:
+    source_fields:
+      - advanced_features.geological_geotechnical.liquefaction_likelihood
+      - advanced_features.geological_geotechnical.landslide_susceptibility
+      - advanced_features.climatic.soil_moisture_index
+      - advanced_features.geological_geotechnical.distance_to_coast_or_rivers_km
+
+channel_weights:
+  insar: 0.20
+  tectonic: 0.30
+  soil: 0.30
+  hydro_geotech: 0.20
+
+outputs:
+  - geotechnical_vulnerability
+  - liquefaction_probability
+  - spatial_amplification_factor
+  - fault_coupling_index
+  - structural_damage_probability
+  - landslide_probability
+  - risk_category
+
+loss_functions:
+  - weighted_mse_mae
+  - stpidn_magnitude_epicenter
+  - mse_star_seismology_informed
+
+related_architectures:
+  - CNN geoespacial
+  - ConvLSTM InSAR-temporal
+
+sources:
+  - docs/foco-geologico.md
+  - schemas/event_case.schema.json
+  - schemas/comparable_event.schema.json

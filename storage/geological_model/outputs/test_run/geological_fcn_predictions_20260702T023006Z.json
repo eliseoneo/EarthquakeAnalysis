@@ -1,0 +1,97 @@
+{
+  "model_type": "fcn_geoespacial_geologico",
+  "reference_doc": "docs/foco-geologico.md",
+  "generated_at_utc": "20260702T023006Z",
+  "cases_evaluated": 2,
+  "international_insar_source": "/Users/eliseogelvis/Projects/EarthquakeAnalysis/storage/venezuela/international/2026/07/01/international_estimation_20260702T020825Z.json",
+  "predictions": [
+    {
+      "event_id": "unknown",
+      "model_type": "fcn_geoespacial_geologico",
+      "model_version": "1.0.0",
+      "source_document": "/Users/eliseogelvis/Projects/EarthquakeAnalysis/tests/fixtures/synthetic/comparable_event_minimal.json",
+      "channel_scores": {
+        "insar": 0.01909,
+        "tectonic": 0.6114166666666666,
+        "soil": 0.75,
+        "hydro_geotech": 0.5273333333333333
+      },
+      "geotechnical_vulnerability": 0.5011,
+      "liquefaction_probability": 0.3513,
+      "spatial_amplification_factor": 1.45,
+      "fault_coupling_index": 0.3745,
+      "structural_damage_probability": 0.5918,
+      "landslide_probability": 0.549,
+      "risk_category": "riesgo_medio",
+      "evidence_level": "B",
+      "modeling_notes": {
+        "architecture": "FCN",
+        "reference_doc": "docs/foco-geologico.md",
+        "loss_functions": [
+          "weighted_mse_mae",
+          "stpidn_magnitude_epicenter",
+          "mse_star_seismology_informed"
+        ],
+        "insar_available": true,
+        "insar_quality": "proxy_seismic_catalog"
+      },
+      "insar_bridge": {
+        "connected": true,
+        "source": "international_calculation_workflow",
+        "window_start": "2026-03-03",
+        "window_end": "2026-05-31",
+        "vsr_mm_per_year": 15.0,
+        "ssr_mm_per_year": 0.0,
+        "nsr_mm_per_year": 3.8764,
+        "data_status": "proxy_from_seismic_catalog",
+        "displacement_cm": 0.3818,
+        "notes": "Proxy InSAR desde catalogo sismico internacional (benioff=72159.927, delta_m=-1.354).",
+        "international_source": "/Users/eliseogelvis/Projects/EarthquakeAnalysis/storage/venezuela/international/2026/07/01/international_estimation_20260702T020825Z.json"
+      }
+    },
+    {
+      "event_id": "venezuela_2026_june_synth",
+      "model_type": "fcn_geoespacial_geologico",
+      "model_version": "1.0.0",
+      "source_document": "/Users/eliseogelvis/Projects/EarthquakeAnalysis/tests/fixtures/synthetic/venezuela_2026_june_minimal.json",
+      "channel_scores": {
+        "insar": 0.01909,
+        "tectonic": 0.6913333333333334,
+        "soil": 0.75,
+        "hydro_geotech": 0.6393333333333334
+      },
+      "geotechnical_vulnerability": 0.5468,
+      "liquefaction_probability": 0.4312,
+      "spatial_amplification_factor": 1.45,
+      "fault_coupling_index": 0.4224,
+      "structural_damage_probability": 0.582,
+      "landslide_probability": 0.5837,
+      "risk_category": "riesgo_medio",
+      "evidence_level": "B",
+      "modeling_notes": {
+        "architecture": "FCN",
+        "reference_doc": "docs/foco-geologico.md",
+        "loss_functions": [
+          "weighted_mse_mae",
+          "stpidn_magnitude_epicenter",
+          "mse_star_seismology_informed"
+        ],
+        "insar_available": true,
+        "insar_quality": "proxy_seismic_catalog"
+      },
+      "insar_bridge": {
+        "connected": true,
+        "source": "international_calculation_workflow",
+        "window_start": "2026-03-03",
+        "window_end": "2026-05-31",
+        "vsr_mm_per_year": 15.0,
+        "ssr_mm_per_year": 0.0,
+        "nsr_mm_per_year": 3.8764,
+        "data_status": "proxy_from_seismic_catalog",
+        "displacement_cm": 0.3818,
+        "notes": "Proxy InSAR desde catalogo sismico internacional (benioff=72159.927, delta_m=-1.354).",
+        "international_source": "/Users/eliseogelvis/Projects/EarthquakeAnalysis/storage/venezuela/international/2026/07/01/international_estimation_20260702T020825Z.json"
+      }
+    }
+  ]
+}

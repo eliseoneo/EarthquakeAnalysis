@@ -1,0 +1,31 @@
+providers:
+  ngl_midas_igs14:
+    type: gnss_velocity
+    url: https://geodesy.unr.edu/velocities/midas.IGS14.txt
+    reference_frame: IGS14
+    source_label: Nevada Geodetic Laboratory MIDAS
+    timeout_seconds: 45
+    cache_filename: ngl_midas_igs14.txt
+
+region:
+  name: Venezuela-Caribe
+  bbox:
+    min_lat: 0.3
+    max_lat: 13.5
+    min_lon: -73.7
+    max_lon: -59.7
+
+aggregation:
+  min_stations: 1
+  vsr_from: up_mm_per_year
+  ssr_from: horizontal_mm_per_year
+  nsr_from: net_mm_per_year
+
+paths:
+  raw_dir: storage/geological_model/raw
+  measured_windows_file: storage/geological_model/raw/insar_gnss_measured_windows.json
+
+sources:
+  - docs/foco-geologico.md
+  - docs/earthquake-venezuela-new-focus-Calculo.md
+  - https://geodesy.unr.edu/velocities/midas.readme.txt

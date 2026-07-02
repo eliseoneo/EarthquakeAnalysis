@@ -47,4 +47,14 @@ python3 scripts/run_international_estimation.py --as-of 2026-06-30 --lookback-da
 (make)
 make international-estimation
 
-6- 
+6- scripts de pruebas
+python3 scripts/run_international_estimation.py \
+  --as-of 2026-07-01 \
+  --alternative-threshold-magnitude 4.5 \
+  --walk-forward-min-train 8 \
+  --walk-forward-test-size 3 \
+  --walk-forward-step 3 \
+  --platt-calibration-fraction 0.2 \
+  --use-live-insar-gnss
+
+7-   

@@ -16,6 +16,13 @@ from layer_a.ingestion.ingv_client import download_ingv_catalog
 from layer_a.ingestion.sgc_client import download_sgc_catalog
 from layer_a.ingestion.usgs_client import download_usgs_catalog
 from layer_a.paths import RAW_DIR
+from geological_model.insar_bridge import (
+    INSAR_GNSS_HEADERS,
+    STATUS_MEASURED,
+    STATUS_PROXY,
+    build_geological_insar_bridge_summary,
+    build_insar_gnss_rows,
+)
 from validation import ROOT
 
 SOURCE_CONFIG: dict[str, dict[str, Any]] = {
@@ -44,6 +51,11 @@ VENEZUELA_FOCUS_BBOX: dict[str, float] = {
 }
 
 ANOMALY_REFERENCE_DATE = date(2026, 6, 26)
+ALTERNATIVE_THRESHOLD_MAGNITUDE = 4.5
+WALK_FORWARD_MIN_TRAIN = 8
+WALK_FORWARD_TEST_SIZE = 3
+WALK_FORWARD_STEP = 3
+PLATT_CALIBRATION_FRACTION = 0.2
 
 FEATURE_ORDER = [
     "n_events",
@@ -57,17 +69,13 @@ FEATURE_ORDER = [
     "n_usgs",
     "n_ingv",
     "n_sgc",
+    "max_magnitude_in_window",
+    "benioff_accel",
+    "gr_b_delta",
+    "event_rate_trend",
 ]
 
-INSAR_GNSS_PLACEHOLDER_HEADERS = [
-    "window_start",
-    "window_end",
-    "vsr_mm_per_year",
-    "ssr_mm_per_year",
-    "nsr_mm_per_year",
-    "data_status",
-    "notes",
-]
+INSAR_GNSS_PLACEHOLDER_HEADERS = INSAR_GNSS_HEADERS
 
 SIMILARITY_HEADERS = [
     "window_start",
@@ -95,6 +103,8 @@ class WindowSample:
     target_end_date: date
     features: dict[str, float]
     target_probability_label: int
+    target_probability_label_m45: int
+    target_exceedance_prob: float
     target_mmax: float
 
 
@@ -396,7 +406,102 @@ def _window_features(events: list[SeismicSample], window_days: int) -> dict[str,
         "n_usgs": by_source.get("usgs", 0.0),
         "n_ingv": by_source.get("ingv", 0.0),
         "n_sgc": by_source.get("sgc", 0.0),
+        "max_magnitude_in_window": observed_max,
+        "benioff_accel": 0.0,
+        "gr_b_delta": 0.0,
+        "event_rate_trend": 0.0,
     }
+
+
+def _enrich_trend_features(
+    features: dict[str, float],
+    window_events: list[SeismicSample],
+    window_days: int,
+    prev_benioff: float | None,
+) -> dict[str, float]:
+    enriched = dict(features)
+    if len(window_events) >= 4:
+        mid = len(window_events) // 2
+        first_half = window_events[:mid]
+        second_half = window_events[mid:]
+        b_first, _, _ = _gr_parameters([ev.magnitude for ev in first_half])
+        b_second, _, _ = _gr_parameters([ev.magnitude for ev in second_half])
+        enriched["gr_b_delta"] = round(b_second - b_first, 4)
+        half_days = max(window_days / 2.0, 1.0)
+        rate_first = len(first_half) / half_days
+        rate_second = len(second_half) / half_days
+        enriched["event_rate_trend"] = round(rate_second - rate_first, 4)
+        ben_first = _benioff_rate([ev.magnitude for ev in first_half], int(half_days))
+        ben_second = _benioff_rate([ev.magnitude for ev in second_half], int(half_days))
+        enriched["benioff_accel"] = round(ben_second - ben_first, 4)
+    if prev_benioff is not None:
+        enriched["benioff_accel"] = round(enriched["benioff_rate"] - prev_benioff, 4)
+    return enriched
+
+
+def _gr_exceedance_probability(
+    gr_a: float,
+    gr_b: float,
+    rate_per_day: float,
+    horizon_days: int,
+    threshold: float,
+) -> float:
+    if rate_per_day <= 0 or horizon_days <= 0:
+        return 0.0
+    lambda_eff = rate_per_day * horizon_days
+    nu = 10 ** (gr_a - gr_b * threshold)
+    mean_exceed = lambda_eff * max(nu, 1e-12)
+    return max(0.0, min(1.0, 1.0 - math.exp(-mean_exceed)))
+
+
+def _gr_tail_mmax_forecast(
+    gr_a: float,
+    gr_b: float,
+    rate_per_day: float,
+    horizon_days: int,
+) -> float:
+    lambda_eff = max(rate_per_day * horizon_days, 1.0)
+    estimate = (gr_a + math.log10(lambda_eff)) / max(gr_b, 0.1)
+    return max(0.0, min(9.5, estimate))
+
+
+def _gr_tail_predictions(
+    samples: list[WindowSample],
+    horizon_days: int,
+    window_days: int,
+    exceedance_threshold: float = ALTERNATIVE_THRESHOLD_MAGNITUDE,
+) -> tuple[list[float], list[float]]:
+    exceedance: list[float] = []
+    mmax: list[float] = []
+    for sample in samples:
+        feats = sample.features
+        rate = float(feats.get("n_events", 0.0)) / max(float(window_days), 1.0)
+        gr_a = float(feats.get("gr_a", 0.0))
+        gr_b = float(feats.get("gr_b", 1.0))
+        exceedance.append(
+            _gr_exceedance_probability(
+                gr_a,
+                gr_b,
+                rate,
+                horizon_days,
+                exceedance_threshold,
+            )
+        )
+        mmax.append(_gr_tail_mmax_forecast(gr_a, gr_b, rate, horizon_days))
+    return exceedance, mmax
+
+
+def _calibrate_probabilities(
+    raw_probs: list[float],
+    cal_raw: list[float],
+    cal_labels: list[int],
+    *,
+    use_platt: bool,
+) -> list[float]:
+    if not use_platt or not cal_raw:
+        return raw_probs
+    platt_scale, platt_shift = _fit_platt_scaling(cal_raw, cal_labels)
+    return _apply_platt_scaling(raw_probs, platt_scale, platt_shift)
 
 
 def build_window_dataset(
@@ -407,6 +512,7 @@ def build_window_dataset(
     stride_days: int,
     horizon_days: int,
     threshold_magnitude: float,
+    alternative_threshold_magnitude: float = ALTERNATIVE_THRESHOLD_MAGNITUDE,
 ) -> list[WindowSample]:
     if not events:
         return []
@@ -419,6 +525,7 @@ def build_window_dataset(
 
     cursor = start_limit
     samples: list[WindowSample] = []
+    prev_benioff: float | None = None
 
     while cursor + window_delta + horizon_delta <= end_limit + timedelta(days=1):
         window_start = cursor
@@ -437,9 +544,25 @@ def build_window_dataset(
         ]
 
         if len(window_events) >= 3:
-            features = _window_features(window_events, window_days=window_days)
+            base_features = _window_features(window_events, window_days=window_days)
+            features = _enrich_trend_features(
+                base_features,
+                window_events,
+                window_days=window_days,
+                prev_benioff=prev_benioff,
+            )
+            prev_benioff = float(features["benioff_rate"])
             future_max = max((ev.magnitude for ev in future_events), default=0.0)
+            rate_per_day = float(features["n_events"]) / max(float(window_days), 1.0)
+            exceedance_prob = _gr_exceedance_probability(
+                float(features["gr_a"]),
+                float(features["gr_b"]),
+                rate_per_day,
+                horizon_days,
+                threshold_magnitude,
+            )
             label = 1 if future_max >= threshold_magnitude else 0
+            label_m45 = 1 if future_max >= alternative_threshold_magnitude else 0
             samples.append(
                 WindowSample(
                     start_date=window_start,
@@ -447,6 +570,8 @@ def build_window_dataset(
                     target_end_date=target_end - timedelta(days=1),
                     features=features,
                     target_probability_label=label,
+                    target_probability_label_m45=label_m45,
+                    target_exceedance_prob=exceedance_prob,
                     target_mmax=future_max,
                 )
             )
@@ -455,17 +580,30 @@ def build_window_dataset(
     return samples
 
 
-def _feature_matrix(samples: list[WindowSample]) -> tuple[list[list[float]], list[int], list[float], list[tuple[date, date, date]]]:
+def _feature_matrix(
+    samples: list[WindowSample],
+) -> tuple[
+    list[list[float]],
+    list[int],
+    list[int],
+    list[float],
+    list[float],
+    list[tuple[date, date, date]],
+]:
     matrix: list[list[float]] = []
     labels: list[int] = []
+    labels_m45: list[int] = []
+    exceedance_targets: list[float] = []
     mmax_targets: list[float] = []
     spans: list[tuple[date, date, date]] = []
     for sample in samples:
         matrix.append([float(sample.features.get(name, 0.0)) for name in FEATURE_ORDER])
         labels.append(int(sample.target_probability_label))
+        labels_m45.append(int(sample.target_probability_label_m45))
+        exceedance_targets.append(float(sample.target_exceedance_prob))
         mmax_targets.append(float(sample.target_mmax))
         spans.append((sample.start_date, sample.end_date, sample.target_end_date))
-    return matrix, labels, mmax_targets, spans
+    return matrix, labels, labels_m45, exceedance_targets, mmax_targets, spans
 
 
 def _standardize(train_x: list[list[float]], test_x: list[list[float]]) -> tuple[list[list[float]], list[list[float]], list[float], list[float]]:
@@ -500,13 +638,22 @@ def _sigmoid(value: float) -> float:
     return z / (1.0 + z)
 
 
-def _train_logistic(x: list[list[float]], y: list[int], epochs: int = 500, lr: float = 0.08) -> tuple[list[float], float]:
+def _train_logistic(
+    x: list[list[float]],
+    y: list[int],
+    epochs: int = 500,
+    lr: float = 0.08,
+    class_weight: bool = True,
+) -> tuple[list[float], float]:
     if not x:
         return [], 0.0
     feature_count = len(x[0])
     weights = [0.0 for _ in range(feature_count)]
     bias = 0.0
     n = float(len(x))
+    positives = float(sum(y))
+    negatives = n - positives
+    pos_weight = (negatives / positives) if class_weight and positives > 0 else 1.0
 
     for _ in range(epochs):
         grad_w = [0.0 for _ in range(feature_count)]
@@ -514,7 +661,8 @@ def _train_logistic(x: list[list[float]], y: list[int], epochs: int = 500, lr: f
         for row, target in zip(x, y):
             linear = sum(w * val for w, val in zip(weights, row)) + bias
             pred = _sigmoid(linear)
-            diff = pred - float(target)
+            sample_weight = pos_weight if target == 1 else 1.0
+            diff = (pred - float(target)) * sample_weight
             for j, val in enumerate(row):
                 grad_w[j] += diff * val
             grad_b += diff
@@ -555,6 +703,64 @@ def _predict_logistic(x: list[list[float]], weights: list[float], bias: float) -
 
 def _predict_linear(x: list[list[float]], weights: list[float], bias: float) -> list[float]:
     return [sum(w * v for w, v in zip(weights, row)) + bias for row in x]
+
+
+def _logit(probability: float) -> float:
+    clipped = min(max(probability, 1e-6), 1 - 1e-6)
+    return math.log(clipped / (1.0 - clipped))
+
+
+def _fit_platt_scaling(
+    raw_probs: list[float],
+    labels: list[int],
+    epochs: int = 250,
+    lr: float = 0.1,
+) -> tuple[float, float]:
+    if not raw_probs:
+        return 1.0, 0.0
+    scale = 1.0
+    shift = 0.0
+    n = float(len(raw_probs))
+    for _ in range(epochs):
+        grad_scale = 0.0
+        grad_shift = 0.0
+        for prob, target in zip(raw_probs, labels):
+            linear = scale * _logit(prob) + shift
+            pred = _sigmoid(linear)
+            diff = pred - float(target)
+            logit_val = _logit(prob)
+            grad_scale += diff * logit_val
+            grad_shift += diff
+        scale -= lr * (grad_scale / n)
+        shift -= lr * (grad_shift / n)
+    return scale, shift
+
+
+def _apply_platt_scaling(raw_probs: list[float], scale: float, shift: float) -> list[float]:
+    return [_sigmoid(scale * _logit(prob) + shift) for prob in raw_probs]
+
+
+def _walk_forward_split_indices(
+    sample_count: int,
+    min_train: int,
+    test_size: int,
+    step: int,
+) -> list[tuple[int, int]]:
+    splits: list[tuple[int, int]] = []
+    train_end = min_train
+    while train_end + test_size <= sample_count:
+        splits.append((train_end, train_end + test_size))
+        train_end += step
+    if not splits and sample_count >= min_train + 2:
+        splits.append((min_train, sample_count))
+    return splits
+
+
+def _average_metric_dicts(metrics: list[dict[str, float]]) -> dict[str, float]:
+    if not metrics:
+        return {}
+    keys = metrics[0].keys()
+    return {key: sum(item[key] for item in metrics) / len(metrics) for key in keys}
 
 
 def _classification_metrics(y_true: list[int], y_prob: list[float], threshold: float = 0.5) -> dict[str, float]:
@@ -608,6 +814,61 @@ def _classification_metrics(y_true: list[int], y_prob: list[float], threshold: f
         "molchan_missed_fraction": missed_fraction,
         "l_test_log_likelihood": l_test,
     }
+
+
+def _optimal_classification_threshold(y_true: list[int], y_prob: list[float]) -> float:
+    best_threshold = 0.5
+    best_f1 = -1.0
+    for step in range(1, 100):
+        threshold = step / 100.0
+        metrics = _classification_metrics(y_true, y_prob, threshold=threshold)
+        if metrics["f1"] > best_f1:
+            best_f1 = metrics["f1"]
+            best_threshold = threshold
+    return best_threshold
+
+
+def _walk_forward_classification_evaluation(
+    matrix: list[list[float]],
+    labels: list[int],
+    min_train: int,
+    test_size: int,
+    step: int,
+    *,
+    use_platt: bool = True,
+    platt_calibration_fraction: float = PLATT_CALIBRATION_FRACTION,
+    class_weight: bool = True,
+) -> tuple[dict[str, float], float, list[dict[str, float]]]:
+    fold_metrics: list[dict[str, float]] = []
+    thresholds: list[float] = []
+    splits = _walk_forward_split_indices(len(matrix), min_train, test_size, step)
+    for train_end, test_end in splits:
+        train_x = matrix[:train_end]
+        test_x = matrix[train_end:test_end]
+        train_y = labels[:train_end]
+        test_y = labels[train_end:test_end]
+        if len(test_x) < 1:
+            continue
+        cal_size = max(1, int(len(train_x) * platt_calibration_fraction)) if use_platt else 0
+        fit_x = train_x[:-cal_size] if cal_size and len(train_x) > cal_size + 2 else train_x
+        fit_y = train_y[:-cal_size] if cal_size and len(train_y) > cal_size + 2 else train_y
+        cal_x = train_x[-cal_size:] if cal_size else []
+        cal_y = train_y[-cal_size:] if cal_size else []
+        train_x_std, test_x_std, _, _ = _standardize(fit_x + cal_x, test_x)
+        fit_x_std = train_x_std[: len(fit_x)]
+        cal_x_std = train_x_std[len(fit_x) :]
+        weights, bias = _train_logistic(fit_x_std, fit_y, class_weight=class_weight)
+        test_raw = _predict_logistic(test_x_std, weights, bias)
+        if use_platt and cal_x_std:
+            cal_raw = _predict_logistic(cal_x_std, weights, bias)
+            test_probs = _calibrate_probabilities(test_raw, cal_raw, cal_y, use_platt=True)
+            thresholds.append(_optimal_classification_threshold(cal_y, cal_raw))
+        else:
+            test_probs = test_raw
+            thresholds.append(_optimal_classification_threshold(train_y, test_raw))
+        fold_metrics.append(_classification_metrics(test_y, test_probs))
+    avg_threshold = sum(thresholds) / len(thresholds) if thresholds else 0.5
+    return _average_metric_dicts(fold_metrics), avg_threshold, fold_metrics
 
 
 def _regression_metrics(y_true: list[float], y_pred: list[float]) -> dict[str, float]:
@@ -733,23 +994,6 @@ def _select_anomaly_window(dataset: list[WindowSample], anomaly_date: date) -> W
     return min(dataset, key=lambda sample: abs((sample.end_date - anomaly_date).days))
 
 
-def _insar_gnss_placeholder_rows(samples: list[WindowSample]) -> list[list[str | float | None]]:
-    rows: list[list[str | float | None]] = []
-    for sample in samples[-12:]:
-        rows.append(
-            [
-                sample.start_date.isoformat(),
-                sample.end_date.isoformat(),
-                None,
-                None,
-                None,
-                "placeholder_pending_source",
-                "Fase 2.2: VSR/SSR/NSR no disponible en catalogo actual.",
-            ]
-        )
-    return rows
-
-
 def run_international_estimation(
     as_of_date: date,
     lookback_days: int,
@@ -759,6 +1003,14 @@ def run_international_estimation(
     threshold_magnitude: float,
     min_magnitude: float,
     use_live_sources: bool,
+    use_live_insar_gnss: bool = False,
+    alternative_threshold_magnitude: float = ALTERNATIVE_THRESHOLD_MAGNITUDE,
+    walk_forward_min_train: int = WALK_FORWARD_MIN_TRAIN,
+    walk_forward_test_size: int = WALK_FORWARD_TEST_SIZE,
+    walk_forward_step: int = WALK_FORWARD_STEP,
+    use_platt_calibration: bool = True,
+    platt_calibration_fraction: float = PLATT_CALIBRATION_FRACTION,
+    use_class_weight: bool = True,
 ) -> dict[str, Any]:
     events, source_table = load_international_events(
         as_of_date=as_of_date,
@@ -774,6 +1026,7 @@ def run_international_estimation(
         stride_days=stride_days,
         horizon_days=horizon_days,
         threshold_magnitude=threshold_magnitude,
+        alternative_threshold_magnitude=alternative_threshold_magnitude,
     )
 
     if len(dataset) < 6:
@@ -794,27 +1047,86 @@ def run_international_estimation(
             "storage_path": "-",
         }
 
-    matrix, labels, mmax_targets, spans = _feature_matrix(dataset)
-    split_idx = max(4, int(0.7 * len(dataset)))
+    matrix, labels, labels_m45, exceedance_targets, mmax_targets, spans = _feature_matrix(dataset)
+    wf_cls_metrics, operational_threshold, walk_forward_folds = _walk_forward_classification_evaluation(
+        matrix,
+        labels,
+        min_train=walk_forward_min_train,
+        test_size=walk_forward_test_size,
+        step=walk_forward_step,
+        use_platt=use_platt_calibration,
+        platt_calibration_fraction=platt_calibration_fraction,
+        class_weight=use_class_weight,
+    )
+    wf_cls_m45_metrics, operational_threshold_m45, _ = _walk_forward_classification_evaluation(
+        matrix,
+        labels_m45,
+        min_train=walk_forward_min_train,
+        test_size=walk_forward_test_size,
+        step=walk_forward_step,
+        use_platt=use_platt_calibration,
+        platt_calibration_fraction=platt_calibration_fraction,
+        class_weight=use_class_weight,
+    )
+
+    split_idx = max(walk_forward_min_train, len(dataset) - walk_forward_test_size)
     split_idx = min(split_idx, len(dataset) - 2)
 
     train_x = matrix[:split_idx]
     test_x = matrix[split_idx:]
     train_y_cls = labels[:split_idx]
     test_y_cls = labels[split_idx:]
+    train_y_m45 = labels_m45[:split_idx]
+    test_y_m45 = labels_m45[split_idx:]
+    train_y_exceed = exceedance_targets[:split_idx]
+    test_y_exceed = exceedance_targets[split_idx:]
     train_y_reg = mmax_targets[:split_idx]
     test_y_reg = mmax_targets[split_idx:]
     test_spans = spans[split_idx:]
+    test_samples = dataset[split_idx:]
 
-    train_x_std, test_x_std, means, stds = _standardize(train_x, test_x)
-    w_cls, b_cls = _train_logistic(train_x_std, train_y_cls)
-    w_reg, b_reg = _train_linear(train_x_std, train_y_reg)
+    cal_size = max(1, int(len(train_x) * platt_calibration_fraction)) if use_platt_calibration else 0
+    fit_x = train_x[:-cal_size] if cal_size and len(train_x) > cal_size + 2 else train_x
+    fit_y_cls = train_y_cls[:-cal_size] if cal_size and len(train_y_cls) > cal_size + 2 else train_y_cls
+    fit_y_m45 = train_y_m45[:-cal_size] if cal_size and len(train_y_m45) > cal_size + 2 else train_y_m45
+    cal_x = train_x[-cal_size:] if cal_size else []
+    cal_y_cls = train_y_cls[-cal_size:] if cal_size else []
+    cal_y_m45 = train_y_m45[-cal_size:] if cal_size else []
 
-    cls_prob = _predict_logistic(test_x_std, w_cls, b_cls)
-    reg_pred = _predict_linear(test_x_std, w_reg, b_reg)
+    train_x_std, test_x_std, means, stds = _standardize(fit_x + cal_x, test_x)
+    fit_x_std = train_x_std[: len(fit_x)]
+    cal_x_std = train_x_std[len(fit_x) :]
 
-    cls_metrics = _classification_metrics(test_y_cls, cls_prob)
-    reg_metrics = _regression_metrics(test_y_reg, reg_pred)
+    w_cls, b_cls = _train_logistic(fit_x_std, fit_y_cls, class_weight=use_class_weight)
+    w_cls_m45, b_cls_m45 = _train_logistic(fit_x_std, fit_y_m45, class_weight=use_class_weight)
+    w_reg = [0.0 for _ in FEATURE_ORDER]
+    b_reg = 0.0
+
+    test_raw = _predict_logistic(test_x_std, w_cls, b_cls)
+    test_raw_m45 = _predict_logistic(test_x_std, w_cls_m45, b_cls_m45)
+    if use_platt_calibration and cal_x_std:
+        cal_raw = _predict_logistic(cal_x_std, w_cls, b_cls)
+        cal_raw_m45 = _predict_logistic(cal_x_std, w_cls_m45, b_cls_m45)
+        cls_prob = _calibrate_probabilities(test_raw, cal_raw, cal_y_cls, use_platt=True)
+        cls_prob_m45 = _calibrate_probabilities(test_raw_m45, cal_raw_m45, cal_y_m45, use_platt=True)
+    else:
+        cls_prob = test_raw
+        cls_prob_m45 = test_raw_m45
+    gr_exceed_pred, gr_mmax_pred = _gr_tail_predictions(
+        test_samples,
+        horizon_days,
+        window_days,
+        exceedance_threshold=alternative_threshold_magnitude,
+    )
+
+    cls_metrics = _classification_metrics(test_y_cls, cls_prob, threshold=operational_threshold)
+    cls_m45_metrics = _classification_metrics(
+        test_y_m45,
+        cls_prob_m45,
+        threshold=operational_threshold_m45,
+    )
+    reg_metrics = _regression_metrics(test_y_reg, gr_mmax_pred)
+    exceedance_metrics = _regression_metrics(test_y_exceed, gr_exceed_pred)
 
     importance = _feature_importance(FEATURE_ORDER, w_cls, w_reg)
     ablation = _ablation_importance(test_x_std, test_y_cls, test_y_reg, w_cls, b_cls, w_reg, b_reg)
@@ -824,12 +1136,16 @@ def run_international_estimation(
     ]
 
     prediction_rows: list[list[str | float | int]] = []
-    for span, y_true_prob, y_prob, y_true_mmax, y_mmax in zip(
+    for span, y_true_prob, y_prob, y_true_m45, y_prob_m45, y_true_exceed, y_exceed, y_true_mmax, y_mmax in zip(
         test_spans,
         test_y_cls,
         cls_prob,
+        test_y_m45,
+        cls_prob_m45,
+        test_y_exceed,
+        gr_exceed_pred,
         test_y_reg,
-        reg_pred,
+        gr_mmax_pred,
     ):
         prediction_rows.append(
             [
@@ -838,6 +1154,10 @@ def run_international_estimation(
                 span[2].isoformat(),
                 int(y_true_prob),
                 float(y_prob),
+                int(y_true_m45),
+                float(y_prob_m45),
+                float(y_true_exceed),
+                float(y_exceed),
                 float(y_true_mmax),
                 float(y_mmax),
             ]
@@ -849,7 +1169,20 @@ def run_international_estimation(
         row.extend(float(sample.features.get(name, 0.0)) for name in FEATURE_ORDER)
         feature_rows.append(row)
 
-    insar_gnss_rows = _insar_gnss_placeholder_rows(dataset)
+    insar_gnss_rows = build_insar_gnss_rows(
+        dataset,
+        use_measured=use_live_insar_gnss,
+        use_live=use_live_insar_gnss,
+    )
+    insar_fetch_meta = insar_gnss_rows and {
+        "enabled": use_live_insar_gnss,
+        "measured_rows": sum(
+            1 for row in insar_gnss_rows if len(row) > 5 and row[5] == STATUS_MEASURED
+        ),
+        "proxy_rows": sum(
+            1 for row in insar_gnss_rows if len(row) > 5 and row[5] != STATUS_MEASURED
+        ),
+    }
 
     anomaly_sample = _select_anomaly_window(dataset, ANOMALY_REFERENCE_DATE)
     anomaly_reference_window = "-"
@@ -880,9 +1213,15 @@ def run_international_estimation(
         ["Molchan alarm fraction", cls_metrics["molchan_alarm_fraction"]],
         ["Molchan missed fraction", cls_metrics["molchan_missed_fraction"]],
         ["L-test log-likelihood", cls_metrics["l_test_log_likelihood"]],
-        ["MSE", reg_metrics["mse"]],
-        ["MAE", reg_metrics["mae"]],
-        ["R2", reg_metrics["r2"]],
+        ["F1 walk-forward avg", wf_cls_metrics.get("f1", 0.0)],
+        ["PRC AUC walk-forward avg", wf_cls_metrics.get("prc_auc", 0.0)],
+        ["F1 M>=4.5 holdout", cls_m45_metrics["f1"]],
+        ["Operational threshold M>=5", operational_threshold],
+        ["Operational threshold M>=4.5", operational_threshold_m45],
+        ["MSE exceedance GR", exceedance_metrics["mse"]],
+        ["MSE Mmax GR-tail", reg_metrics["mse"]],
+        ["MAE Mmax GR-tail", reg_metrics["mae"]],
+        ["R2 Mmax GR-tail", reg_metrics["r2"]],
         ["S-test spatial skill", reg_metrics["s_test_spatial_skill"]],
     ]
 
@@ -895,40 +1234,76 @@ def run_international_estimation(
             "stride_days": stride_days,
             "horizon_days": horizon_days,
             "threshold_magnitude": threshold_magnitude,
+            "alternative_threshold_magnitude": alternative_threshold_magnitude,
             "min_magnitude": min_magnitude,
             "use_live_sources": use_live_sources,
+            "use_live_insar_gnss": use_live_insar_gnss,
+            "validation_strategy": "walk_forward",
+            "walk_forward_min_train": walk_forward_min_train,
+            "walk_forward_test_size": walk_forward_test_size,
+            "walk_forward_step": walk_forward_step,
+            "class_weight": use_class_weight,
+            "probability_calibration": "platt" if use_platt_calibration else "none",
+            "platt_calibration_fraction": platt_calibration_fraction,
+            "mmax_model": "gutenberg_richter_tail",
         },
         "event_count": len(events),
         "window_count": len(dataset),
         "training_windows": split_idx,
         "testing_windows": len(dataset) - split_idx,
+        "walk_forward_folds": len(walk_forward_folds),
+        "walk_forward_metrics": {
+            "classification_m5": wf_cls_metrics,
+            "classification_m45": wf_cls_m45_metrics,
+            "operational_threshold_m5": operational_threshold,
+            "operational_threshold_m45": operational_threshold_m45,
+        },
         "source_table": source_table,
         "metrics_rows": metrics_rows,
         "importance_rows": importance,
         "ablation_rows": ablation_rows,
         "insar_gnss_rows": insar_gnss_rows,
+        "insar_fetch_meta": insar_fetch_meta,
         "similarity_rows": similarity_rows,
         "anomaly_reference_window": anomaly_reference_window,
         "insar_gnss_placeholder_policy": {
             "fields": ["vsr_mm_per_year", "ssr_mm_per_year", "nsr_mm_per_year"],
-            "status": "placeholder_pending_source",
-            "notes": "Agregar proveedor InSAR/GNSS para reemplazar placeholders.",
+            "status": STATUS_PROXY,
+            "notes": (
+                "Proxy conectado al FCN geologico via geological_model.insar_bridge; "
+                "usar --use-live-insar-gnss o scripts/fetch_insar_gnss.py para datos MIDAS medidos."
+            ),
         },
+        "geological_insar_bridge": build_geological_insar_bridge_summary(
+            {"insar_gnss_rows": insar_gnss_rows}
+        ),
     }
     out_path = _save_run(payload, as_of_date=as_of_date)
 
     return {
         "status": "ok",
         "message": "Modelo internacional ejecutado correctamente.",
+        "parameters": payload["parameters"],
+        "window_count": len(dataset),
+        "training_windows": split_idx,
+        "testing_windows": len(dataset) - split_idx,
+        "walk_forward_folds": len(walk_forward_folds),
         "source_table": source_table,
         "feature_rows": feature_rows,
         "insar_gnss_rows": insar_gnss_rows,
+        "insar_fetch_meta": insar_fetch_meta,
         "similarity_rows": similarity_rows,
         "anomaly_reference_window": anomaly_reference_window,
+        "geological_insar_bridge": payload["geological_insar_bridge"],
         "prediction_rows": prediction_rows,
         "metrics_rows": metrics_rows,
         "importance_rows": importance,
         "ablation_rows": ablation_rows,
+        "walk_forward_metrics": {
+            "classification_m5": wf_cls_metrics,
+            "classification_m45": wf_cls_m45_metrics,
+            "folds": walk_forward_folds,
+        },
         "probability_plot": {
             "x": [f"{row[0]}->{row[2]}" for row in prediction_rows],
             "y_prob": [float(row[4]) for row in prediction_rows],
@@ -936,8 +1311,8 @@ def run_international_estimation(
         },
         "mmax_plot": {
             "x": [f"{row[0]}->{row[2]}" for row in prediction_rows],
-            "y_pred": [float(row[6]) for row in prediction_rows],
-            "y_true": [float(row[5]) for row in prediction_rows],
+            "y_pred": [float(row[10]) for row in prediction_rows],
+            "y_true": [float(row[9]) for row in prediction_rows],
         },
         "storage_path": _display_storage_path(out_path),
     }
@@ -1043,8 +1418,34 @@ def mount_international_calculation_panel(gr_module: Any, default_as_of: str) ->
 
     with gr.Row():
         threshold_magnitude = gr.Number(value=5.0, label="Umbral clasificacion M >=", minimum=3.5, maximum=8.5)
+        alternative_threshold = gr.Number(
+            value=ALTERNATIVE_THRESHOLD_MAGNITUDE,
+            label="Umbral alternativo M >=",
+            minimum=3.5,
+            maximum=7.0,
+        )
         min_magnitude = gr.Number(value=3.0, label="Magnitud minima catalogo", minimum=1.0, maximum=7.0)
         use_live = gr.Checkbox(value=True, label="Usar APIs live (fallback local si falla)")
+
+    gr.Markdown(
+        "### Fase 1.1: Validacion walk-forward, calibracion Platt e InSAR MIDAS\n"
+        "Ajusta la validacion temporal, la calibracion de probabilidades y la fuente InSAR/GNSS."
+    )
+    with gr.Row():
+        wf_min_train = gr.Slider(4, 30, value=WALK_FORWARD_MIN_TRAIN, step=1, label="Walk-forward min train")
+        wf_test_size = gr.Slider(1, 12, value=WALK_FORWARD_TEST_SIZE, step=1, label="Walk-forward test size")
+        wf_step = gr.Slider(1, 15, value=WALK_FORWARD_STEP, step=1, label="Walk-forward step")
+    with gr.Row():
+        use_platt = gr.Checkbox(value=True, label="Calibracion Platt")
+        platt_fraction = gr.Slider(
+            0.05,
+            0.5,
+            value=PLATT_CALIBRATION_FRACTION,
+            step=0.05,
+            label="Fraccion calibracion Platt",
+        )
+        use_class_weight = gr.Checkbox(value=True, label="Class weight (balanceo de clases)")
+        use_live_insar = gr.Checkbox(value=False, label="InSAR/GNSS MIDAS medido (NGL)")
 
     run_btn = gr.Button("Ejecutar calculo y estimacion internacional", variant="primary")
 
@@ -1061,11 +1462,11 @@ def mount_international_calculation_panel(gr_module: Any, default_as_of: str) ->
         label="Variables por ventana (ultimas 12)",
         interactive=False,
     )
-    gr.Markdown("### Fase 2.2: Placeholders InSAR/GNSS")
+    gr.Markdown("### Fase 2.2: InSAR/GNSS (proxy o MIDAS medido)")
     insar_gnss_table = gr.Dataframe(
         headers=INSAR_GNSS_PLACEHOLDER_HEADERS,
         datatype=["str", "str", "number", "number", "number", "str", "str"],
-        label="VSR/SSR/NSR (placeholder tecnico)",
+        label="VSR/SSR/NSR por ventana",
         interactive=False,
     )
 
@@ -1075,12 +1476,16 @@ def mount_international_calculation_panel(gr_module: Any, default_as_of: str) ->
             "window_start",
             "window_end",
             "target_end",
-            "target_cls",
-            "pred_prob",
+            "target_cls_m5",
+            "pred_prob_m5",
+            "target_cls_m45",
+            "pred_prob_m45",
+            "target_exceedance",
+            "pred_exceedance_gr",
             "target_mmax",
-            "pred_mmax",
+            "pred_mmax_gr",
         ],
-        datatype=["str", "str", "str", "number", "number", "number", "number"],
+        datatype=["str", "str", "str", "number", "number", "number", "number", "number", "number", "number", "number"],
         label="Predicciones en ventanas de prueba",
         interactive=False,
     )
@@ -1130,8 +1535,16 @@ def mount_international_calculation_panel(gr_module: Any, default_as_of: str) ->
         stride_value: int,
         horizon_value: int,
         threshold_value: float,
+        alternative_threshold_value: float,
         min_mag_value: float,
         use_live_value: bool,
+        wf_min_train_value: int,
+        wf_test_size_value: int,
+        wf_step_value: int,
+        use_platt_value: bool,
+        platt_fraction_value: float,
+        use_class_weight_value: bool,
+        use_live_insar_value: bool,
     ):
         try:
             as_of_date = datetime.strptime(str(as_of_text).strip(), "%Y-%m-%d").date()
@@ -1145,8 +1558,16 @@ def mount_international_calculation_panel(gr_module: Any, default_as_of: str) ->
             stride_days=int(stride_value),
             horizon_days=int(horizon_value),
             threshold_magnitude=float(threshold_value),
+            alternative_threshold_magnitude=float(alternative_threshold_value),
             min_magnitude=float(min_mag_value),
             use_live_sources=bool(use_live_value),
+            use_live_insar_gnss=bool(use_live_insar_value),
+            walk_forward_min_train=int(wf_min_train_value),
+            walk_forward_test_size=int(wf_test_size_value),
+            walk_forward_step=int(wf_step_value),
+            use_platt_calibration=bool(use_platt_value),
+            platt_calibration_fraction=float(platt_fraction_value),
+            use_class_weight=bool(use_class_weight_value),
         )
 
         if payload.get("status") != "ok":
@@ -1172,22 +1593,30 @@ def mount_international_calculation_panel(gr_module: Any, default_as_of: str) ->
                 payload.get("ablation_rows", []),
             )
 
+        params = payload.get("parameters", {})
         status_text = (
             "### Estado\n"
             f"{payload.get('message', 'Ejecucion completada.')}\n\n"
             f"- Ventanas: {payload.get('window_count', 0)}\n"
             f"- Entrenamiento: {payload.get('training_windows', 0)}\n"
             f"- Prueba: {payload.get('testing_windows', 0)}\n"
+            f"- Walk-forward folds: {payload.get('walk_forward_folds', 0)}\n"
             f"- Ventana anomala: {payload.get('anomaly_reference_window', '-')}\n"
+            f"- InSAR MIDAS: {'activo' if params.get('use_live_insar_gnss') else 'proxy'}\n"
             f"- Salida: {payload.get('storage_path', '-') }"
         )
 
         model_text = (
             "### Modelo (Fase 4)\n"
-            "- Clasificacion: regresion logistica entrenada en ventanas historicas.\n"
-            "- Regresion: modelo lineal para magnitud maxima esperada.\n"
-            "- Validacion: pseudo-prospectiva con particion temporal 70/30.\n"
-            "- Perdida: BCE implicita (clasificacion) y MSE (regresion)."
+            f"- Umbral principal: M>={params.get('threshold_magnitude', threshold_value)}\n"
+            f"- Umbral alternativo: M>={params.get('alternative_threshold_magnitude', alternative_threshold_value)}\n"
+            f"- Walk-forward: train>={params.get('walk_forward_min_train')}, "
+            f"test={params.get('walk_forward_test_size')}, step={params.get('walk_forward_step')}\n"
+            f"- Calibracion: {params.get('probability_calibration', 'platt')} "
+            f"(fraccion={params.get('platt_calibration_fraction', platt_fraction_value)})\n"
+            f"- Class weight: {params.get('class_weight', use_class_weight_value)}\n"
+            "- Regresion Mmax: cola Gutenberg-Richter.\n"
+            "- Features: max_mag ventana, aceleracion Benioff, delta b-value, tendencia de tasa."
         )
 
         return (
@@ -1215,8 +1644,16 @@ def mount_international_calculation_panel(gr_module: Any, default_as_of: str) ->
             stride_days,
             horizon_days,
             threshold_magnitude,
+            alternative_threshold,
             min_magnitude,
             use_live,
+            wf_min_train,
+            wf_test_size,
+            wf_step,
+            use_platt,
+            platt_fraction,
+            use_class_weight,
+            use_live_insar,
         ],
         outputs=[
             status_md,

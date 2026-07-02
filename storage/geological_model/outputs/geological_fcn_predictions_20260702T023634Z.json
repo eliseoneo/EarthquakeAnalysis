@@ -1,0 +1,581 @@
+{
+  "model_type": "fcn_geoespacial_geologico",
+  "reference_doc": "docs/foco-geologico.md",
+  "generated_at_utc": "20260702T023634Z",
+  "cases_evaluated": 13,
+  "international_insar_source": "/Users/eliseogelvis/Projects/EarthquakeAnalysis/storage/venezuela/international/2026/07/01/international_estimation_20260702T020825Z.json",
+  "predictions": [
+    {
+      "event_id": "venezuela_2026_june",
+      "model_type": "fcn_geoespacial_geologico",
+      "model_version": "1.0.0",
+      "source_document": "/Users/eliseogelvis/Projects/EarthquakeAnalysis/event_cases/venezuela_2026_june/event.yaml",
+      "channel_scores": {
+        "insar": 0.026945000000000004,
+        "tectonic": 0.6606666666666666,
+        "soil": 0.75,
+        "hydro_geotech": 0.651
+      },
+      "geotechnical_vulnerability": 0.5418,
+      "liquefaction_probability": 0.429,
+      "spatial_amplification_factor": 1.45,
+      "fault_coupling_index": 0.4072,
+      "structural_damage_probability": 0.6543,
+      "landslide_probability": 0.663,
+      "risk_category": "riesgo_medio",
+      "evidence_level": "B",
+      "modeling_notes": {
+        "architecture": "FCN",
+        "reference_doc": "docs/foco-geologico.md",
+        "loss_functions": [
+          "weighted_mse_mae",
+          "stpidn_magnitude_epicenter",
+          "mse_star_seismology_informed"
+        ],
+        "insar_available": true,
+        "insar_quality": "instrumented_insar"
+      },
+      "insar_bridge": {
+        "connected": true,
+        "source": "international_calculation_workflow",
+        "window_start": "2026-03-03",
+        "window_end": "2026-05-31",
+        "vsr_mm_per_year": 2.6257,
+        "ssr_mm_per_year": 15.1253,
+        "nsr_mm_per_year": 15.5787,
+        "data_status": "measured",
+        "displacement_cm": 0.5389,
+        "notes": "GNSS MIDAS medido (campo regional (Nevada Geodetic Laboratory MIDAS): 56 estaciones en bbox Venezuela-Caribe.)",
+        "international_source": "/Users/eliseogelvis/Projects/EarthquakeAnalysis/storage/venezuela/international/2026/07/01/international_estimation_20260702T020825Z.json"
+      }
+    },
+    {
+      "event_id": "unknown",
+      "model_type": "fcn_geoespacial_geologico",
+      "model_version": "1.0.0",
+      "source_document": "/Users/eliseogelvis/Projects/EarthquakeAnalysis/case_library/california_doublets/event.yaml",
+      "channel_scores": {
+        "insar": 0.026945000000000004,
+        "tectonic": 0.896,
+        "soil": 0.45,
+        "hydro_geotech": 0.4766666666666667
+      },
+      "geotechnical_vulnerability": 0.4252,
+      "liquefaction_probability": 0.2845,
+      "spatial_amplification_factor": 1.05,
+      "fault_coupling_index": 0.5484,
+      "structural_damage_probability": 0.4901,
+      "landslide_probability": 0.4909,
+      "risk_category": "riesgo_bajo",
+      "evidence_level": "B",
+      "modeling_notes": {
+        "architecture": "FCN",
+        "reference_doc": "docs/foco-geologico.md",
+        "loss_functions": [
+          "weighted_mse_mae",
+          "stpidn_magnitude_epicenter",
+          "mse_star_seismology_informed"
+        ],
+        "insar_available": true,
+        "insar_quality": "instrumented_insar"
+      },
+      "insar_bridge": {
+        "connected": true,
+        "source": "international_calculation_workflow",
+        "window_start": "2026-03-03",
+        "window_end": "2026-05-31",
+        "vsr_mm_per_year": 2.6257,
+        "ssr_mm_per_year": 15.1253,
+        "nsr_mm_per_year": 15.5787,
+        "data_status": "measured",
+        "displacement_cm": 0.5389,
+        "notes": "GNSS MIDAS medido (campo regional (Nevada Geodetic Laboratory MIDAS): 56 estaciones en bbox Venezuela-Caribe.)",
+        "international_source": "/Users/eliseogelvis/Projects/EarthquakeAnalysis/storage/venezuela/international/2026/07/01/international_estimation_20260702T020825Z.json"
+      }
+    },
+    {
+      "event_id": "unknown",
+      "model_type": "fcn_geoespacial_geologico",
+      "model_version": "1.0.0",
+      "source_document": "/Users/eliseogelvis/Projects/EarthquakeAnalysis/case_library/chile_2010/event.yaml",
+      "channel_scores": {
+        "insar": 0.026945000000000004,
+        "tectonic": 0.765,
+        "soil": 0.45,
+        "hydro_geotech": 0.6583333333333334
+      },
+      "geotechnical_vulnerability": 0.4427,
+      "liquefaction_probability": 0.4063,
+      "spatial_amplification_factor": 1.05,
+      "fault_coupling_index": 0.4698,
+      "structural_damage_probability": 0.5747,
+      "landslide_probability": 0.662,
+      "risk_category": "riesgo_bajo",
+      "evidence_level": "B",
+      "modeling_notes": {
+        "architecture": "FCN",
+        "reference_doc": "docs/foco-geologico.md",
+        "loss_functions": [
+          "weighted_mse_mae",
+          "stpidn_magnitude_epicenter",
+          "mse_star_seismology_informed"
+        ],
+        "insar_available": true,
+        "insar_quality": "instrumented_insar"
+      },
+      "insar_bridge": {
+        "connected": true,
+        "source": "international_calculation_workflow",
+        "window_start": "2026-03-03",
+        "window_end": "2026-05-31",
+        "vsr_mm_per_year": 2.6257,
+        "ssr_mm_per_year": 15.1253,
+        "nsr_mm_per_year": 15.5787,
+        "data_status": "measured",
+        "displacement_cm": 0.5389,
+        "notes": "GNSS MIDAS medido (campo regional (Nevada Geodetic Laboratory MIDAS): 56 estaciones en bbox Venezuela-Caribe.)",
+        "international_source": "/Users/eliseogelvis/Projects/EarthquakeAnalysis/storage/venezuela/international/2026/07/01/international_estimation_20260702T020825Z.json"
+      }
+    },
+    {
+      "event_id": "unknown",
+      "model_type": "fcn_geoespacial_geologico",
+      "model_version": "1.0.0",
+      "source_document": "/Users/eliseogelvis/Projects/EarthquakeAnalysis/case_library/ecuador_2016/event.yaml",
+      "channel_scores": {
+        "insar": 0.026945000000000004,
+        "tectonic": 0.7875,
+        "soil": 0.75,
+        "hydro_geotech": 0.649
+      },
+      "geotechnical_vulnerability": 0.5651,
+      "liquefaction_probability": 0.4161,
+      "spatial_amplification_factor": 1.45,
+      "fault_coupling_index": 0.4833,
+      "structural_damage_probability": 0.682,
+      "landslide_probability": 0.684,
+      "risk_category": "riesgo_medio",
+      "evidence_level": "B",
+      "modeling_notes": {
+        "architecture": "FCN",
+        "reference_doc": "docs/foco-geologico.md",
+        "loss_functions": [
+          "weighted_mse_mae",
+          "stpidn_magnitude_epicenter",
+          "mse_star_seismology_informed"
+        ],
+        "insar_available": true,
+        "insar_quality": "instrumented_insar"
+      },
+      "insar_bridge": {
+        "connected": true,
+        "source": "international_calculation_workflow",
+        "window_start": "2026-03-03",
+        "window_end": "2026-05-31",
+        "vsr_mm_per_year": 2.6257,
+        "ssr_mm_per_year": 15.1253,
+        "nsr_mm_per_year": 15.5787,
+        "data_status": "measured",
+        "displacement_cm": 0.5389,
+        "notes": "GNSS MIDAS medido (campo regional (Nevada Geodetic Laboratory MIDAS): 56 estaciones en bbox Venezuela-Caribe.)",
+        "international_source": "/Users/eliseogelvis/Projects/EarthquakeAnalysis/storage/venezuela/international/2026/07/01/international_estimation_20260702T020825Z.json"
+      }
+    },
+    {
+      "event_id": "unknown",
+      "model_type": "fcn_geoespacial_geologico",
+      "model_version": "1.0.0",
+      "source_document": "/Users/eliseogelvis/Projects/EarthquakeAnalysis/case_library/haiti_2010/event.yaml",
+      "channel_scores": {
+        "insar": 0.026945000000000004,
+        "tectonic": 0.6683333333333333,
+        "soil": 0.75,
+        "hydro_geotech": 0.651
+      },
+      "geotechnical_vulnerability": 0.5553,
+      "liquefaction_probability": 0.4765,
+      "spatial_amplification_factor": 1.45,
+      "fault_coupling_index": 0.4118,
+      "structural_damage_probability": 0.6367,
+      "landslide_probability": 0.6421,
+      "risk_category": "riesgo_medio",
+      "evidence_level": "B",
+      "modeling_notes": {
+        "architecture": "FCN",
+        "reference_doc": "docs/foco-geologico.md",
+        "loss_functions": [
+          "weighted_mse_mae",
+          "stpidn_magnitude_epicenter",
+          "mse_star_seismology_informed"
+        ],
+        "insar_available": true,
+        "insar_quality": "instrumented_insar"
+      },
+      "insar_bridge": {
+        "connected": true,
+        "source": "international_calculation_workflow",
+        "window_start": "2026-03-03",
+        "window_end": "2026-05-31",
+        "vsr_mm_per_year": 2.6257,
+        "ssr_mm_per_year": 15.1253,
+        "nsr_mm_per_year": 15.5787,
+        "data_status": "measured",
+        "displacement_cm": 0.5389,
+        "notes": "GNSS MIDAS medido (campo regional (Nevada Geodetic Laboratory MIDAS): 56 estaciones en bbox Venezuela-Caribe.)",
+        "international_source": "/Users/eliseogelvis/Projects/EarthquakeAnalysis/storage/venezuela/international/2026/07/01/international_estimation_20260702T020825Z.json"
+      }
+    },
+    {
+      "event_id": "unknown",
+      "model_type": "fcn_geoespacial_geologico",
+      "model_version": "1.0.0",
+      "source_document": "/Users/eliseogelvis/Projects/EarthquakeAnalysis/case_library/japan_2011/event.yaml",
+      "channel_scores": {
+        "insar": 0.026945000000000004,
+        "tectonic": 0.5399999999999999,
+        "soil": 0.75,
+        "hydro_geotech": 0.7373333333333333
+      },
+      "geotechnical_vulnerability": 0.5339,
+      "liquefaction_probability": 0.4708,
+      "spatial_amplification_factor": 1.45,
+      "fault_coupling_index": 0.3348,
+      "structural_damage_probability": 0.6749,
+      "landslide_probability": 0.7288,
+      "risk_category": "riesgo_medio",
+      "evidence_level": "B",
+      "modeling_notes": {
+        "architecture": "FCN",
+        "reference_doc": "docs/foco-geologico.md",
+        "loss_functions": [
+          "weighted_mse_mae",
+          "stpidn_magnitude_epicenter",
+          "mse_star_seismology_informed"
+        ],
+        "insar_available": true,
+        "insar_quality": "instrumented_insar"
+      },
+      "insar_bridge": {
+        "connected": true,
+        "source": "international_calculation_workflow",
+        "window_start": "2026-03-03",
+        "window_end": "2026-05-31",
+        "vsr_mm_per_year": 2.6257,
+        "ssr_mm_per_year": 15.1253,
+        "nsr_mm_per_year": 15.5787,
+        "data_status": "measured",
+        "displacement_cm": 0.5389,
+        "notes": "GNSS MIDAS medido (campo regional (Nevada Geodetic Laboratory MIDAS): 56 estaciones en bbox Venezuela-Caribe.)",
+        "international_source": "/Users/eliseogelvis/Projects/EarthquakeAnalysis/storage/venezuela/international/2026/07/01/international_estimation_20260702T020825Z.json"
+      }
+    },
+    {
+      "event_id": "unknown",
+      "model_type": "fcn_geoespacial_geologico",
+      "model_version": "1.0.0",
+      "source_document": "/Users/eliseogelvis/Projects/EarthquakeAnalysis/case_library/mexico_2017/event.yaml",
+      "channel_scores": {
+        "insar": 0.026945000000000004,
+        "tectonic": 0.47250000000000003,
+        "soil": 0.75,
+        "hydro_geotech": 0.45416666666666666
+      },
+      "geotechnical_vulnerability": 0.4967,
+      "liquefaction_probability": 0.4694,
+      "spatial_amplification_factor": 1.45,
+      "fault_coupling_index": 0.2943,
+      "structural_damage_probability": 0.6094,
+      "landslide_probability": 0.5311,
+      "risk_category": "riesgo_medio",
+      "evidence_level": "B",
+      "modeling_notes": {
+        "architecture": "FCN",
+        "reference_doc": "docs/foco-geologico.md",
+        "loss_functions": [
+          "weighted_mse_mae",
+          "stpidn_magnitude_epicenter",
+          "mse_star_seismology_informed"
+        ],
+        "insar_available": true,
+        "insar_quality": "instrumented_insar"
+      },
+      "insar_bridge": {
+        "connected": true,
+        "source": "international_calculation_workflow",
+        "window_start": "2026-03-03",
+        "window_end": "2026-05-31",
+        "vsr_mm_per_year": 2.6257,
+        "ssr_mm_per_year": 15.1253,
+        "nsr_mm_per_year": 15.5787,
+        "data_status": "measured",
+        "displacement_cm": 0.5389,
+        "notes": "GNSS MIDAS medido (campo regional (Nevada Geodetic Laboratory MIDAS): 56 estaciones en bbox Venezuela-Caribe.)",
+        "international_source": "/Users/eliseogelvis/Projects/EarthquakeAnalysis/storage/venezuela/international/2026/07/01/international_estimation_20260702T020825Z.json"
+      }
+    },
+    {
+      "event_id": "unknown",
+      "model_type": "fcn_geoespacial_geologico",
+      "model_version": "1.0.0",
+      "source_document": "/Users/eliseogelvis/Projects/EarthquakeAnalysis/case_library/turkey_syria_2023/event.yaml",
+      "channel_scores": {
+        "insar": 0.026945000000000004,
+        "tectonic": 0.6925,
+        "soil": 0.75,
+        "hydro_geotech": 0.5176666666666667
+      },
+      "geotechnical_vulnerability": 0.5078,
+      "liquefaction_probability": 0.309,
+      "spatial_amplification_factor": 1.45,
+      "fault_coupling_index": 0.4263,
+      "structural_damage_probability": 0.6506,
+      "landslide_probability": 0.6012,
+      "risk_category": "riesgo_medio",
+      "evidence_level": "B",
+      "modeling_notes": {
+        "architecture": "FCN",
+        "reference_doc": "docs/foco-geologico.md",
+        "loss_functions": [
+          "weighted_mse_mae",
+          "stpidn_magnitude_epicenter",
+          "mse_star_seismology_informed"
+        ],
+        "insar_available": true,
+        "insar_quality": "instrumented_insar"
+      },
+      "insar_bridge": {
+        "connected": true,
+        "source": "international_calculation_workflow",
+        "window_start": "2026-03-03",
+        "window_end": "2026-05-31",
+        "vsr_mm_per_year": 2.6257,
+        "ssr_mm_per_year": 15.1253,
+        "nsr_mm_per_year": 15.5787,
+        "data_status": "measured",
+        "displacement_cm": 0.5389,
+        "notes": "GNSS MIDAS medido (campo regional (Nevada Geodetic Laboratory MIDAS): 56 estaciones en bbox Venezuela-Caribe.)",
+        "international_source": "/Users/eliseogelvis/Projects/EarthquakeAnalysis/storage/venezuela/international/2026/07/01/international_estimation_20260702T020825Z.json"
+      }
+    },
+    {
+      "event_id": "unknown",
+      "model_type": "fcn_geoespacial_geologico",
+      "model_version": "1.0.0",
+      "source_document": "/Users/eliseogelvis/Projects/EarthquakeAnalysis/case_library/venezuela_1812/event.yaml",
+      "channel_scores": {
+        "insar": 0.026945000000000004,
+        "tectonic": 0.7040000000000001,
+        "soil": 0.75,
+        "hydro_geotech": 0.36666666666666664
+      },
+      "geotechnical_vulnerability": 0.4959,
+      "liquefaction_probability": 0.3,
+      "spatial_amplification_factor": 1.45,
+      "fault_coupling_index": 0.4332,
+      "structural_damage_probability": 0.604,
+      "landslide_probability": 0.4821,
+      "risk_category": "riesgo_medio",
+      "evidence_level": "B",
+      "modeling_notes": {
+        "architecture": "FCN",
+        "reference_doc": "docs/foco-geologico.md",
+        "loss_functions": [
+          "weighted_mse_mae",
+          "stpidn_magnitude_epicenter",
+          "mse_star_seismology_informed"
+        ],
+        "insar_available": true,
+        "insar_quality": "instrumented_insar"
+      },
+      "insar_bridge": {
+        "connected": true,
+        "source": "international_calculation_workflow",
+        "window_start": "2026-03-03",
+        "window_end": "2026-05-31",
+        "vsr_mm_per_year": 2.6257,
+        "ssr_mm_per_year": 15.1253,
+        "nsr_mm_per_year": 15.5787,
+        "data_status": "measured",
+        "displacement_cm": 0.5389,
+        "notes": "GNSS MIDAS medido (campo regional (Nevada Geodetic Laboratory MIDAS): 56 estaciones en bbox Venezuela-Caribe.)",
+        "international_source": "/Users/eliseogelvis/Projects/EarthquakeAnalysis/storage/venezuela/international/2026/07/01/international_estimation_20260702T020825Z.json"
+      }
+    },
+    {
+      "event_id": "unknown",
+      "model_type": "fcn_geoespacial_geologico",
+      "model_version": "1.0.0",
+      "source_document": "/Users/eliseogelvis/Projects/EarthquakeAnalysis/case_library/venezuela_1967/event.yaml",
+      "channel_scores": {
+        "insar": 0.026945000000000004,
+        "tectonic": 0.7326666666666667,
+        "soil": 0.75,
+        "hydro_geotech": 0.56
+      },
+      "geotechnical_vulnerability": 0.5373,
+      "liquefaction_probability": 0.3795,
+      "spatial_amplification_factor": 1.45,
+      "fault_coupling_index": 0.4504,
+      "structural_damage_probability": 0.6068,
+      "landslide_probability": 0.5712,
+      "risk_category": "riesgo_medio",
+      "evidence_level": "B",
+      "modeling_notes": {
+        "architecture": "FCN",
+        "reference_doc": "docs/foco-geologico.md",
+        "loss_functions": [
+          "weighted_mse_mae",
+          "stpidn_magnitude_epicenter",
+          "mse_star_seismology_informed"
+        ],
+        "insar_available": true,
+        "insar_quality": "instrumented_insar"
+      },
+      "insar_bridge": {
+        "connected": true,
+        "source": "international_calculation_workflow",
+        "window_start": "2026-03-03",
+        "window_end": "2026-05-31",
+        "vsr_mm_per_year": 2.6257,
+        "ssr_mm_per_year": 15.1253,
+        "nsr_mm_per_year": 15.5787,
+        "data_status": "measured",
+        "displacement_cm": 0.5389,
+        "notes": "GNSS MIDAS medido (campo regional (Nevada Geodetic Laboratory MIDAS): 56 estaciones en bbox Venezuela-Caribe.)",
+        "international_source": "/Users/eliseogelvis/Projects/EarthquakeAnalysis/storage/venezuela/international/2026/07/01/international_estimation_20260702T020825Z.json"
+      }
+    },
+    {
+      "event_id": "unknown",
+      "model_type": "fcn_geoespacial_geologico",
+      "model_version": "1.0.0",
+      "source_document": "/Users/eliseogelvis/Projects/EarthquakeAnalysis/case_library/venezuela_2026/event.yaml",
+      "channel_scores": {
+        "insar": 0.026945000000000004,
+        "tectonic": 0.6606666666666666,
+        "soil": 0.75,
+        "hydro_geotech": 0.651
+      },
+      "geotechnical_vulnerability": 0.5418,
+      "liquefaction_probability": 0.429,
+      "spatial_amplification_factor": 1.45,
+      "fault_coupling_index": 0.4072,
+      "structural_damage_probability": 0.6543,
+      "landslide_probability": 0.663,
+      "risk_category": "riesgo_medio",
+      "evidence_level": "B",
+      "modeling_notes": {
+        "architecture": "FCN",
+        "reference_doc": "docs/foco-geologico.md",
+        "loss_functions": [
+          "weighted_mse_mae",
+          "stpidn_magnitude_epicenter",
+          "mse_star_seismology_informed"
+        ],
+        "insar_available": true,
+        "insar_quality": "instrumented_insar"
+      },
+      "insar_bridge": {
+        "connected": true,
+        "source": "international_calculation_workflow",
+        "window_start": "2026-03-03",
+        "window_end": "2026-05-31",
+        "vsr_mm_per_year": 2.6257,
+        "ssr_mm_per_year": 15.1253,
+        "nsr_mm_per_year": 15.5787,
+        "data_status": "measured",
+        "displacement_cm": 0.5389,
+        "notes": "GNSS MIDAS medido (campo regional (Nevada Geodetic Laboratory MIDAS): 56 estaciones en bbox Venezuela-Caribe.)",
+        "international_source": "/Users/eliseogelvis/Projects/EarthquakeAnalysis/storage/venezuela/international/2026/07/01/international_estimation_20260702T020825Z.json"
+      }
+    },
+    {
+      "event_id": "unknown",
+      "model_type": "fcn_geoespacial_geologico",
+      "model_version": "1.0.0",
+      "source_document": "/Users/eliseogelvis/Projects/EarthquakeAnalysis/tests/fixtures/synthetic/comparable_event_minimal.json",
+      "channel_scores": {
+        "insar": 0.026945000000000004,
+        "tectonic": 0.6114166666666666,
+        "soil": 0.75,
+        "hydro_geotech": 0.5273333333333333
+      },
+      "geotechnical_vulnerability": 0.5022,
+      "liquefaction_probability": 0.3513,
+      "spatial_amplification_factor": 1.45,
+      "fault_coupling_index": 0.3776,
+      "structural_damage_probability": 0.5924,
+      "landslide_probability": 0.5493,
+      "risk_category": "riesgo_medio",
+      "evidence_level": "B",
+      "modeling_notes": {
+        "architecture": "FCN",
+        "reference_doc": "docs/foco-geologico.md",
+        "loss_functions": [
+          "weighted_mse_mae",
+          "stpidn_magnitude_epicenter",
+          "mse_star_seismology_informed"
+        ],
+        "insar_available": true,
+        "insar_quality": "instrumented_insar"
+      },
+      "insar_bridge": {
+        "connected": true,
+        "source": "international_calculation_workflow",
+        "window_start": "2026-03-03",
+        "window_end": "2026-05-31",
+        "vsr_mm_per_year": 2.6257,
+        "ssr_mm_per_year": 15.1253,
+        "nsr_mm_per_year": 15.5787,
+        "data_status": "measured",
+        "displacement_cm": 0.5389,
+        "notes": "GNSS MIDAS medido (campo regional (Nevada Geodetic Laboratory MIDAS): 56 estaciones en bbox Venezuela-Caribe.)",
+        "international_source": "/Users/eliseogelvis/Projects/EarthquakeAnalysis/storage/venezuela/international/2026/07/01/international_estimation_20260702T020825Z.json"
+      }
+    },
+    {
+      "event_id": "venezuela_2026_june_synth",
+      "model_type": "fcn_geoespacial_geologico",
+      "model_version": "1.0.0",
+      "source_document": "/Users/eliseogelvis/Projects/EarthquakeAnalysis/tests/fixtures/synthetic/venezuela_2026_june_minimal.json",
+      "channel_scores": {
+        "insar": 0.026945000000000004,
+        "tectonic": 0.6913333333333334,
+        "soil": 0.75,
+        "hydro_geotech": 0.6393333333333334
+      },
+      "geotechnical_vulnerability": 0.5479,
+      "liquefaction_probability": 0.4312,
+      "spatial_amplification_factor": 1.45,
+      "fault_coupling_index": 0.4256,
+      "structural_damage_probability": 0.5826,
+      "landslide_probability": 0.584,
+      "risk_category": "riesgo_medio",
+      "evidence_level": "B",
+      "modeling_notes": {
+        "architecture": "FCN",
+        "reference_doc": "docs/foco-geologico.md",
+        "loss_functions": [
+          "weighted_mse_mae",
+          "stpidn_magnitude_epicenter",
+          "mse_star_seismology_informed"
+        ],
+        "insar_available": true,
+        "insar_quality": "instrumented_insar"
+      },
+      "insar_bridge": {
+        "connected": true,
+        "source": "international_calculation_workflow",
+        "window_start": "2026-03-03",
+        "window_end": "2026-05-31",
+        "vsr_mm_per_year": 2.6257,
+        "ssr_mm_per_year": 15.1253,
+        "nsr_mm_per_year": 15.5787,
+        "data_status": "measured",
+        "displacement_cm": 0.5389,
+        "notes": "GNSS MIDAS medido (campo regional (Nevada Geodetic Laboratory MIDAS): 56 estaciones en bbox Venezuela-Caribe.)",
+        "international_source": "/Users/eliseogelvis/Projects/EarthquakeAnalysis/storage/venezuela/international/2026/07/01/international_estimation_20260702T020825Z.json"
+      }
+    }
+  ]
+}

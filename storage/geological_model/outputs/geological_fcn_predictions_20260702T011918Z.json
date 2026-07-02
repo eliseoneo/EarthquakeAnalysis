@@ -1,0 +1,68 @@
+{
+  "model_type": "fcn_geoespacial_geologico",
+  "reference_doc": "docs/foco-geologico.md",
+  "generated_at_utc": "20260702T011918Z",
+  "cases_evaluated": 2,
+  "predictions": [
+    {
+      "event_id": "unknown",
+      "model_type": "fcn_geoespacial_geologico",
+      "model_version": "1.0.0",
+      "source_document": "/Users/eliseogelvis/Projects/EarthquakeAnalysis/tests/fixtures/synthetic/comparable_event_minimal.json",
+      "channel_scores": {
+        "insar": 0.5,
+        "tectonic": 0.6114166666666666,
+        "soil": 0.75,
+        "hydro_geotech": 0.5273333333333333
+      },
+      "geotechnical_vulnerability": 0.5684,
+      "liquefaction_probability": 0.3513,
+      "spatial_amplification_factor": 1.45,
+      "fault_coupling_index": 0.5668,
+      "structural_damage_probability": 0.6289,
+      "landslide_probability": 0.5692,
+      "risk_category": "riesgo_medio",
+      "evidence_level": "B",
+      "modeling_notes": {
+        "architecture": "FCN",
+        "reference_doc": "docs/foco-geologico.md",
+        "loss_functions": [
+          "weighted_mse_mae",
+          "stpidn_magnitude_epicenter",
+          "mse_star_seismology_informed"
+        ],
+        "insar_available": false
+      }
+    },
+    {
+      "event_id": "venezuela_2026_june_synth",
+      "model_type": "fcn_geoespacial_geologico",
+      "model_version": "1.0.0",
+      "source_document": "/Users/eliseogelvis/Projects/EarthquakeAnalysis/tests/fixtures/synthetic/venezuela_2026_june_minimal.json",
+      "channel_scores": {
+        "insar": 0.5,
+        "tectonic": 0.6913333333333334,
+        "soil": 0.75,
+        "hydro_geotech": 0.6393333333333334
+      },
+      "geotechnical_vulnerability": 0.6141,
+      "liquefaction_probability": 0.4312,
+      "spatial_amplification_factor": 1.45,
+      "fault_coupling_index": 0.6148,
+      "structural_damage_probability": 0.619,
+      "landslide_probability": 0.6039,
+      "risk_category": "riesgo_medio",
+      "evidence_level": "B",
+      "modeling_notes": {
+        "architecture": "FCN",
+        "reference_doc": "docs/foco-geologico.md",
+        "loss_functions": [
+          "weighted_mse_mae",
+          "stpidn_magnitude_epicenter",
+          "mse_star_seismology_informed"
+        ],
+        "insar_available": false
+      }
+    }
+  ]
+}

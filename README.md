@@ -82,6 +82,9 @@ Proyecto inicial para analisis sismico con cinco fases activas:
      - Graph Neural Networks (si se modelan fallas, ciudades e infraestructura como grafo)
      - Gaussian Processes espaciales
      - Modelos geoespaciales con PySAL
+     - FCN geoespacial geologico
+     - ConvLSTM InSAR-temporal
+     - CNN geoespacial multicapa
    - Para incertidumbre:
      - Monte Carlo
      - Bayesian inference
@@ -99,7 +102,8 @@ Pipeline modular para catálogos sísmicos, deduplicación, asociación con fall
 python3 -m pip install -e ".[dev,layer_a]"
 make layer-a-run                              # pipeline con fixtures
 make layer-a-run-usgs                        # descarga USGS + pipeline
-python3 scripts/layer_a_pipeline.py --download-usgs
+make layer-a-run-all                         # USGS + INGV + SGC (recomendado)
+python3 scripts/layer_a_pipeline.py --download-usgs --download-ingv --download-sgc --no-fixtures
 make layer-a-ui                               # UI standalone en :7861
 make ui                                       # dashboard unificado en :7860 (incluye pestaña Capa A)
 ```
@@ -163,10 +167,13 @@ Salidas tras `make layer-b-run`:
 - `layer_a/`: código del pipeline tectónico.
 - `layer_b_geophysical/`: datos y salidas de Capa B (aislados).
 - `layer_b/`: código del pipeline geofísico-ambiental.
+- `geological_model/`: paquete FCN geoespacial geológico e integración InSAR/GNSS.
+- `models/`: catálogos YAML (Fase 5, FCN, proveedores InSAR/GNSS).
+- `storage/`: artefactos operativos (internacional, proyecciones, verificaciones, FCN).
 - `schemas/`: contratos JSON Schema.
 - `tests/fixtures/synthetic/`: datos sinteticos de prueba.
 - `tests/unit/`: validaciones de esquema y consistencia.
-- `scripts/`: evaluaciones por fase (`evaluate_phase1.py`, `evaluate_phase2.py`, `evaluate_phase3.py`, `evaluate_all.py`).
+- `scripts/`: evaluaciones por fase, pipelines, UI y modelos especializados.
 
 ## Uso rapido
 
@@ -312,56 +319,116 @@ La interfaz principal (`make ui`, puerto 7860) organiza pestañas:
    - Efectividad del modelo (hindcast en eventos anteriores, días subsiguientes observados)
    - Calibración automática (K, b) + proyección ajustada para `venezuela_2026`
 2. **Análisis comparativo (Fases 1-5)**: barras, dispersión, riesgo, geología, PGA
-3. **Calculo y Estimacion Internacional** (nuevo layout Fases 1-8):
+3. **Calculo y Estimacion Internacional** (layout Fases 1-8):
    - Fuentes internacionales: USGS, INGV, SGC
    - Foco geografico: Venezuela (filtro geoespacial)
    - Evento anomalo de referencia: 2026-06-26
-   - Fase 2.2: placeholders InSAR/GNSS (VSR/SSR/NSR)
-   - Salida de similitud por ventana contra el patron anomalo
+   - Controles de ventana, umbral M≥, umbral alternativo M≥4.5
+   - Walk-forward, calibracion Platt, class weight e InSAR MIDAS (NGL)
+   - Predicciones M≥5, M≥4.5, excedencia GR y Mmax por cola Gutenberg-Richter
 4. **Capa A — Tectónica** y **Capa B — Geofísica Ambiental**
+
+Documentacion detallada de controles UI y marco teorico: `docs/ui_features_and_theory.md`.
 
 ## Layout Internacional (Venezuela)
 
 El layout **Calculo y Estimacion Internacional** implementa un flujo metodologico en 8 fases para estimacion dual:
 
-- Clasificacion binaria: probabilidad de ocurrencia de evento con magnitud por encima del umbral.
-- Regresion: magnitud maxima esperada por ventana temporal.
+- Clasificacion binaria: probabilidad de ocurrencia de evento con magnitud por encima del umbral (M≥5 y etiqueta alternativa M≥4.5).
+- Regresion de cola: magnitud maxima esperada y probabilidad de excedencia via Gutenberg-Richter (no lineal).
 
-Elementos clave del layout:
+### Modelo (ultima version)
 
-- Fase 1: configuracion de lookback, ventana, stride y horizonte.
-- Fase 2: feature engineering sismico por ventana.
-- Fase 2.2: placeholders tecnicos InSAR/GNSS (`vsr_mm_per_year`, `ssr_mm_per_year`, `nsr_mm_per_year`).
-- Fases 3-5: entrenamiento y prediccion (clasificacion + regresion).
-- Fases 6-7: metricas de validacion pseudo-prospectiva.
-- Fase 8: importancia de variables y ablacion.
-- Tabla de similitud: similitud coseno de cada ventana de prueba respecto a la ventana anomala (2026-06-26).
+- **Features nuevas por ventana:** `max_magnitude_in_window`, `benioff_accel`, `gr_b_delta`, `event_rate_trend`.
+- **Clasificacion:** regresion logistica con `class_weight` y calibracion Platt (opcional).
+- **Validacion:** walk-forward temporal con umbral operativo calibrado.
+- **Mmax:** cola Gutenberg-Richter (`gutenberg_richter_tail`).
+- **InSAR/GNSS:** proxy sismico por defecto; MIDAS medido (NGL) con checkbox UI o `--use-live-insar-gnss`.
 
-Ejecucion por UI:
+### Controles UI (pestaña internacional)
+
+| Control | Default | Rol |
+|---|---|---|
+| Lookback / ventana / stride / horizonte | 900 / 90 / 15 / 30 | Ventanas espacio-temporales |
+| Umbral M≥ | 5.0 | Etiqueta principal |
+| Umbral alternativo M≥ | 4.5 | Etiqueta secundaria |
+| Walk-forward min train / test / step | 8 / 3 / 3 | Validacion cruzada temporal |
+| Calibracion Platt | activa | Calibracion de probabilidades |
+| Fraccion Platt | 0.2 | Hold-out interno para Platt |
+| Class weight | activo | Balanceo de clases |
+| InSAR MIDAS (NGL) | inactivo | Sustituye proxy por datos medidos |
+
+### Ejecucion
+
+Por UI:
 
 ```bash
 make ui
+# pestaña "Calculo y Estimacion Internacional" → configurar y ejecutar
 ```
 
-Ejecucion por CLI (sin UI):
+Por CLI:
 
 ```bash
-python3 scripts/run_international_estimation.py \
-  --as-of 2026-06-30 \
-  --lookback-days 900 \
-  --window-days 120 \
-  --stride-days 20 \
-  --horizon-days 40 \
-  --threshold-magnitude 4.8 \
-  --min-magnitude 2.5
-
-# atajo Make
+# Basico
 make international-estimation
+
+# Con opciones avanzadas
+python3 scripts/run_international_estimation.py \
+  --as-of 2026-07-01 \
+  --alternative-threshold-magnitude 4.5 \
+  --walk-forward-min-train 8 \
+  --walk-forward-test-size 3 \
+  --walk-forward-step 3 \
+  --platt-calibration-fraction 0.2 \
+  --use-live-insar-gnss
+
+# Desactivar calibracion o class weight
+python3 scripts/run_international_estimation.py --no-platt --no-class-weight
+```
+
+Integrar InSAR MIDAS al JSON internacional existente:
+
+```bash
+make fetch-insar-gnss
+# o
+python3 scripts/fetch_insar_gnss.py --as-of 2026-07-01
+python3 scripts/fetch_insar_gnss.py --international-json storage/venezuela/international/.../international_estimation_*.json
 ```
 
 Salidas del flujo internacional:
 
 - `storage/venezuela/international/YYYY/MM/DD/international_estimation_<timestamp>.json`
+  - `metrics_rows`, `walk_forward_metrics`, `insar_gnss_rows`, `geological_insar_bridge`
+
+## Modelo geologico FCN
+
+Red convolucional geoespacial para riesgo geotecnico, licuacion y acoplamiento con fallas. Conectado al workflow internacional via puente InSAR (`geological_model/insar_bridge.py`).
+
+```bash
+make geological-model-run
+# o
+python3 scripts/run_geological_model.py
+python3 scripts/run_geological_model.py \
+  --international-json storage/venezuela/international/.../international_estimation_*.json
+```
+
+Referencias:
+
+- Configuracion: `models/geological_geospatial_fcn.yaml`
+- Marco teorico: `docs/foco-geologico.md`
+- Salidas: `storage/geological_model/outputs/latest.json`
+- Ventanas MIDAS: `storage/geological_model/raw/insar_gnss_measured_windows.json`
+
+Flujo recomendado (datos instrumentados):
+
+```bash
+make international-estimation   # o CLI con --use-live-insar-gnss
+make fetch-insar-gnss             # integra MIDAS al JSON internacional
+make geological-model-run         # regenera predicciones FCN
+```
+
+Caso post-evento `event_cases/venezuela_2026_june/event.yaml` incluye PGA/PGV desde USGS ShakeMap (`us6000t7zp`) para cobertura Fase 3 al 100%.
 
 Persistencia Capa A/B (nuevo, mismo patrón de índices + latest):
 
@@ -376,8 +443,27 @@ Se genera automáticamente al ejecutar:
 
 - `make layer-a-run`
 - `make layer-b-run`
+- `make international-estimation`
+- `make fetch-insar-gnss`
+- `make geological-model-run`
 
-Detalle pestaña comparativa:
+## Referencia rapida de comandos
+
+| Comando | Descripcion |
+|---|---|
+| `make test` | pytest completo |
+| `make evaluate` | pytest + eval fases 1-5 |
+| `make eval-full` | auditoria con datos reales |
+| `make ui` | dashboard Gradio (:7860) |
+| `make international-estimation` | modelo internacional USGS/INGV/SGC |
+| `make fetch-insar-gnss` | InSAR/GNSS MIDAS → JSON internacional |
+| `make geological-model-run` | FCN geoespacial geologico |
+| `make layer-a-run-all` | Capa A con USGS + INGV + SGC |
+| `make layer-b-run` | Capa B geofisica ambiental |
+| `make project-venezuela` | proyeccion diaria Venezuela |
+| `make verify-venezuela-daily` | verificacion estimacion vs observado |
+
+### Detalle pestaña comparativa
 
 - barras comparativas por metrica
 - probabilidad de magnitud similar en dias posteriores, usando `similar_magnitude_probability_dates.highest_magnitude_events`

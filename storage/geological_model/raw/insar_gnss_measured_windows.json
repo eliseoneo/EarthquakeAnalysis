@@ -1,0 +1,114 @@
+{
+  "provider": "ngl_midas_igs14",
+  "saved_at_utc": "2026-07-02T02:36:28Z",
+  "windows": [
+    [
+      "2025-09-19",
+      "2025-12-17",
+      2.6257,
+      15.1253,
+      15.5787,
+      "measured",
+      "GNSS MIDAS medido (campo regional (Nevada Geodetic Laboratory MIDAS): 56 estaciones en bbox Venezuela-Caribe.)"
+    ],
+    [
+      "2025-10-04",
+      "2026-01-01",
+      2.6257,
+      15.1253,
+      15.5787,
+      "measured",
+      "GNSS MIDAS medido (campo regional (Nevada Geodetic Laboratory MIDAS): 56 estaciones en bbox Venezuela-Caribe.)"
+    ],
+    [
+      "2025-10-19",
+      "2026-01-16",
+      2.6257,
+      15.1253,
+      15.5787,
+      "measured",
+      "GNSS MIDAS medido (campo regional (Nevada Geodetic Laboratory MIDAS): 56 estaciones en bbox Venezuela-Caribe.)"
+    ],
+    [
+      "2025-11-03",
+      "2026-01-31",
+      2.6257,
+      15.1253,
+      15.5787,
+      "measured",
+      "GNSS MIDAS medido (campo regional (Nevada Geodetic Laboratory MIDAS): 56 estaciones en bbox Venezuela-Caribe.)"
+    ],
+    [
+      "2025-11-18",
+      "2026-02-15",
+      2.6257,
+      15.1253,
+      15.5787,
+      "measured",
+      "GNSS MIDAS medido (campo regional (Nevada Geodetic Laboratory MIDAS): 56 estaciones en bbox Venezuela-Caribe.)"
+    ],
+    [
+      "2025-12-03",
+      "2026-03-02",
+      2.6257,
+      15.1253,
+      15.5787,
+      "measured",
+      "GNSS MIDAS medido (campo regional (Nevada Geodetic Laboratory MIDAS): 56 estaciones en bbox Venezuela-Caribe.)"
+    ],
+    [
+      "2025-12-18",
+      "2026-03-17",
+      2.6257,
+      15.1253,
+      15.5787,
+      "measured",
+      "GNSS MIDAS medido (campo regional (Nevada Geodetic Laboratory MIDAS): 56 estaciones en bbox Venezuela-Caribe.)"
+    ],
+    [
+      "2026-01-02",
+      "2026-04-01",
+      2.6257,
+      15.1253,
+      15.5787,
+      "measured",
+      "GNSS MIDAS medido (campo regional (Nevada Geodetic Laboratory MIDAS): 56 estaciones en bbox Venezuela-Caribe.)"
+    ],
+    [
+      "2026-01-17",
+      "2026-04-16",
+      2.6257,
+      15.1253,
+      15.5787,
+      "measured",
+      "GNSS MIDAS medido (campo regional (Nevada Geodetic Laboratory MIDAS): 56 estaciones en bbox Venezuela-Caribe.)"
+    ],
+    [
+      "2026-02-01",
+      "2026-05-01",
+      2.6257,
+      15.1253,
+      15.5787,
+      "measured",
+      "GNSS MIDAS medido (campo regional (Nevada Geodetic Laboratory MIDAS): 56 estaciones en bbox Venezuela-Caribe.)"
+    ],
+    [
+      "2026-02-16",
+      "2026-05-16",
+      2.6257,
+      15.1253,
+      15.5787,
+      "measured",
+      "GNSS MIDAS medido (campo regional (Nevada Geodetic Laboratory MIDAS): 56 estaciones en bbox Venezuela-Caribe.)"
+    ],
+    [
+      "2026-03-03",
+      "2026-05-31",
+      2.6257,
+      15.1253,
+      15.5787,
+      "measured",
+      "GNSS MIDAS medido (campo regional (Nevada Geodetic Laboratory MIDAS): 56 estaciones en bbox Venezuela-Caribe.)"
+    ]
+  ]
+}

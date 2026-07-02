@@ -45,8 +45,18 @@ advanced_features:
     focal_mechanism: "Strike-slip dominante en limite Caribe-Suramerica"
     distance_to_fault_km: 28.0
     estimated_slip_rate_mm_per_year: 8.0
-    pga_g: null
-    pgv_cm_per_s: null
+    pga_g: 0.381
+    pga_measurement_quality: "estimated_shakemap"
+    pga_station_estimates:
+      - location: "Area metropolitana de Caracas (celda DYFI ShakeMap)"
+        pga_g: 0.381
+        pga_g_min: 0.358
+        pga_g_max: 0.443
+        site_class: "suelo urbano (vs30 ~350-580 m/s)"
+        estimate_method: "usgs_shakemap_prediction_soil"
+        source: "USGS ShakeMap us6000t7zp (M7.5, 2026-06-24); stationlist DYFI"
+        notes: "Promedio soil-adjusted de 50 celdas DYFI en bbox Caracas (~10.48N, -66.90W)."
+    pgv_cm_per_s: 67.8
     mmi_intensity: "VII-VIII en sectores urbanos mas expuestos"
     aftershock_count: 130
     omori_decay_p: 1.0
@@ -133,4 +143,5 @@ sources:
   - "GFZ (citado tectonica): sin eventos en respuesta FDSN Geofon para bbox 2026-06-24/25 al 2026-06-29."
   - "EMSC: sin eventos en respuesta FDSN para bbox 2026-06-24/25 al 2026-06-29."
   - "Eos/USGS: Caracas ~300 km del epicentro; sacudida violenta en zona metropolitana."
+  - "USGS ShakeMap us6000t7zp: PGA soil-adjusted ~0.38 g y PGV ~68 cm/s en Caracas (DYFI stationlist, 2026-06-24)."
 

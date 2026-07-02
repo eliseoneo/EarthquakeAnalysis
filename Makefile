@@ -1,4 +1,4 @@
-.PHONY: test eval-phase1 eval-phase2 eval-phase3 eval-phase4 eval-phase5 eval-all eval-full evaluate ui ui-uvicorn project-venezuela verify-venezuela-daily international-estimation layer-a-run layer-a-run-usgs layer-a-run-ingv layer-a-run-sgc layer-a-run-all layer-a-ui layer-b-run layer-b-ui
+.PHONY: test eval-phase1 eval-phase2 eval-phase3 eval-phase4 eval-phase5 eval-all eval-full evaluate ui ui-uvicorn project-venezuela verify-venezuela-daily international-estimation geological-model-run fetch-insar-gnss layer-a-run layer-a-run-usgs layer-a-run-ingv layer-a-run-sgc layer-a-run-all layer-a-ui layer-b-run layer-b-ui
 
 PYTHON := python3
 ifneq ("$(wildcard .venv/bin/python3)","")
@@ -44,6 +44,12 @@ verify-venezuela-daily:
 
 international-estimation:
 	$(PYTHON) scripts/run_international_estimation.py
+
+geological-model-run:
+	$(PYTHON) scripts/run_geological_model.py
+
+fetch-insar-gnss:
+	$(PYTHON) scripts/fetch_insar_gnss.py --as-of 2026-07-01
 
 layer-a-run:
 	$(PYTHON) scripts/layer_a_pipeline.py
