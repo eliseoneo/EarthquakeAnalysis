@@ -3,9 +3,18 @@ from __future__ import annotations
 
 import argparse
 import math
+import sys
 from datetime import date
 from pathlib import Path
 from typing import Any
+
+SCRIPT_DIR = Path(__file__).resolve().parent
+ROOT_DIR = SCRIPT_DIR.parent
+
+if str(SCRIPT_DIR) not in sys.path:
+    sys.path.insert(0, str(SCRIPT_DIR))
+if str(ROOT_DIR) not in sys.path:
+    sys.path.insert(0, str(ROOT_DIR))
 
 from projection_model import (
     PROJECTION_SCENARIOS,
@@ -1198,6 +1207,7 @@ def build_interface():
     from international_calculation_workflow import mount_international_calculation_panel
     from layer_a.ui import mount_layer_a_panel
     from layer_b.ui import mount_layer_b_panel
+    from layer_c.ui import mount_layer_c_panel
     from venezuela_projection_workflow import mount_venezuela_projection_panel
 
     import gradio as gr
@@ -1243,6 +1253,9 @@ def build_interface():
 
             with gr.Tab("Calculo y Estimacion Internacional"):
                 mount_international_calculation_panel(gr, default_projection_as_of_date)
+
+            with gr.Tab("Capa C - Analisis H04 del evento"):
+                mount_layer_c_panel(gr)
 
             with gr.Tab("Análisis comparativo (Fases 1-5)"):
                 gr.Markdown("## Graficas comparativas de `case_library/`")

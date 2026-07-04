@@ -1,0 +1,67 @@
+[
+  {
+    "priority_tier": "level_1",
+    "priority_rank": 1,
+    "source_name": "FUNVISIS"
+  },
+  {
+    "priority_tier": "level_1",
+    "priority_rank": 2,
+    "source_name": "USGS"
+  },
+  {
+    "priority_tier": "level_1",
+    "priority_rank": 3,
+    "source_name": "ISC"
+  },
+  {
+    "priority_tier": "level_1",
+    "priority_rank": 4,
+    "source_name": "GCMT"
+  },
+  {
+    "priority_tier": "level_2",
+    "priority_rank": 1,
+    "source_name": "IRIS"
+  },
+  {
+    "priority_tier": "level_2",
+    "priority_rank": 2,
+    "source_name": "ORFEUS"
+  },
+  {
+    "priority_tier": "level_2",
+    "priority_rank": 3,
+    "source_name": "EIDA"
+  },
+  {
+    "priority_tier": "level_2",
+    "priority_rank": 4,
+    "source_name": "ESM"
+  },
+  {
+    "priority_tier": "level_2",
+    "priority_rank": 5,
+    "source_name": "CESMD"
+  },
+  {
+    "priority_tier": "level_3",
+    "priority_rank": 1,
+    "source_name": "NOAA"
+  },
+  {
+    "priority_tier": "level_3",
+    "priority_rank": 2,
+    "source_name": "Copernicus Marine Service"
+  },
+  {
+    "priority_tier": "level_3",
+    "priority_rank": 3,
+    "source_name": "ECMWF"
+  },
+  {
+    "priority_tier": "level_3",
+    "priority_rank": 4,
+    "source_name": "NASA EarthData"
+  }
+]

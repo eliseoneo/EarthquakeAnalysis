@@ -1,0 +1,23 @@
+[
+  {
+    "hypothesis_id": "H-04-A",
+    "label": "Superposicion temporal",
+    "statement": "Dos eventos principales separados por aproximadamente 35-40 segundos pudieron generar superposicion parcial de campos de ondas sismicas.",
+    "status": "en evaluacion",
+    "focus": "sincronizacion temporal y energia combinada"
+  },
+  {
+    "hypothesis_id": "H-04-B",
+    "label": "Directividad y amplificacion",
+    "statement": "La directividad de ruptura, la amplificacion por efecto de sitio y la resonancia local pudieron reforzar la distribucion no uniforme de danos.",
+    "status": "en evaluacion",
+    "focus": "patron direccional del dano"
+  },
+  {
+    "hypothesis_id": "H-04-C",
+    "label": "Comparacion historica Cariaco 1997",
+    "statement": "El evento 24-Jun-2026 debe compararse con Cariaco 1997 para buscar similitudes estructurales y de propagacion.",
+    "status": "en evaluacion",
+    "focus": "analogia historica"
+  }
+]

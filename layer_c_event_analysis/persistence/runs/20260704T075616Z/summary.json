@@ -1,0 +1,32 @@
+{
+  "layer": "C_event_h04",
+  "title": "Hipotesis H04 - Superposicion de Energia Venezuela 2026",
+  "analysis_scope": "analisis del evento",
+  "projection_mode": false,
+  "event_id": "venezuela_2026_06_24_h04",
+  "event_name": "Terremoto de Venezuela del 24-Jun-2026",
+  "reference_document": "docs/H04_Hipotesis_Superposicion_Energia_Venezuela_2026.md",
+  "hypotheses_defined": 3,
+  "evidence_lines_defined": 5,
+  "scientific_questions_defined": 7,
+  "outputs": {
+    "focus": "/Users/eliseogelvis/Projects/EarthquakeAnalysis/layer_c_event_analysis/data/processed/h04_analysis_focus.json",
+    "hypotheses": "/Users/eliseogelvis/Projects/EarthquakeAnalysis/layer_c_event_analysis/data/processed/h04_hypotheses.json",
+    "evidence_lines": "/Users/eliseogelvis/Projects/EarthquakeAnalysis/layer_c_event_analysis/data/processed/h04_evidence_lines.json",
+    "scientific_questions": "/Users/eliseogelvis/Projects/EarthquakeAnalysis/layer_c_event_analysis/data/processed/h04_scientific_questions.json",
+    "report": "/Users/eliseogelvis/Projects/EarthquakeAnalysis/layer_c_event_analysis/reports/reporte_h04_evento_venezuela_2026.md"
+  },
+  "persistence": {
+    "run_id": "20260704T075616Z",
+    "run_dir": "persistence/runs/20260704T075616Z",
+    "latest_dir": "persistence/latest",
+    "artifacts": {
+      "summary": "persistence/runs/20260704T075616Z/pipeline_summary.json",
+      "focus": "persistence/runs/20260704T075616Z/h04_analysis_focus.json",
+      "hypotheses": "persistence/runs/20260704T075616Z/h04_hypotheses.json",
+      "evidence_lines": "persistence/runs/20260704T075616Z/h04_evidence_lines.json",
+      "scientific_questions": "persistence/runs/20260704T075616Z/h04_scientific_questions.json",
+      "report": "persistence/runs/20260704T075616Z/reporte_h04_evento_venezuela_2026.md"
+    }
+  }
+}

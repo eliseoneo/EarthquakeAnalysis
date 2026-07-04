@@ -1,0 +1,1 @@
+GET https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?product=water_level&station=8724580&begin_date=20260624&end_date=20260626&datum=MLLW&units=metric&time_zone=gmt&format=json&application=EarthquakeAnalysis

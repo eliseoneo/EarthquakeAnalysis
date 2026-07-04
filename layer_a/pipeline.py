@@ -10,6 +10,7 @@ from layer_a.config import load_config
 from layer_a.formatting import parse_datetime_utc
 from layer_a.geospatial.spatial_join import associate_faults_and_plates
 from layer_a.ingestion.catalog_loader import load_raw_or_fixture
+from layer_a.ingestion.funvisis_client import download_and_save_funvisis
 from layer_a.ingestion.ingv_client import download_and_save_ingv
 from layer_a.ingestion.sgc_client import download_and_save_sgc
 from layer_a.ingestion.usgs_client import download_and_save_usgs
@@ -22,7 +23,7 @@ from layer_a.output.writers import (
     write_parquet_records,
 )
 from layer_a.persistence import persist_run
-from layer_a.paths import FIXTURES_DIR, PROCESSED_DIR, REPORTS_DIR
+from layer_a.paths import FIXTURES_DIR, PROCESSED_DIR, RAW_DIR, REPORTS_DIR
 from layer_a.quality.deduplication import deduplicate_events
 from layer_a.tectonic.aftershocks import apply_aftershock_metrics, detect_aftershocks
 from layer_a.tectonic.doublets import detect_doublets
@@ -71,6 +72,7 @@ def run_pipeline(
     out.mkdir(parents=True, exist_ok=True)
 
     usgs_download_status = "skipped"
+    funvisis_download_status = "skipped"
     ingv_download_status = "skipped"
     sgc_download_status = "skipped"
     if download_usgs:
@@ -91,9 +93,29 @@ def run_pipeline(
         except Exception as exc:
             sgc_download_status = f"failed ({type(exc).__name__}: {exc})"
 
+    funvisis_raw_path = RAW_DIR / "catalog_funvisis.json"
+    if funvisis_raw_path.exists():
+        funvisis_download_status = "existing_raw"
+    elif "funvisis" in config["catalog"]["sources"]:
+        try:
+            _, funvisis_download_status = download_and_save_funvisis(config)
+        except Exception as exc:
+            funvisis_download_status = f"failed ({type(exc).__name__}: {exc})"
+
     raw_by_source: dict[str, list[dict[str, Any]]] = {}
     for source in config["catalog"]["sources"]:
         raw_by_source[source] = load_raw_or_fixture(source, use_fixtures=use_fixtures)
+
+    funvisis_source_mode = "missing"
+    if raw_by_source.get("funvisis"):
+        if str(funvisis_download_status).startswith("ok (endpoint"):
+            funvisis_source_mode = "endpoint_official"
+        elif funvisis_raw_path.exists():
+            funvisis_source_mode = "raw_local"
+        else:
+            funvisis_source_mode = "fixture_only"
+    elif use_fixtures:
+        funvisis_source_mode = "fixture_only"
 
     normalized: list[SeismicEvent] = []
     for source, rows in raw_by_source.items():
@@ -159,7 +181,18 @@ def run_pipeline(
             d for d in doublet_candidates
             if d.event_id_1 == mainshock.event_id or d.event_id_2 == mainshock.event_id
         ]
-        write_mainshock_report(report_path, mainshock, sequence, related_doublets, indexes)
+        write_mainshock_report(
+            report_path,
+            mainshock,
+            sequence,
+            related_doublets,
+            indexes,
+            source_status={
+                "usgs_download_status": usgs_download_status,
+                "funvisis_download_status": funvisis_download_status,
+                "funvisis_source_mode": funvisis_source_mode,
+            },
+        )
 
     write_parquet_records(out / "mainshock_windows.parquet", window_rows)
     write_parquet_records(out / "aftershock_sequences.parquet", aftershock_sequences)
@@ -172,6 +205,8 @@ def run_pipeline(
     summary = {
         "layer": "A_tectonic",
         "usgs_download_status": usgs_download_status,
+        "funvisis_download_status": funvisis_download_status,
+        "funvisis_source_mode": funvisis_source_mode,
         "ingv_download_status": ingv_download_status,
         "sgc_download_status": sgc_download_status,
         "events_normalized": len(normalized),

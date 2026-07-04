@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Seismic Station",
+  "type": "object",
+  "required": [
+    "station_id",
+    "network",
+    "station",
+    "latitude",
+    "longitude"
+  ],
+  "properties": {
+    "station_id": {
+      "type": "string"
+    },
+    "network": {
+      "type": "string"
+    },
+    "station": {
+      "type": "string"
+    },
+    "location_code": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "channel": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "latitude": {
+      "type": "number"
+    },
+    "longitude": {
+      "type": "number"
+    },
+    "elevation_m": {
+      "type": [
+        "number",
+        "null"
+      ]
+    }
+  }
+}

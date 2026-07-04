@@ -1,0 +1,238 @@
+[
+  {
+    "evidence_id": "EV-01",
+    "evidence_type": "catalogo sismico",
+    "source_name": "FUNVISIS",
+    "availability_status": "fixture_only",
+    "data_mode": "layer_a_fixture_and_processed",
+    "record_count": 0,
+    "artifact_path": "/Users/eliseogelvis/Projects/EarthquakeAnalysis/layer_a_tectonic/data/processed/catalog_with_faults.parquet",
+    "supports_h04": true,
+    "gaps": [
+      "falta catalogo raw real"
+    ],
+    "next_action": "sustituir fixture por catalogo oficial"
+  },
+  {
+    "evidence_id": "EV-01",
+    "evidence_type": "catalogo sismico",
+    "source_name": "USGS",
+    "availability_status": "available_raw",
+    "data_mode": "layer_a_raw_and_processed",
+    "record_count": 8001,
+    "artifact_path": "/Users/eliseogelvis/Projects/EarthquakeAnalysis/layer_a_tectonic/data/processed/catalog_with_faults.parquet",
+    "supports_h04": true,
+    "gaps": [],
+    "next_action": "integrado desde Capa A"
+  },
+  {
+    "evidence_id": "EV-01",
+    "evidence_type": "catalogo sismico",
+    "source_name": "EMSC",
+    "availability_status": "missing",
+    "data_mode": "not_collected",
+    "record_count": 0,
+    "artifact_path": "",
+    "supports_h04": false,
+    "gaps": [
+      "fuente no integrada"
+    ],
+    "next_action": "recolectar evidencia"
+  },
+  {
+    "evidence_id": "EV-01",
+    "evidence_type": "catalogo sismico",
+    "source_name": "ISC",
+    "availability_status": "missing",
+    "data_mode": "not_collected",
+    "record_count": 0,
+    "artifact_path": "",
+    "supports_h04": false,
+    "gaps": [
+      "fuente no integrada"
+    ],
+    "next_action": "recolectar evidencia"
+  },
+  {
+    "evidence_id": "EV-01",
+    "evidence_type": "catalogo sismico",
+    "source_name": "IRIS",
+    "availability_status": "missing",
+    "data_mode": "not_collected",
+    "record_count": 0,
+    "artifact_path": "",
+    "supports_h04": false,
+    "gaps": [
+      "fuente no integrada"
+    ],
+    "next_action": "recolectar evidencia"
+  },
+  {
+    "evidence_id": "EV-02",
+    "evidence_type": "acelerografia",
+    "source_name": "redes acelerograficas",
+    "availability_status": "partial",
+    "data_mode": "estimated_shakemap",
+    "record_count": 1,
+    "artifact_path": "/Users/eliseogelvis/Projects/EarthquakeAnalysis/event_cases/venezuela_2026_june/event.yaml",
+    "supports_h04": true,
+    "gaps": [
+      "no existe dataset acelerografico estructurado por estacion en Capa C"
+    ],
+    "next_action": "normalizar estimaciones y conectar registros instrumentales"
+  },
+  {
+    "evidence_id": "EV-02",
+    "evidence_type": "acelerografia",
+    "source_name": "estaciones locales",
+    "availability_status": "partial",
+    "data_mode": "estimated_shakemap",
+    "record_count": 1,
+    "artifact_path": "/Users/eliseogelvis/Projects/EarthquakeAnalysis/event_cases/venezuela_2026_june/event.yaml",
+    "supports_h04": true,
+    "gaps": [
+      "no existe dataset acelerografico estructurado por estacion en Capa C"
+    ],
+    "next_action": "normalizar estimaciones y conectar registros instrumentales"
+  },
+  {
+    "evidence_id": "EV-03",
+    "evidence_type": "geologia y geotecnia",
+    "source_name": "cartografia geologica",
+    "availability_status": "partial",
+    "data_mode": "case_level_context_only",
+    "record_count": 1,
+    "artifact_path": "/Users/eliseogelvis/Projects/EarthquakeAnalysis/event_cases/venezuela_2026_june/event.yaml",
+    "supports_h04": true,
+    "gaps": [
+      "no existe dataset geotecnico estructurado por sitio"
+    ],
+    "next_action": "crear dataset por sitio con Vs30 y microzonificacion"
+  },
+  {
+    "evidence_id": "EV-03",
+    "evidence_type": "geologia y geotecnia",
+    "source_name": "microzonificacion",
+    "availability_status": "partial",
+    "data_mode": "case_level_context_only",
+    "record_count": 1,
+    "artifact_path": "/Users/eliseogelvis/Projects/EarthquakeAnalysis/event_cases/venezuela_2026_june/event.yaml",
+    "supports_h04": true,
+    "gaps": [
+      "no existe dataset geotecnico estructurado por sitio"
+    ],
+    "next_action": "crear dataset por sitio con Vs30 y microzonificacion"
+  },
+  {
+    "evidence_id": "EV-03",
+    "evidence_type": "geologia y geotecnia",
+    "source_name": "estudios geotecnicos",
+    "availability_status": "partial",
+    "data_mode": "case_level_context_only",
+    "record_count": 1,
+    "artifact_path": "/Users/eliseogelvis/Projects/EarthquakeAnalysis/event_cases/venezuela_2026_june/event.yaml",
+    "supports_h04": true,
+    "gaps": [
+      "no existe dataset geotecnico estructurado por sitio"
+    ],
+    "next_action": "crear dataset por sitio con Vs30 y microzonificacion"
+  },
+  {
+    "evidence_id": "EV-04",
+    "evidence_type": "satelital",
+    "source_name": "Sentinel-1",
+    "availability_status": "missing",
+    "data_mode": "not_collected",
+    "record_count": 0,
+    "artifact_path": "",
+    "supports_h04": false,
+    "gaps": [
+      "no existe integracion satelital H04 en Capa C"
+    ],
+    "next_action": "integrar InSAR y optico como evidencia del evento"
+  },
+  {
+    "evidence_id": "EV-04",
+    "evidence_type": "satelital",
+    "source_name": "Sentinel-2",
+    "availability_status": "missing",
+    "data_mode": "not_collected",
+    "record_count": 0,
+    "artifact_path": "",
+    "supports_h04": false,
+    "gaps": [
+      "no existe integracion satelital H04 en Capa C"
+    ],
+    "next_action": "integrar InSAR y optico como evidencia del evento"
+  },
+  {
+    "evidence_id": "EV-04",
+    "evidence_type": "satelital",
+    "source_name": "Landsat",
+    "availability_status": "missing",
+    "data_mode": "not_collected",
+    "record_count": 0,
+    "artifact_path": "",
+    "supports_h04": false,
+    "gaps": [
+      "no existe integracion satelital H04 en Capa C"
+    ],
+    "next_action": "integrar InSAR y optico como evidencia del evento"
+  },
+  {
+    "evidence_id": "EV-04",
+    "evidence_type": "satelital",
+    "source_name": "Planet Labs",
+    "availability_status": "missing",
+    "data_mode": "not_collected",
+    "record_count": 0,
+    "artifact_path": "",
+    "supports_h04": false,
+    "gaps": [
+      "no existe integracion satelital H04 en Capa C"
+    ],
+    "next_action": "integrar InSAR y optico como evidencia del evento"
+  },
+  {
+    "evidence_id": "EV-05",
+    "evidence_type": "comparacion historica",
+    "source_name": "FUNVISIS",
+    "availability_status": "fixture_only",
+    "data_mode": "layer_a_fixture_and_processed",
+    "record_count": 0,
+    "artifact_path": "/Users/eliseogelvis/Projects/EarthquakeAnalysis/layer_a_tectonic/data/processed/catalog_with_faults.parquet",
+    "supports_h04": true,
+    "gaps": [
+      "falta catalogo raw real"
+    ],
+    "next_action": "sustituir fixture por catalogo oficial"
+  },
+  {
+    "evidence_id": "EV-05",
+    "evidence_type": "comparacion historica",
+    "source_name": "publicaciones cientificas",
+    "availability_status": "missing",
+    "data_mode": "not_collected",
+    "record_count": 0,
+    "artifact_path": "",
+    "supports_h04": false,
+    "gaps": [
+      "no existe paquete estructurado de Cariaco 1997 en Capa C"
+    ],
+    "next_action": "construir biblioteca comparativa historica"
+  },
+  {
+    "evidence_id": "EV-05",
+    "evidence_type": "comparacion historica",
+    "source_name": "fotografias historicas",
+    "availability_status": "missing",
+    "data_mode": "not_collected",
+    "record_count": 0,
+    "artifact_path": "",
+    "supports_h04": false,
+    "gaps": [
+      "no existe paquete estructurado de Cariaco 1997 en Capa C"
+    ],
+    "next_action": "construir biblioteca comparativa historica"
+  }
+]

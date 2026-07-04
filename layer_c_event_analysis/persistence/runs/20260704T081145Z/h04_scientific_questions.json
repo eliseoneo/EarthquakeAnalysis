@@ -1,0 +1,37 @@
+[
+  {
+    "question_id": "Q1",
+    "question": "Existio superposicion temporal significativa entre ambos eventos de 2026?",
+    "analysis_axis": "superposicion temporal de ondas"
+  },
+  {
+    "question_id": "Q2",
+    "question": "La distribucion de danos sigue un patron radial o direccional?",
+    "analysis_axis": "directividad de ruptura"
+  },
+  {
+    "question_id": "Q3",
+    "question": "Existe correlacion entre danos y tipo de suelo?",
+    "analysis_axis": "amplificacion local"
+  },
+  {
+    "question_id": "Q4",
+    "question": "La geometria de ruptura favorecio una direccion dominante de propagacion?",
+    "analysis_axis": "geometria de fallas"
+  },
+  {
+    "question_id": "Q5",
+    "question": "Las ondas superficiales fueron responsables de los mayores desplazamientos observados?",
+    "analysis_axis": "interaccion con estructuras regionales"
+  },
+  {
+    "question_id": "Q6",
+    "question": "Existen similitudes estructurales con Cariaco 1997?",
+    "analysis_axis": "comparacion historica"
+  },
+  {
+    "question_id": "Q7",
+    "question": "Puede construirse un modelo fisico capaz de reproducir la distribucion observada de danos?",
+    "analysis_axis": "sintesis fisica"
+  }
+]

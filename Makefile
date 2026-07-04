@@ -1,4 +1,4 @@
-.PHONY: test eval-phase1 eval-phase2 eval-phase3 eval-phase4 eval-phase5 eval-all eval-full evaluate ui ui-uvicorn project-venezuela verify-venezuela-daily international-estimation geological-model-run fetch-insar-gnss layer-a-run layer-a-run-usgs layer-a-run-ingv layer-a-run-sgc layer-a-run-all layer-a-ui layer-b-run layer-b-ui
+.PHONY: test eval-phase1 eval-phase2 eval-phase3 eval-phase4 eval-phase5 eval-all eval-full evaluate ui ui-uvicorn project-venezuela verify-venezuela-daily international-estimation geological-model-run fetch-insar-gnss layer-a-run layer-a-run-usgs layer-a-run-ingv layer-a-run-sgc layer-a-run-all layer-a-ui layer-b-run layer-b-ui layer-c-run layer-c-ui
 
 PYTHON := python3
 ifneq ("$(wildcard .venv/bin/python3)","")
@@ -74,4 +74,10 @@ layer-b-run:
 
 layer-b-ui:
 	$(PYTHON) scripts/layer_b_ui.py
+
+layer-c-run:
+	$(PYTHON) scripts/layer_c_pipeline.py
+
+layer-c-ui:
+	$(PYTHON) scripts/layer_c_ui.py
 

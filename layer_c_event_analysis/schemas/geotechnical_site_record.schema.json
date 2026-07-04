@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "GeotechnicalSiteRecord",
+  "type": "object",
+  "required": [
+    "site_id",
+    "event_id",
+    "location_name",
+    "latitude",
+    "longitude",
+    "soil_type",
+    "lithology",
+    "vs30_m_per_s",
+    "quality_flag",
+    "provenance"
+  ],
+  "properties": {
+    "site_id": { "type": "string" },
+    "event_id": { "type": "string" },
+    "location_name": { "type": "string" },
+    "latitude": { "type": "number" },
+    "longitude": { "type": "number" },
+    "administrative_area": { "type": "string" },
+    "soil_type": { "type": "string" },
+    "lithology": { "type": "string" },
+    "vs30_m_per_s": { "type": ["number", "null"] },
+    "site_class_nehrp": { "type": "string" },
+    "sedimentary_basin": { "type": "string" },
+    "microzonification_unit": { "type": "string" },
+    "water_table_depth_m": { "type": ["number", "null"] },
+    "slope_degrees": { "type": ["number", "null"] },
+    "topographic_amplification_index": { "type": ["number", "null"] },
+    "liquefaction_likelihood": {
+      "type": "string",
+      "enum": ["very_low", "low", "moderate", "high", "very_high", "unknown"]
+    },
+    "landslide_susceptibility": {
+      "type": "string",
+      "enum": ["very_low", "low", "moderate", "high", "very_high", "unknown"]
+    },
+    "surface_geology_context": { "type": "string" },
+    "distance_to_fault_km": { "type": ["number", "null"] },
+    "distance_to_coast_or_river_km": { "type": ["number", "null"] },
+    "observed_damage_pattern": { "type": "string" },
+    "site_response_notes": { "type": "string" },
+    "quality_flag": {
+      "type": "string",
+      "enum": ["A", "B", "C", "D", "unknown"]
+    },
+    "provenance": {
+      "type": "object",
+      "required": ["source_reference", "artifact_type"],
+      "properties": {
+        "source_reference": { "type": "string" },
+        "artifact_type": {
+          "type": "string",
+          "enum": ["microzonification", "geotechnical_report", "geological_map", "inferred_case_level"]
+        },
+        "downloaded_at_utc": { "type": "string" },
+        "notes": { "type": "string" }
+      }
+    }
+  }
+}

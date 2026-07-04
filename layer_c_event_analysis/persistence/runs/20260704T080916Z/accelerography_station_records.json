@@ -1,0 +1,17 @@
+[
+  {
+    "record_id": "acc_h04_001",
+    "event_id": "venezuela_2026_06_24_h04",
+    "station_id": "h04_station_001",
+    "station_name": "Area metropolitana de Caracas (celda DYFI ShakeMap)",
+    "source": "USGS ShakeMap us6000t7zp (M7.5, 2026-06-24); stationlist DYFI",
+    "measurement_mode": "estimated_shakemap",
+    "component": "H",
+    "pga_g": 0.381,
+    "pgv_cm_per_s": 67.8,
+    "site_class": "suelo urbano (vs30 ~350-580 m/s)",
+    "processing_level": "aggregated",
+    "quality_flag": "B",
+    "provenance_reference": "USGS ShakeMap us6000t7zp (M7.5, 2026-06-24); stationlist DYFI"
+  }
+]

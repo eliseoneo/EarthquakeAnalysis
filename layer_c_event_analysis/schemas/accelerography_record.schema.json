@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AccelerographyRecord",
+  "type": "object",
+  "required": [
+    "record_id",
+    "event_id",
+    "station_id",
+    "source",
+    "measurement_mode",
+    "datetime_utc",
+    "latitude",
+    "longitude",
+    "component",
+    "pga_g",
+    "pgv_cm_per_s",
+    "quality_flag",
+    "provenance"
+  ],
+  "properties": {
+    "record_id": { "type": "string" },
+    "event_id": { "type": "string" },
+    "station_id": { "type": "string" },
+    "station_name": { "type": "string" },
+    "network_code": { "type": "string" },
+    "source": { "type": "string" },
+    "measurement_mode": {
+      "type": "string",
+      "enum": [
+        "instrumented_strong_motion",
+        "estimated_shakemap",
+        "estimated_indirect",
+        "digitized_historical",
+        "unknown"
+      ]
+    },
+    "datetime_utc": { "type": "string" },
+    "latitude": { "type": ["number", "null"] },
+    "longitude": { "type": ["number", "null"] },
+    "elevation_m": { "type": ["number", "null"] },
+    "component": {
+      "type": "string",
+      "enum": ["N", "E", "Z", "H", "rotD50", "unknown"]
+    },
+    "sampling_hz": { "type": ["number", "null"] },
+    "instrument_type": { "type": "string" },
+    "pga_g": { "type": ["number", "null"] },
+    "pgv_cm_per_s": { "type": ["number", "null"] },
+    "pgd_cm": { "type": ["number", "null"] },
+    "sa_0_3s_g": { "type": ["number", "null"] },
+    "sa_1_0s_g": { "type": ["number", "null"] },
+    "sa_3_0s_g": { "type": ["number", "null"] },
+    "mmi_equivalent": { "type": ["string", "null"] },
+    "site_class": { "type": "string" },
+    "vs30_m_per_s": { "type": ["number", "null"] },
+    "soil_type": { "type": "string" },
+    "basin_context": { "type": "string" },
+    "distance_to_epicenter_km": { "type": ["number", "null"] },
+    "distance_to_fault_km": { "type": ["number", "null"] },
+    "processing_level": {
+      "type": "string",
+      "enum": ["raw", "corrected", "derived", "aggregated"]
+    },
+    "quality_flag": {
+      "type": "string",
+      "enum": ["A", "B", "C", "D", "unknown"]
+    },
+    "uncertainty_notes": { "type": "string" },
+    "provenance": {
+      "type": "object",
+      "required": ["artifact_type", "source_reference"],
+      "properties": {
+        "artifact_type": {
+          "type": "string",
+          "enum": ["station_record", "shakemap_cell", "historical_estimate", "digitized_report"]
+        },
+        "source_reference": { "type": "string" },
+        "downloaded_at_utc": { "type": "string" },
+        "license": { "type": "string" },
+        "notes": { "type": "string" }
+      }
+    }
+  }
+}

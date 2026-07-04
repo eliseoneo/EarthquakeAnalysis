@@ -1,0 +1,32 @@
+[
+  {
+    "record_id": "acc_real_001",
+    "event_id": "venezuela_2026_06_24_h04",
+    "station_id": "VE-CCS-001",
+    "station_name": "Caracas Centro",
+    "source": "FUNVISIS strong motion archive (local export)",
+    "measurement_mode": "instrumented_strong_motion",
+    "component": "H",
+    "pga_g": 0.294,
+    "pgv_cm_per_s": 44.8,
+    "site_class": "D",
+    "processing_level": "corrected",
+    "quality_flag": "A",
+    "provenance_reference": "local_raw_accelerography_fixture"
+  },
+  {
+    "record_id": "acc_real_002",
+    "event_id": "venezuela_2026_06_24_h04",
+    "station_id": "VE-LGU-001",
+    "station_name": "La Guaira Puerto",
+    "source": "FUNVISIS strong motion archive (local export)",
+    "measurement_mode": "instrumented_strong_motion",
+    "component": "H",
+    "pga_g": 0.337,
+    "pgv_cm_per_s": 51.2,
+    "site_class": "D",
+    "processing_level": "corrected",
+    "quality_flag": "A",
+    "provenance_reference": "local_raw_accelerography_fixture"
+  }
+]

@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Accelerogram",
+  "type": "object",
+  "properties": {
+    "record_id": {
+      "type": "string"
+    },
+    "event_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "station_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "source": {
+      "type": "string"
+    },
+    "pga": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "pgv": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "psa": {
+      "type": [
+        "object",
+        "null"
+      ]
+    },
+    "units": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "file_uri": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  }
+}

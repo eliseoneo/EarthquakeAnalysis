@@ -1,0 +1,48 @@
+{
+  "source": "funvisis_fallback_proxy",
+  "fallback_provider": "USGS",
+  "official_funvisis_endpoint_available": false,
+  "fallback_reason": "No existe endpoint o formato oficial FUNVISIS en el repo actual.",
+  "endpoint_error": "URLError: <urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1082)>",
+  "record_count": 2,
+  "events": [
+    {
+      "event_id": "canonical_usgs_1782338673389",
+      "source": "usgs",
+      "datetime_utc": "2026-06-24 22:04:33",
+      "magnitude": 7.2,
+      "magnitude_type": "mww",
+      "depth_km": 20.294,
+      "latitude": 10.436,
+      "longitude": -68.5277,
+      "place": "23 km SE of Yumare, Venezuela",
+      "is_mainshock": false,
+      "nearest_fault_name": "El Pilar Fault Segment",
+      "distance_to_nearest_fault_km": 660.0,
+      "nearest_plate_boundary": "South American Plate interior",
+      "plate_context": "continental interior",
+      "moment_tensor_available": false,
+      "rake": NaN,
+      "focal_mechanism_type": "unknown"
+    },
+    {
+      "event_id": "usgs_1782339833774",
+      "source": "usgs",
+      "datetime_utc": "2026-06-24 22:23:53",
+      "magnitude": 4.5,
+      "magnitude_type": "mb",
+      "depth_km": 10.0,
+      "latitude": 10.5911,
+      "longitude": -66.6976,
+      "place": "12 km NNE of Caucagüito, Venezuela",
+      "is_mainshock": false,
+      "nearest_fault_name": "El Pilar Fault Segment",
+      "distance_to_nearest_fault_km": 459.23,
+      "nearest_plate_boundary": "South American Plate interior",
+      "plate_context": "continental interior",
+      "moment_tensor_available": false,
+      "rake": NaN,
+      "focal_mechanism_type": "unknown"
+    }
+  ]
+}

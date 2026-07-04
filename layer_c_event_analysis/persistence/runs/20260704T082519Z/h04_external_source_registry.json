@@ -1,0 +1,318 @@
+[
+  {
+    "source_name": "USGS",
+    "domain": "catalogo_sismico",
+    "category": "catalogos_sismicos_globales",
+    "site": "https://earthquake.usgs.gov",
+    "api_or_access": "https://earthquake.usgs.gov/fdsnws/event/1/",
+    "data_types": [
+      "magnitud",
+      "profundidad",
+      "epicentro",
+      "tiempo_utc",
+      "shakemap",
+      "replicas",
+      "mecanismos_focales"
+    ],
+    "usage": [
+      "base_global_de_eventos",
+      "entrenamiento_de_modelos",
+      "comparaciones_historicas"
+    ],
+    "target_layer": "A_tectonic",
+    "priority_level": 1
+  },
+  {
+    "source_name": "ISC",
+    "domain": "catalogo_sismico",
+    "category": "catalogos_sismicos_globales",
+    "site": "https://www.isc.ac.uk",
+    "api_or_access": "catalogos historicos y revisiones cientificas",
+    "data_types": [
+      "catalogos_historicos",
+      "localizaciones_refinadas",
+      "revisiones_cientificas"
+    ],
+    "usage": [
+      "estudios_de_largo_plazo",
+      "series_temporales_mayores_a_25_anios"
+    ],
+    "target_layer": "A_tectonic",
+    "priority_level": 1
+  },
+  {
+    "source_name": "EMSC",
+    "domain": "catalogo_sismico",
+    "category": "catalogos_sismicos_globales",
+    "site": "https://www.emsc-csem.org",
+    "api_or_access": "portal web y feeds institucionales",
+    "data_types": [
+      "eventos_sismicos_europeos",
+      "intensidades_observadas",
+      "reportes_ciudadanos"
+    ],
+    "usage": [
+      "comparacion_de_intensidades",
+      "corroboracion_de_reportes"
+    ],
+    "target_layer": "A_tectonic",
+    "priority_level": 2
+  },
+  {
+    "source_name": "GCMT",
+    "domain": "mecanismo_focal",
+    "category": "catalogos_sismicos_globales",
+    "site": "https://www.globalcmt.org",
+    "api_or_access": "catalogo CMT global",
+    "data_types": [
+      "tensor_de_momento",
+      "tipo_de_falla",
+      "orientacion_de_ruptura",
+      "energia_liberada"
+    ],
+    "usage": [
+      "mecanismos_focales",
+      "energia_sismica",
+      "analisis_de_ruptura"
+    ],
+    "target_layer": "A_tectonic",
+    "priority_level": 1
+  },
+  {
+    "source_name": "IRIS",
+    "domain": "formas_de_onda",
+    "category": "redes_sismograficas_mundiales",
+    "site": "https://service.iris.edu/fdsnws/",
+    "api_or_access": "FDSN waveform services",
+    "data_types": [
+      "formas_de_onda",
+      "miniseed",
+      "sac",
+      "redes_sismicas_globales"
+    ],
+    "usage": [
+      "ondas_p",
+      "ondas_s",
+      "fft",
+      "energia_espectral"
+    ],
+    "target_layer": "A_tectonic",
+    "priority_level": 2
+  },
+  {
+    "source_name": "ORFEUS",
+    "domain": "formas_de_onda_y_gnss",
+    "category": "redes_sismograficas_mundiales",
+    "site": "https://orfeus-eu.org",
+    "api_or_access": "servicios de redes europeas",
+    "data_types": [
+      "redes_sismicas_europeas",
+      "gnss",
+      "formas_de_onda"
+    ],
+    "usage": [
+      "contraste_europeo",
+      "formas_de_onda",
+      "deformacion"
+    ],
+    "target_layer": "D_geodesy",
+    "priority_level": 2
+  },
+  {
+    "source_name": "EIDA",
+    "domain": "acelerografia",
+    "category": "acelerografia",
+    "site": "https://www.orfeus-eu.org/data/eida/",
+    "api_or_access": "archivo integrado europeo",
+    "data_types": [
+      "acelerometros",
+      "sismometros",
+      "formas_de_onda"
+    ],
+    "usage": [
+      "registros_instrumentales",
+      "comparacion_internacional"
+    ],
+    "target_layer": "C_accelerography",
+    "priority_level": 2
+  },
+  {
+    "source_name": "ESM",
+    "domain": "acelerografia",
+    "category": "acelerografia",
+    "site": "https://esm-db.eu",
+    "api_or_access": "Engineering Strong Motion Database",
+    "data_types": [
+      "pga",
+      "pgv",
+      "psa",
+      "espectros_de_respuesta",
+      "registros_acelerograficos"
+    ],
+    "usage": [
+      "comparacion_con_turquia_2023",
+      "italia",
+      "grecia",
+      "japon",
+      "chile"
+    ],
+    "target_layer": "C_accelerography",
+    "priority_level": 2
+  },
+  {
+    "source_name": "CESMD",
+    "domain": "acelerografia",
+    "category": "acelerografia",
+    "site": "https://www.strongmotioncenter.org",
+    "api_or_access": "Center for Engineering Strong Motion Data",
+    "data_types": [
+      "acelerogramas",
+      "espectros_de_respuesta",
+      "pga",
+      "pgv"
+    ],
+    "usage": [
+      "registros_instrumentales",
+      "calibracion_de_respuesta"
+    ],
+    "target_layer": "C_accelerography",
+    "priority_level": 2
+  },
+  {
+    "source_name": "Nevada Geodetic Laboratory",
+    "domain": "gnss_geodesia",
+    "category": "gnss_y_geodesia",
+    "site": "http://geodesy.unr.edu",
+    "api_or_access": "servicios geodesicos NGL",
+    "data_types": [
+      "desplazamiento_milimetrico",
+      "movimiento_de_placas"
+    ],
+    "usage": [
+      "deformacion_cortical",
+      "desplazamientos_gnss"
+    ],
+    "target_layer": "D_geodesy",
+    "priority_level": 3
+  },
+  {
+    "source_name": "UNAVCO / EarthScope",
+    "domain": "gnss_geodesia",
+    "category": "gnss_y_geodesia",
+    "site": "https://www.unavco.org",
+    "api_or_access": "portales y archivos geodesicos",
+    "data_types": [
+      "gnss",
+      "geodesia",
+      "deformacion_cortical"
+    ],
+    "usage": [
+      "desplazamientos",
+      "deformacion_regional"
+    ],
+    "target_layer": "D_geodesy",
+    "priority_level": 3
+  },
+  {
+    "source_name": "FUNVISIS",
+    "domain": "catalogo_sismico_nacional",
+    "category": "venezuela",
+    "site": "https://www.funvisis.gob.ve",
+    "api_or_access": "portal institucional / dump / endpoint cuando exista",
+    "data_types": [
+      "catalogo_sismico_nacional",
+      "fallas_activas",
+      "intensidades",
+      "informacion_historica"
+    ],
+    "usage": [
+      "venezuela_2026",
+      "cariaco_1997",
+      "el_pilar",
+      "bocono",
+      "san_sebastian"
+    ],
+    "target_layer": "A_tectonic",
+    "priority_level": 1
+  },
+  {
+    "source_name": "NOAA",
+    "domain": "oceanografia",
+    "category": "oceanografia",
+    "site": "https://www.noaa.gov",
+    "api_or_access": "https://api.tidesandcurrents.noaa.gov",
+    "data_types": [
+      "mareas",
+      "tsunamis",
+      "sst",
+      "presion_atmosferica"
+    ],
+    "usage": [
+      "forzantes_oceanicos",
+      "tsunami",
+      "sst"
+    ],
+    "target_layer": "B_geophysical",
+    "priority_level": 3
+  },
+  {
+    "source_name": "Copernicus Marine Service",
+    "domain": "oceanografia",
+    "category": "oceanografia",
+    "site": "https://marine.copernicus.eu",
+    "api_or_access": "servicios marinos Copernicus",
+    "data_types": [
+      "temperatura_superficial_del_mar",
+      "corrientes",
+      "oleaje",
+      "variables_oceanicas"
+    ],
+    "usage": [
+      "sst",
+      "corrientes",
+      "oleaje"
+    ],
+    "target_layer": "B_geophysical",
+    "priority_level": 3
+  },
+  {
+    "source_name": "ECMWF",
+    "domain": "meteorologia",
+    "category": "meteorologia",
+    "site": "https://www.ecmwf.int",
+    "api_or_access": "ERA5 y reanalisis",
+    "data_types": [
+      "temperatura",
+      "presion",
+      "humedad",
+      "reanálisis_climatico"
+    ],
+    "usage": [
+      "contexto_meteorologico",
+      "reanálisis"
+    ],
+    "target_layer": "B_geophysical",
+    "priority_level": 3
+  },
+  {
+    "source_name": "NASA EarthData",
+    "domain": "meteorologia_y_observacion_terrestre",
+    "category": "meteorologia",
+    "site": "https://earthdata.nasa.gov",
+    "api_or_access": "portales EarthData",
+    "data_types": [
+      "modis",
+      "landsat",
+      "grace",
+      "smap"
+    ],
+    "usage": [
+      "variables_satelitales",
+      "humedad_de_suelo",
+      "cambios_gravitacionales",
+      "observacion_terrestre"
+    ],
+    "target_layer": "B_geophysical",
+    "priority_level": 3
+  }
+]

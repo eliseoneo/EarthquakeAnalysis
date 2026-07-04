@@ -57,6 +57,7 @@ def write_mainshock_report(
     sequence: AftershockSequence | None,
     doublets: list[DoubletCandidate],
     indexes: TectonicIndexRecord | None,
+    source_status: dict[str, str] | None = None,
 ) -> None:
     _ensure_dir(path)
     lines = [
@@ -85,6 +86,15 @@ def write_mainshock_report(
         f"- **Contexto de placa:** {mainshock.plate_context or 'N/D'}",
         "",
     ]
+
+    if source_status:
+        lines.extend([
+            "## Estado de Fuentes",
+            f"- **USGS:** {source_status.get('usgs_download_status', 'N/D')}",
+            f"- **FUNVISIS descarga:** {source_status.get('funvisis_download_status', 'N/D')}",
+            f"- **FUNVISIS modo:** {source_status.get('funvisis_source_mode', 'N/D')}",
+            "",
+        ])
 
     if sequence:
         lines.extend([

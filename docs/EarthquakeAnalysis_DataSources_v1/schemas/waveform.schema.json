@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Waveform",
+  "type": "object",
+  "required": [
+    "waveform_id",
+    "source",
+    "network",
+    "station",
+    "channel",
+    "start_time_utc",
+    "end_time_utc"
+  ],
+  "properties": {
+    "waveform_id": {
+      "type": "string"
+    },
+    "source": {
+      "type": "string"
+    },
+    "network": {
+      "type": "string"
+    },
+    "station": {
+      "type": "string"
+    },
+    "channel": {
+      "type": "string"
+    },
+    "location_code": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "start_time_utc": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "end_time_utc": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "format": {
+      "type": "string"
+    },
+    "file_uri": {
+      "type": "string"
+    }
+  }
+}

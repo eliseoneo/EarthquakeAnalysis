@@ -1,0 +1,32 @@
+[
+  {
+    "source_key": "usgs",
+    "source_name": "USGS",
+    "availability_status": "available_raw",
+    "data_mode": "layer_a_raw_and_processed",
+    "connector_status": "raw_local",
+    "raw_path": "/Users/eliseogelvis/Projects/EarthquakeAnalysis/layer_a_tectonic/data/raw/catalog_usgs.json",
+    "fixture_path": "/Users/eliseogelvis/Projects/EarthquakeAnalysis/layer_a_tectonic/data/fixtures/synthetic/catalog_usgs_sample.json",
+    "processed_catalog_path": "/Users/eliseogelvis/Projects/EarthquakeAnalysis/layer_a_tectonic/data/processed/catalog_with_faults.parquet",
+    "raw_record_count": 8019,
+    "fixture_record_count": 7,
+    "processed_record_count": 8001,
+    "layer_a_run_available": true,
+    "layer_a_mainshock_id": "canonical_usgs_1782338673389"
+  },
+  {
+    "source_key": "funvisis",
+    "source_name": "FUNVISIS",
+    "availability_status": "fixture_only",
+    "data_mode": "layer_a_fixture_and_processed",
+    "connector_status": "unknown",
+    "raw_path": "",
+    "fixture_path": "/Users/eliseogelvis/Projects/EarthquakeAnalysis/layer_a_tectonic/data/fixtures/synthetic/catalog_funvisis_sample.json",
+    "processed_catalog_path": "/Users/eliseogelvis/Projects/EarthquakeAnalysis/layer_a_tectonic/data/processed/catalog_with_faults.parquet",
+    "raw_record_count": 0,
+    "fixture_record_count": 3,
+    "processed_record_count": 0,
+    "layer_a_run_available": true,
+    "layer_a_mainshock_id": "canonical_usgs_1782338673389"
+  }
+]

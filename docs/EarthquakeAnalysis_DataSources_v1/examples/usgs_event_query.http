@@ -1,0 +1,1 @@
+GET https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2026-06-24&endtime=2026-06-26&minmagnitude=4&minlatitude=0&maxlatitude=15&minlongitude=-75&maxlongitude=-55

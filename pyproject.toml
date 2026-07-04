@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "earthquake-analysis"
 version = "0.1.0"
-description = "Fases 1-5 y Capas A/B de analisis sismico con harness de agentes."
+description = "Fases 1-5 y Capas A/B/C de analisis sismico con harness de agentes."
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
@@ -14,7 +14,7 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-dev = ["pytest>=8.0.0"]
+dev = ["pytest>=8.0.0", "jsonschema>=4.0.0"]
 layer_a = [
   "pandas>=2.0.0",
   "pyarrow>=14.0.0",
@@ -42,5 +42,5 @@ addopts = "-q"
 
 [tool.setuptools.packages.find]
 where = ["."]
-include = ["layer_a*", "layer_b*", "geological_model*"]
+include = ["layer_a*", "layer_b*", "layer_c*", "geological_model*"]
 

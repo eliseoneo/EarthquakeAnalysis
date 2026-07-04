@@ -184,6 +184,41 @@ class TestUsgsClient:
         assert event["event_id"] == "us6000test"
 
 
+class TestFunvisisClient:
+    def test_normalize_funvisis_feature_collection(self) -> None:
+        from layer_a.ingestion.funvisis_client import normalize_funvisis_payload
+
+        payload = {
+            "type": "FeatureCollection",
+            "features": [
+                {
+                    "type": "Sismo",
+                    "geometry": {"type": "Point", "coordinates": [-70.59, 10.06]},
+                    "properties": {
+                        "depth": "9.0 km",
+                        "value": "3.0",
+                        "addressFormatted": "59 km al oeste de Carora",
+                        "time": "09:06",
+                        "country": "Venezuela",
+                        "date": "26-09-2025",
+                        "lat": "10.06",
+                        "long": "-70.59",
+                    },
+                }
+            ],
+        }
+
+        normalized = normalize_funvisis_payload(payload)
+        assert normalized["source"] == "funvisis"
+        assert normalized["event_count"] == 1
+        assert normalized["source_format"] == "feature_collection_recent_events"
+        event = normalized["events"][0]
+        assert event["latitude"] == 10.06
+        assert event["longitude"] == -70.59
+        assert event["depth_km"] == 9.0
+        assert event["magnitude"] == 3.0
+
+
 class TestIngvClient:
         def test_feature_to_event(self) -> None:
                 from layer_a.ingestion.ingv_client import _feature_to_event

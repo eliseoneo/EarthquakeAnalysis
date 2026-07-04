@@ -1,0 +1,1 @@
+GET https://cmr.earthdata.nasa.gov/search/granules.json?short_name=MODIS_PRODUCT&temporal=2026-06-24T00:00:00Z,2026-06-26T23:59:59Z&bounding_box=-75,0,-55,15

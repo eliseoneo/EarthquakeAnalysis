@@ -156,6 +156,57 @@ Salidas tras `make layer-b-run`:
 - `correlations.parquet`, `clustering.parquet`
 - `reporte_ambiental_venezuela.md`
 
+## Capa C — Analisis H04 del evento (sección aislada)
+
+Marco de analisis cientifico del evento del 24-Jun-2026, separado de cualquier proyeccion. Datos **exclusivos** en `layer_c_event_analysis/`.
+
+```bash
+python3 -m pip install -e ".[dev,ui]"
+make layer-c-run
+make layer-c-ui
+```
+
+Estructura de datos:
+
+- `layer_c_event_analysis/data/raw/accelerography/`: registros acelerograficos por estacion si existen.
+- `layer_c_event_analysis/data/raw/funvisis/`: dump oficial FUNVISIS si se dispone de un formato estable.
+- `layer_c_event_analysis/data/normalized/`: acelerografia y geotecnia normalizadas para H04.
+- `layer_c_event_analysis/data/processed/`: catalogos enlazados, matriz de cobertura y artefactos H04.
+- `layer_c_event_analysis/schemas/`: contratos JSON Schema de acelerografia y geotecnia.
+- `layer_c_event_analysis/reports/`: reporte H04, procedencia de evidencia y referencia de esquemas.
+
+Comportamiento actual de ingesta:
+
+- **Acelerografia:** si existe `layer_c_event_analysis/data/raw/accelerography/accelerography_station_records.json` o `.csv`, Capa C usa esos registros reales por estacion.
+- **Bootstrap acelerografico:** si no existe archivo raw real, Capa C genera un bootstrap desde `event_cases/venezuela_2026_june/event.yaml` usando `pga_station_estimates`, `pga_g` y `pgv_cm_per_s`.
+- **FUNVISIS oficial:** si se configura un endpoint o dump estable en `layer_c_event_analysis/config/default.yaml`, Capa C usa esa fuente oficial.
+- **Fallback FUNVISIS:** si no existe fuente oficial, se crea un proxy trazable a USGS y queda marcado como `fallback_proxy`.
+
+Validacion:
+
+- `tests/test_layer_c.py` valida artefactos H04.
+- Tambien valida los nuevos JSON contra `accelerography_record.schema.json` y `geotechnical_site_record.schema.json`.
+- Existe una prueba live opcional para fuentes externas reales. Activar con `EARTHQUAKEANALYSIS_LIVE_EXTERNAL=1`.
+- Para FUNVISIS live, configurar ademas `EARTHQUAKEANALYSIS_FUNVISIS_ENDPOINT=<url>` o definir la fuente oficial en `layer_c_event_analysis/config/default.yaml`.
+
+Comandos de prueba live:
+
+```bash
+# USGS live
+cd /Users/eliseogelvis/Projects/EarthquakeAnalysis
+EARTHQUAKEANALYSIS_LIVE_EXTERNAL=1 .venv/bin/python -m pytest tests/test_layer_c.py -k usgs_live
+
+# FUNVISIS live (si existe endpoint oficial)
+cd /Users/eliseogelvis/Projects/EarthquakeAnalysis
+EARTHQUAKEANALYSIS_LIVE_EXTERNAL=1 \
+EARTHQUAKEANALYSIS_FUNVISIS_ENDPOINT="https://tu-endpoint-funvisis" \
+.venv/bin/python -m pytest tests/test_layer_c.py -k funvisis_live
+
+# Suite live completa de fuentes externas
+cd /Users/eliseogelvis/Projects/EarthquakeAnalysis
+EARTHQUAKEANALYSIS_LIVE_EXTERNAL=1 .venv/bin/python -m pytest tests/test_layer_c.py
+```
+
 ## Estructura principal
 
 - `AGENTS.md`: lineamientos operativos para agentes.
@@ -313,20 +364,22 @@ python3 scripts/comparative_charts.py --host 127.0.0.1 --port 7860
 
 La interfaz principal (`make ui`, puerto 7860) organiza pestañas:
 
-1. **Proyección Venezuela 2026** (pestaña inicial):
-   - Proyección inicial (`venezuela_2026`, escenario base)
-   - Similitudes con otros eventos históricos
-   - Efectividad del modelo (hindcast en eventos anteriores, días subsiguientes observados)
-   - Calibración automática (K, b) + proyección ajustada para `venezuela_2026`
-2. **Análisis comparativo (Fases 1-5)**: barras, dispersión, riesgo, geología, PGA
-3. **Calculo y Estimacion Internacional** (layout Fases 1-8):
-   - Fuentes internacionales: USGS, INGV, SGC
-   - Foco geografico: Venezuela (filtro geoespacial)
-   - Evento anomalo de referencia: 2026-06-26
-   - Controles de ventana, umbral M≥, umbral alternativo M≥4.5
-   - Walk-forward, calibracion Platt, class weight e InSAR MIDAS (NGL)
-   - Predicciones M≥5, M≥4.5, excedencia GR y Mmax por cola Gutenberg-Richter
-4. **Capa A — Tectónica** y **Capa B — Geofísica Ambiental**
+1. **Proyección Venezuela 2026** (pestaña inicial): proyección inicial (`venezuela_2026`, escenario base), similitudes con otros eventos históricos, efectividad del modelo (hindcast en eventos anteriores, días subsiguientes observados) y calibración automática (K, b) con proyección ajustada para `venezuela_2026`.
+
+1. **Análisis comparativo (Fases 1-5)**: barras, dispersión, riesgo, geología y PGA.
+
+1. **Calculo y Estimacion Internacional** (layout Fases 1-8): fuentes internacionales USGS, INGV y SGC; foco geográfico en Venezuela; evento anómalo de referencia 2026-06-26; controles de ventana y umbrales M≥; walk-forward, calibración Platt, `class_weight` e InSAR MIDAS (NGL); y predicciones M≥5, M≥4.5, excedencia GR y Mmax por cola Gutenberg-Richter.
+
+1. **Capa C - Analisis H04 del evento**: estructura dedicada al terremoto del 24-Jun-2026 como evento observado, con hipótesis H-04-A/B/C, líneas de evidencia, preguntas científicas, catálogos enlazados USGS/FUNVISIS, acelerografía, geotecnia, procedencia y esquemas, sin marco de proyección.
+
+1. **Capa A — Tectónica** y **Capa B — Geofísica Ambiental**.
+
+Capas dedicadas:
+
+```bash
+make layer-c-run
+make layer-c-ui
+```
 
 Documentacion detallada de controles UI y marco teorico: `docs/ui_features_and_theory.md`.
 

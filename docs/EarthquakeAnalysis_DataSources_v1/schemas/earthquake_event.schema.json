@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Earthquake Event",
+  "type": "object",
+  "required": [
+    "event_id",
+    "source",
+    "event_time_utc",
+    "latitude",
+    "longitude",
+    "magnitude"
+  ],
+  "properties": {
+    "event_id": {
+      "type": "string"
+    },
+    "source": {
+      "type": "string"
+    },
+    "source_event_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "event_time_utc": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "latitude": {
+      "type": "number"
+    },
+    "longitude": {
+      "type": "number"
+    },
+    "depth_km": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "magnitude": {
+      "type": "number"
+    },
+    "magnitude_type": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "location_description": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "raw_uri": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  }
+}

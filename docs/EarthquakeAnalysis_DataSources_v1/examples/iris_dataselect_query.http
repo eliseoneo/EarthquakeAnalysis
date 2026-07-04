@@ -1,0 +1,1 @@
+GET https://service.iris.edu/fdsnws/dataselect/1/query?net=IU&sta=ANMO&loc=00&cha=BHZ&starttime=2026-06-24T00:00:00&endtime=2026-06-24T00:10:00

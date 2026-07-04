@@ -1,0 +1,1 @@
+"""Capa C — Analisis del evento H04."""

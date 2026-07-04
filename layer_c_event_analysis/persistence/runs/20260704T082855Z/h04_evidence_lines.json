@@ -1,0 +1,59 @@
+[
+  {
+    "evidence_id": "EV-01",
+    "evidence_type": "catalogo sismico",
+    "target": "tiempos de origen, magnitudes, profundidades, replicas y mecanismo focal",
+    "priority": "alta",
+    "source_candidates": [
+      "FUNVISIS",
+      "USGS",
+      "EMSC",
+      "ISC",
+      "IRIS"
+    ]
+  },
+  {
+    "evidence_id": "EV-02",
+    "evidence_type": "acelerografia",
+    "target": "PGA, PGV, componentes N-S/E-W/Vertical y espectros de respuesta",
+    "priority": "alta",
+    "source_candidates": [
+      "redes acelerograficas",
+      "estaciones locales"
+    ]
+  },
+  {
+    "evidence_id": "EV-03",
+    "evidence_type": "geologia y geotecnia",
+    "target": "fallas activas, mapas geologicos, suelos, litologia y perfiles geotecnicos",
+    "priority": "alta",
+    "source_candidates": [
+      "cartografia geologica",
+      "microzonificacion",
+      "estudios geotecnicos"
+    ]
+  },
+  {
+    "evidence_id": "EV-04",
+    "evidence_type": "satelital",
+    "target": "deformacion y contexto superficial con Sentinel-1, Sentinel-2, Landsat y Planet Labs",
+    "priority": "media",
+    "source_candidates": [
+      "Sentinel-1",
+      "Sentinel-2",
+      "Landsat",
+      "Planet Labs"
+    ]
+  },
+  {
+    "evidence_id": "EV-05",
+    "evidence_type": "comparacion historica",
+    "target": "catalogo, replicas, danos y estudios de amplificacion del terremoto de Cariaco 1997",
+    "priority": "media",
+    "source_candidates": [
+      "FUNVISIS",
+      "publicaciones cientificas",
+      "fotografias historicas"
+    ]
+  }
+]

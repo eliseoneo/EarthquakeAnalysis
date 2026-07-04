@@ -7,6 +7,7 @@ catalog:
   min_magnitude: 2.5
   sgc_max_events: 120
   endpoints:
+    funvisis: "https://www.funvisis.gob.ve/maravilla.json"
     ingv: "https://webservices.ingv.it/fdsnws/event/1/query"
     sgc_search: "https://apicatalogador.sgc.gov.co/api/events/search/"
     sgc_list: "https://www.sgc.gov.co/sismos"

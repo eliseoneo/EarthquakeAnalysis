@@ -1,0 +1,1 @@
+GET https://service.iris.edu/fdsnws/station/1/query?net=IU&sta=ANMO&level=response&format=xml

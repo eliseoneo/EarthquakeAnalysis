@@ -1,0 +1,21 @@
+{
+  "analysis_scope": "analisis del evento",
+  "projection_mode": false,
+  "event_id": "venezuela_2026_06_24_h04",
+  "reference_document": "docs/H04_Hipotesis_Superposicion_Energia_Venezuela_2026.md",
+  "core_components": [
+    "superposicion temporal de ondas",
+    "directividad de ruptura",
+    "amplificacion local por efectos de sitio",
+    "geometria de fallas activadas",
+    "interaccion con estructuras geologicas regionales"
+  ],
+  "catalog_bridge": {
+    "layer_a_summary_path": "/Users/eliseogelvis/Projects/EarthquakeAnalysis/layer_a_tectonic/data/processed/pipeline_summary.json",
+    "catalog_sources_connected": [
+      "USGS",
+      "FUNVISIS"
+    ],
+    "processed_catalog_path": "/Users/eliseogelvis/Projects/EarthquakeAnalysis/layer_a_tectonic/data/processed/catalog_with_faults.parquet"
+  }
+}

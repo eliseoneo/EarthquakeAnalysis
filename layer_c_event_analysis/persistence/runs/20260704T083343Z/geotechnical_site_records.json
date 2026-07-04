@@ -1,0 +1,33 @@
+[
+  {
+    "site_id": "geo_h04_001",
+    "event_id": "venezuela_2026_06_24_h04",
+    "location_name": "Corredor urbano Venezuela 2026",
+    "latitude": 10.48,
+    "longitude": -66.9,
+    "administrative_area": "Caracas-La Guaira-Valencia",
+    "soil_type": "Mixto: relleno urbano, aluvial y roca somera segun zona",
+    "lithology": "Sedimentos cuaternarios y basamento fracturado",
+    "vs30_m_per_s": 300.0,
+    "site_class_nehrp": "D",
+    "sedimentary_basin": "Presencia de cuencas locales en valles urbanos",
+    "microzonification_unit": "pendiente",
+    "water_table_depth_m": null,
+    "slope_degrees": 15.0,
+    "topographic_amplification_index": null,
+    "liquefaction_likelihood": "moderate",
+    "landslide_susceptibility": "high",
+    "surface_geology_context": "Valles aluviales urbanizados sobre basamento fracturado cercano a fallas activas",
+    "distance_to_fault_km": null,
+    "distance_to_coast_or_river_km": 12.0,
+    "observed_damage_pattern": "variacion espacial esperada por tipo de suelo y ladera",
+    "site_response_notes": "Registro derivado del caso H04; pendiente de microzonificacion formal.",
+    "quality_flag": "C",
+    "provenance": {
+      "source_reference": "event_cases/venezuela_2026_june/event.yaml",
+      "artifact_type": "inferred_case_level",
+      "downloaded_at_utc": "",
+      "notes": "Bootstrap geotecnico desde advanced_features.geological_geotechnical."
+    }
+  }
+]
