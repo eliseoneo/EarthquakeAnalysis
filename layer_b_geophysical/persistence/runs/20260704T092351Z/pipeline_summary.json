@@ -1,0 +1,18 @@
+{
+  "layer": "B_geophysical",
+  "primary_region": "venezuela",
+  "reference_datetime_utc": "2026-06-24 12:00:00",
+  "observations_normalized": 60456,
+  "features_computed": 264,
+  "correlations": 33,
+  "international_comparisons": 10,
+  "cluster_assignments": 33,
+  "environmental_anomaly_index": 15.25,
+  "outputs": {
+    "normalized": "/Users/eliseogelvis/Projects/EarthquakeAnalysis/layer_b_geophysical/data/normalized/environmental_normalized.parquet",
+    "features": "/Users/eliseogelvis/Projects/EarthquakeAnalysis/layer_b_geophysical/data/features/environmental_features.parquet",
+    "indexes": "/Users/eliseogelvis/Projects/EarthquakeAnalysis/layer_b_geophysical/data/analytics/environmental_indexes.parquet",
+    "international_comparison": "/Users/eliseogelvis/Projects/EarthquakeAnalysis/layer_b_geophysical/data/analytics/international_comparison.parquet",
+    "report": "/Users/eliseogelvis/Projects/EarthquakeAnalysis/layer_b_geophysical/reports/reporte_ambiental_venezuela.md"
+  }
+}

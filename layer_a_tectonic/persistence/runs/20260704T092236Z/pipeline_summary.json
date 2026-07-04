@@ -1,0 +1,22 @@
+{
+  "layer": "A_tectonic",
+  "usgs_download_status": "ok (8021 eventos)",
+  "funvisis_download_status": "failed (URLError: <urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1082)>)",
+  "funvisis_source_mode": "fixture_only",
+  "ingv_download_status": "skipped",
+  "sgc_download_status": "skipped",
+  "events_normalized": 8236,
+  "events_deduplicated": 8214,
+  "events_with_faults": 8214,
+  "aftershock_sequences": 1,
+  "doublet_candidates": 60,
+  "mainshock_id": "funvisis_ven_2026_main_dup",
+  "outputs": {
+    "catalog_deduplicated": "/Users/eliseogelvis/Projects/EarthquakeAnalysis/layer_a_tectonic/data/processed/catalog_deduplicated.parquet",
+    "catalog_with_faults": "/Users/eliseogelvis/Projects/EarthquakeAnalysis/layer_a_tectonic/data/processed/catalog_with_faults.parquet",
+    "aftershock_sequences": "/Users/eliseogelvis/Projects/EarthquakeAnalysis/layer_a_tectonic/data/processed/aftershock_sequences.parquet",
+    "doublet_candidates": "/Users/eliseogelvis/Projects/EarthquakeAnalysis/layer_a_tectonic/data/processed/doublet_candidates.parquet",
+    "tectonic_indexes": "/Users/eliseogelvis/Projects/EarthquakeAnalysis/layer_a_tectonic/data/processed/tectonic_indexes.parquet",
+    "report": "/Users/eliseogelvis/Projects/EarthquakeAnalysis/layer_a_tectonic/reports/reporte_evento_venezuela_2026_06_24.md"
+  }
+}

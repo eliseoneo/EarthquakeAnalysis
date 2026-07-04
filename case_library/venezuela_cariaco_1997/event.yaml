@@ -1,0 +1,141 @@
+case_id: venezuela_cariaco_1997
+event_name: Cariaco Earthquake 1997
+country_or_region: Venezuela
+magnitude_mw: 6.9
+depth_km: 19.0
+fault_type: "Strike-slip (El Pilar Fault, limite Caribe-Suramerica)"
+distance_to_cities_km: 8.0
+soil_type: "Sedimentos costeros y aluviales en Cariaco-Cumana"
+population_density: "Media en eje Cariaco-Cumana, alta en sectores urbanos puntuales"
+construction_quality: "Heterogenea; mezcla de mamposteria no reforzada y concreto"
+event_time_local: "15:23:53 VET (1997-07-09)"
+event_duration_total:
+  value: 22
+  unit: seconds
+  notes: "Ruptura somera de falla transcurrente con sacudida fuerte regional"
+aftershocks_summary: "Secuencia de replicas durante semanas; varias replicas moderadas en el oriente venezolano"
+landslides: "Si, locales en laderas y taludes viales"
+tsunami: "No reportado de impacto significativo"
+mortality_and_damage: "Decenas de fallecidos, cientos de heridos y danos estructurales severos en viviendas e infraestructura local"
+institutional_response: "Activacion de proteccion civil, respuesta regional y levantamientos tecnicos post-evento"
+similar_magnitude_probability_dates:
+  main_event_date: "1997-07-09"
+  sequence_end_date: "1997-08-08"
+  reference_magnitude_mw: 6.9
+  magnitude_similarity_delta_mw: 1.0
+  highest_magnitude_events:
+    - event_date: "1997-07-09"
+      days_after_main: 0
+      magnitude_mw: 5.6
+      notes: "Replica temprana reportada el mismo dia"
+    - event_date: "1997-07-12"
+      days_after_main: 3
+      magnitude_mw: 5.2
+      notes: "Replica moderada dentro de la ventana de 30 dias"
+compound_risk_model:
+  model_type: "ensemble_jerarquico"
+  component_scores:
+    seismic_hazard: 0.82
+    human_exposure: 0.58
+    structural_vulnerability: 0.74
+    geotechnical_vulnerability: 0.63
+    climatic_conditions: 0.43
+    infrastructure_criticality: 0.61
+  component_weights:
+    seismic_hazard: 0.24
+    human_exposure: 0.2
+    structural_vulnerability: 0.18
+    geotechnical_vulnerability: 0.14
+    climatic_conditions: 0.1
+    infrastructure_criticality: 0.14
+  risk_score_total: 67.9
+  risk_category: "riesgo_moderado_alto"
+  derived_outputs:
+    probability_strong_aftershock: 0.41
+    probability_structural_damage: 0.69
+    probability_landslide: 0.46
+    population_exposure_index: 0.57
+    relative_urban_collapse_index: 0.63
+advanced_features:
+  seismic:
+    magnitude_mw: 6.9
+    depth_km: 19.0
+    focal_mechanism: "Strike-slip dextral (El Pilar Fault)"
+    distance_to_fault_km: 6.0
+    estimated_slip_rate_mm_per_year: 9.0
+    pga_g: 0.28
+    pga_measurement_quality: "mixed_instrumental_inversion"
+    pga_calibration_bias_warning: "Valores de referencia historicos; verificar homogenizacion antes de calibracion cross-case."
+    pga_station_estimates:
+      - location: "Cariaco"
+        pga_g: 0.31
+        pga_g_min: 0.26
+        pga_g_max: 0.36
+        site_class: "suelo blando costero"
+        estimate_method: "instrumental_local_y_reconstruccion"
+        source: "FUNVISIS y estudios post-evento"
+        notes: "Sacudida maxima en zona cercana a la ruptura superficial"
+      - location: "Cumana"
+        pga_g: 0.22
+        pga_g_min: 0.18
+        pga_g_max: 0.27
+        site_class: "mixto urbano-aluvial"
+        estimate_method: "aceleracion regional estimada"
+        source: "Catalogos regionales y literatura tecnica"
+        notes: "Amplificacion local dependiente de condicion de sitio"
+    pgv_cm_per_s: 26.0
+    mmi_intensity: "VIII-IX en area epicentral"
+    aftershock_count: 45
+    omori_decay_p: 1.03
+    gutenberg_richter_b_value: 0.90
+    local_seismic_density: "Alta en sistema El Pilar-San Sebastian"
+  geological_geotechnical:
+    soil_type: "Sedimentos costeros y aluviales en Cariaco-Cumana"
+    lithology: "Sedimentos cuaternarios y unidades metamorfizadas locales"
+    vs30_m_per_s: 320.0
+    slope_degrees: 11.0
+    sedimentary_basin: "Depresion de Cariaco y cuencas costeras orientales"
+    location_geology_context: "Evento cortical somero asociado a falla transcurrente activa en el oriente de Venezuela"
+    nearby_geological_faults:
+      - "El Pilar Fault"
+      - "San Sebastian Fault"
+      - "Bocono Fault"
+    nearby_tectonic_plates:
+      - "Caribbean Plate"
+      - "South American Plate"
+    faults_average_seismic_activity_events_per_year: 1.7
+    fault_linked_relevant_events:
+      - event_name: "Venezuela Earthquake"
+        event_year: 1812
+        magnitude_mw: 7.7
+        linked_fault: "Bocono Fault system"
+      - event_name: "Caracas Earthquake"
+        event_year: 1967
+        magnitude_mw: 6.6
+        linked_fault: "San Sebastian Fault"
+      - event_name: "Venezuela Sequence"
+        event_year: 2026
+        magnitude_mw: 7.5
+        linked_fault: "San Sebastian / El Pilar system"
+    liquefaction_likelihood: "Moderada en suelos saturados y rellenos"
+    landslide_susceptibility: "Moderada en laderas cercanas"
+    distance_to_coast_or_rivers_km: 3.0
+  climatic:
+    rainfall_7d_mm: 18.0
+    rainfall_15d_mm: 36.0
+    rainfall_30d_mm: 72.0
+    soil_moisture_index: 0.48
+    extreme_events: "Sin forzante extremo dominante reportado durante la semana del evento"
+    terrain_saturation: "Media"
+    mass_movement_risk: "Moderado"
+  human_urban:
+    exposed_population: 360000
+    urban_density: "Media, con concentracion en Cumana y corredor costero"
+    building_type: "Mamposteria no reforzada, concreto y edificaciones mixtas"
+    average_building_height_m: 7.0
+    construction_age_profile: "Predominio de stock previo a normas sismicas modernas"
+    hospitals_count: 9
+    primary_roads_density_km_per_km2: 2.8
+    ports_airports_access: "Puerto de Cumana y aerodromos regionales"
+    schools_count: 95
+    critical_infrastructure: "Hospitales, vias costeras, subestaciones electricas y telecom"

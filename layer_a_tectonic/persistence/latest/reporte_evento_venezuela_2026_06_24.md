@@ -22,6 +22,11 @@
 - **Límite de placa:** Caribbean-South America plate boundary
 - **Contexto de placa:** transform boundary
 
+## Estado de Fuentes
+- **USGS:** ok (8021 eventos)
+- **FUNVISIS descarga:** failed (URLError: <urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1082)>)
+- **FUNVISIS modo:** fixture_only
+
 ## Secuencia Posterior / Réplicas
 - **Réplicas 3d/7d/30d/90d/365d:** 1/1/1/1/1
 - **Máx réplica:** 5.7
