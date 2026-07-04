@@ -36,10 +36,10 @@
     "report": "/Users/eliseogelvis/Projects/EarthquakeAnalysis/layer_c_event_analysis/reports/reporte_h04_evento_venezuela_2026.md"
   },
   "persistence": {
-    "run_id": "20260704T084058Z",
-    "run_dir": "persistence/runs/20260704T084058Z",
+    "run_id": "20260704T084821Z",
+    "run_dir": "persistence/runs/20260704T084821Z",
     "latest_dir": "persistence/latest",
-    "summary": "persistence/runs/20260704T084058Z/summary.json",
+    "summary": "persistence/runs/20260704T084821Z/summary.json",
     "index": "persistence/index.jsonl"
   }
 }

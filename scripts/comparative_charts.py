@@ -8,6 +8,10 @@ from datetime import date
 from pathlib import Path
 from typing import Any
 
+import matplotlib
+
+matplotlib.use("Agg")
+
 SCRIPT_DIR = Path(__file__).resolve().parent
 ROOT_DIR = SCRIPT_DIR.parent
 
@@ -1254,9 +1258,6 @@ def build_interface():
             with gr.Tab("Calculo y Estimacion Internacional"):
                 mount_international_calculation_panel(gr, default_projection_as_of_date)
 
-            with gr.Tab("Capa C - Analisis H04 del evento"):
-                mount_layer_c_panel(gr)
-
             with gr.Tab("Análisis comparativo (Fases 1-5)"):
                 gr.Markdown("## Graficas comparativas de `case_library/`")
                 gr.Markdown(
@@ -1527,6 +1528,9 @@ def build_interface():
 
             with gr.Tab("Capa B — Geofísica Ambiental"):
                 mount_layer_b_panel(gr)
+
+            with gr.Tab("Capa C - Analisis H04 del evento"):
+                mount_layer_c_panel(gr)
 
     return demo
 
